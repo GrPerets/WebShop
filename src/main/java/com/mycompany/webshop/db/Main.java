@@ -25,7 +25,22 @@ public class Main {
         List<Product> products = productDao.findAll();
         for(Product product:products) {
             System.out.println(product);
-    }
+        }
+        
+        products = productDao.findProductById(2L);
+        for(Product product:products) {
+            System.out.println(product);
+        }
+        
+        products = productDao.findProductByModel("abc321");
+        for(Product product:products) {
+            System.out.println(product);
+        }
+        
+        products = productDao.findProductByCategory("hdd");
+        for(Product product:products) {
+            System.out.println(product);
+        }
     }
     
 }

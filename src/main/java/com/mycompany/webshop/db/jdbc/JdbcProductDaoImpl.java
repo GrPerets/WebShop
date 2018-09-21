@@ -7,7 +7,9 @@ package com.mycompany.webshop.db.jdbc;
 
 import com.mycompany.webshop.db.Product;
 import com.mycompany.webshop.db.ProductDao;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
@@ -23,6 +25,9 @@ public class JdbcProductDaoImpl implements ProductDao{
     private Log LOG = LogFactory.getLog(JdbcProductDaoImpl.class);
     private DataSource dataSource;
     private SelectAllProducts selectAllProducts;
+    private SelectProductById selectProductById;
+    private SelectProductByModel selectProductByModel;
+    private SelectProductByCategory selectProductByCategory;
 
     @Override
     public List<Product> findAll() {
@@ -31,17 +36,23 @@ public class JdbcProductDaoImpl implements ProductDao{
 
     @Override
     public List<Product> findProductById(Long productId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("id", productId);
+        return selectProductById.executeByNamedParam(paramMap);        
     }
 
     @Override
     public List<Product> findProductByModel(String model) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("model", model);
+        return selectProductByModel.executeByNamedParam(paramMap);
     }
 
     @Override
     public List<Product> findProductByCategory(String category) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String,Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("category", category);
+        return selectProductByCategory.executeByNamedParam(paramMap);
     }
 
     @Override
@@ -72,8 +83,12 @@ public class JdbcProductDaoImpl implements ProductDao{
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
         this.selectAllProducts = new SelectAllProducts(dataSource);
+        this.selectProductById = new SelectProductById(dataSource);
+        this.selectProductByModel = new SelectProductByModel(dataSource);
+        this.selectProductByCategory = new SelectProductByCategory(dataSource);
     }
     
+    //public void init(){}
     
     
 }
