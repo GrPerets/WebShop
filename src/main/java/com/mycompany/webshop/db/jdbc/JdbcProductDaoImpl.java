@@ -10,6 +10,8 @@ import com.mycompany.webshop.db.ProductDao;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -18,11 +20,13 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("productDao")
 public class JdbcProductDaoImpl implements ProductDao{
+    private Log LOG = LogFactory.getLog(JdbcProductDaoImpl.class);
     private DataSource dataSource;
+    private SelectAllProducts selectAllProducts;
 
     @Override
     public List<Product> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return selectAllProducts.execute();
     }
 
     @Override
@@ -67,6 +71,7 @@ public class JdbcProductDaoImpl implements ProductDao{
     @Resource(name="dataSource")
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
+        this.selectAllProducts = new SelectAllProducts(dataSource);
     }
     
     
