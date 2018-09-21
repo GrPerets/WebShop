@@ -41,6 +41,11 @@ public class Main {
         for(Product product:products) {
             System.out.println(product);
         }
+        
+        products =productDao.findProductByManufacturer("xiaomi");
+        for(Product product:products) {
+            System.out.println(product);
+        }
     }
     
 }
