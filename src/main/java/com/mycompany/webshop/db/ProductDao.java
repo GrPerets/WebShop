@@ -15,8 +15,8 @@ public interface ProductDao {
     List<Product> findAll();
     List<Product> findProductById(Long productId);
     List<Product> findProductByModel(String model);
-    List<Product> findProductByCategory(String category);
-    List<Product> findProductByManufacturer(String manufacturer);
+    List<Product> findProductByCategoryId(Long categoryId);
+    List<Product> findProductByManufacturerId(Long manufacturerId);
     void insertProduct(Product product);
     void updateProduct(Product product);
     void deleteProduct(Long productId);

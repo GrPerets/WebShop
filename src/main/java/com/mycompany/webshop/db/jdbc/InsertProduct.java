@@ -15,13 +15,13 @@ import org.springframework.jdbc.object.SqlUpdate;
  * @author grperets
  */
 public class InsertProduct extends SqlUpdate {
-    private static final String SQL_INSERT_PRODUCT = "insert into product (model, category, manufacturer, price) values (:model, :category, :manufacturer, :price)";
+    private static final String SQL_INSERT_PRODUCT = "insert into product (model, category_id, manufacturer_id, price) values (:model, :category_id, :manufacturer_id, :price)";
 
     public InsertProduct(DataSource dataSource) {
         super(dataSource, SQL_INSERT_PRODUCT);
         super.declareParameter(new SqlParameter("model", Types.VARCHAR));
-        super.declareParameter(new SqlParameter("category", Types.VARCHAR));
-        super.declareParameter(new SqlParameter("manufacturer", Types.VARCHAR));
+        super.declareParameter(new SqlParameter("category_id", Types.INTEGER));
+        super.declareParameter(new SqlParameter("manufacturer_id", Types.INTEGER));
         super.declareParameter(new SqlParameter("price", Types.DOUBLE));
         super.setGeneratedKeysColumnNames(new String[] {"id"});
         super.setReturnGeneratedKeys(true);

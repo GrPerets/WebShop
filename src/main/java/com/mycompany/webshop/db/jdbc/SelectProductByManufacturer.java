@@ -18,11 +18,11 @@ import org.springframework.jdbc.object.MappingSqlQuery;
  * @author grperets
  */
 public class SelectProductByManufacturer extends MappingSqlQuery<Product> {
-    private static final String SQL_FIND_BY_MANUFACTURER = "select id, model, category, manufacturer, price from product where manufacturer = :manufacturer";
+    private static final String SQL_FIND_BY_MANUFACTURER = "select id, model, category_id, manufacturer_id, price from product where manufacturer_id = :manufacturer_id";
 
     public SelectProductByManufacturer(DataSource dataSource) {
         super(dataSource, SQL_FIND_BY_MANUFACTURER);
-        super.declareParameter(new SqlParameter("manufacturer", Types.VARCHAR));
+        super.declareParameter(new SqlParameter("manufacturer_id", Types.INTEGER));
     }
     
     @Override
@@ -30,8 +30,8 @@ public class SelectProductByManufacturer extends MappingSqlQuery<Product> {
         Product product = new Product();
         product.setId(rs.getLong("id"));
         product.setModel(rs.getString("model"));
-        product.setCategory(rs.getString("category"));
-        product.setManufacturer(rs.getString("manufacturer"));
+        product.setCategoryId(rs.getLong("category_id"));
+        product.setManufacturerId(rs.getLong("manufacturer_id"));
         product.setPrice(rs.getDouble("price"));
         return product;
     }

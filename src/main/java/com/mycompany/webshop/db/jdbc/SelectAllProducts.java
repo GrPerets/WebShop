@@ -16,7 +16,7 @@ import org.springframework.jdbc.object.MappingSqlQuery;
  * @author grperets
  */
 public class SelectAllProducts extends MappingSqlQuery<Product> {
-    private static final String SQL_SELECT_ALL_PRODUCT = "select id, model, category, manufacturer, price from product";
+    private static final String SQL_SELECT_ALL_PRODUCT = "select id, model, category_id, manufacturer_id, price from product";
 
     public SelectAllProducts(DataSource dataSource) {
         super(dataSource, SQL_SELECT_ALL_PRODUCT);
@@ -29,8 +29,8 @@ public class SelectAllProducts extends MappingSqlQuery<Product> {
         Product product = new Product();
         product.setId(rs.getLong("id"));
         product.setModel(rs.getString("model"));
-        product.setCategory(rs.getString("category"));
-        product.setManufacturer(rs.getString("manufacturer"));
+        product.setCategoryId(rs.getLong("category_id"));
+        product.setManufacturerId(rs.getLong("manufacturer_id"));
         product.setPrice(rs.getDouble("price"));
         return product;
     }

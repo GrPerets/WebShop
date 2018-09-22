@@ -57,16 +57,16 @@ public class JdbcProductDaoImpl implements ProductDao{
     }
 
     @Override
-    public List<Product> findProductByCategory(String category) {
+    public List<Product> findProductByCategoryId(Long categoryId) {
         Map<String,Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("category", category);
+        paramMap.put("category_id", categoryId);
         return selectProductByCategory.executeByNamedParam(paramMap);
     }
 
     @Override
-    public List<Product> findProductByManufacturer(String manufacturer) {
+    public List<Product> findProductByManufacturerId(Long manufacturerId) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("manufacturer", manufacturer);
+        paramMap.put("manufacturer_id", manufacturerId);
         return selectProductByManufacturer.executeByNamedParam(paramMap);
     }
 
@@ -74,8 +74,8 @@ public class JdbcProductDaoImpl implements ProductDao{
     public void insertProduct(Product product) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("model", product.getModel());
-        paramMap.put("category", product.getCategory());
-        paramMap.put("manufacturer", product.getManufacturer());
+        paramMap.put("category_id", product.getCategoryId());
+        paramMap.put("manufacturer_id", product.getManufacturerId());
         paramMap.put("price", product.getPrice());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         insertProduct.updateByNamedParam(paramMap, keyHolder);
@@ -87,8 +87,8 @@ public class JdbcProductDaoImpl implements ProductDao{
     public void updateProduct(Product product) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("model", product.getModel());
-        paramMap.put("category", product.getCategory());
-        paramMap.put("manufacturer", product.getManufacturer());
+        paramMap.put("category_id", product.getCategoryId());
+        paramMap.put("manufacturer_id", product.getManufacturerId());
         paramMap.put("price", product.getPrice());
         paramMap.put("id", product.getId());
         updateProduct.updateByNamedParam(paramMap);
