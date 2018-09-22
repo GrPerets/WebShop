@@ -14,6 +14,8 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -30,6 +32,8 @@ public class JdbcProductDaoImpl implements ProductDao{
     private SelectProductByCategory selectProductByCategory;
     private SelectProductByManufacturer selectProductByManufacturer;
     private UpdateProduct updateProduct;
+    private InsertProduct insertProduct;
+    private DeleteProduct deleteProduct;
 
     @Override
     public List<Product> findAll() {
@@ -66,7 +70,15 @@ public class JdbcProductDaoImpl implements ProductDao{
 
     @Override
     public void insertProduct(Product product) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("model", product.getModel());
+        paramMap.put("category", product.getCategory());
+        paramMap.put("manufacturer", product.getManufacturer());
+        paramMap.put("price", product.getPrice());
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        insertProduct.updateByNamedParam(paramMap, keyHolder);
+        product.setId(keyHolder.getKey().longValue());
+        LOG.info("New product insert with id: " + product.getId());
     }
 
     @Override
@@ -83,7 +95,10 @@ public class JdbcProductDaoImpl implements ProductDao{
 
     @Override
     public void deleteProduct(Long productId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("id", productId);
+        deleteProduct.updateByNamedParam(paramMap);
+        LOG.info("Delete product with id: " + productId);
     }
 
     public DataSource getDataSource() {
@@ -99,6 +114,8 @@ public class JdbcProductDaoImpl implements ProductDao{
         this.selectProductByCategory = new SelectProductByCategory(dataSource);
         this.selectProductByManufacturer = new SelectProductByManufacturer(dataSource);
         this.updateProduct = new UpdateProduct(dataSource);
+        this.insertProduct = new InsertProduct(dataSource);
+        this.deleteProduct = new DeleteProduct(dataSource);
     }
     
     //public void init(){}

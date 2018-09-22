@@ -43,8 +43,19 @@ public class Main {
         product.setPrice(99.9);
         productDao.updateProduct(product);
         
-        listProducts(productDao.findAll());
+        /*
+        product.setModel("Deskjet 3070A");
+        product.setCategory("printers");
+        product.setManufacturer("HP");
+        product.setPrice(130.99);
+        productDao.insertProduct(product);
         
+        listProducts(productDao.findAll());
+
+        */
+        productDao.deleteProduct(6L);
+        
+        listProducts(productDao.findAll());
     }
     private static void listProducts(List<Product> products) {
             for(Product product: products) {
