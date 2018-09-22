@@ -10,10 +10,12 @@ import com.mycompany.webshop.db.ProductDao;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -118,7 +120,13 @@ public class JdbcProductDaoImpl implements ProductDao{
         this.deleteProduct = new DeleteProduct(dataSource);
     }
     
-    //public void init(){}
+    @PostConstruct
+    public void postConstruct() {
+        if (dataSource == null) {
+            throw new BeanCreationException("Must set dataSource on ProductDao");
+        }
+    
+    }
     
     
 }
