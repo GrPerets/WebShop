@@ -25,8 +25,6 @@ public class SelectProductByCategory extends MappingSqlQuery<Product> {
         super.declareParameter(new SqlParameter("category", Types.VARCHAR));
     }
     
-    
-
     @Override
     protected Product mapRow(ResultSet rs, int rowNum) throws SQLException {
         Product product = new Product();

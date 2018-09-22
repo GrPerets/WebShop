@@ -29,6 +29,7 @@ public class JdbcProductDaoImpl implements ProductDao{
     private SelectProductByModel selectProductByModel;
     private SelectProductByCategory selectProductByCategory;
     private SelectProductByManufacturer selectProductByManufacturer;
+    private UpdateProduct updateProduct;
 
     @Override
     public List<Product> findAll() {
@@ -70,7 +71,14 @@ public class JdbcProductDaoImpl implements ProductDao{
 
     @Override
     public void updateProduct(Product product) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("model", product.getModel());
+        paramMap.put("category", product.getCategory());
+        paramMap.put("manufacturer", product.getManufacturer());
+        paramMap.put("price", product.getPrice());
+        paramMap.put("id", product.getId());
+        updateProduct.updateByNamedParam(paramMap);
+        LOG.info("Existing product update with id: " + product.getId());
     }
 
     @Override
@@ -90,6 +98,7 @@ public class JdbcProductDaoImpl implements ProductDao{
         this.selectProductByModel = new SelectProductByModel(dataSource);
         this.selectProductByCategory = new SelectProductByCategory(dataSource);
         this.selectProductByManufacturer = new SelectProductByManufacturer(dataSource);
+        this.updateProduct = new UpdateProduct(dataSource);
     }
     
     //public void init(){}

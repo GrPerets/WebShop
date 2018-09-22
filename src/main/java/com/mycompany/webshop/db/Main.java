@@ -22,30 +22,33 @@ public class Main {
         ctx.load("classpath:WEB-INF/applicationContext.xml");
         ctx.refresh();
         ProductDao productDao = ctx.getBean("productDao", ProductDao.class);
-        List<Product> products = productDao.findAll();
-        for(Product product:products) {
-            System.out.println(product);
-        }
         
-        products = productDao.findProductById(2L);
-        for(Product product:products) {
-            System.out.println(product);
-        }
+        listProducts(productDao.findAll());
         
-        products = productDao.findProductByModel("abc321");
-        for(Product product:products) {
-            System.out.println(product);
-        }
         
-        products = productDao.findProductByCategory("hdd");
-        for(Product product:products) {
-            System.out.println(product);
-        }
+        listProducts(productDao.findProductById(2L));
         
-        products =productDao.findProductByManufacturer("xiaomi");
-        for(Product product:products) {
-            System.out.println(product);
-        }
+        
+        listProducts(productDao.findProductByModel("abc321"));
+        
+        
+        listProducts(productDao.findProductByCategory("hdd"));
+        
+        
+        listProducts(productDao.findProductByManufacturer("xiaomi"));
+        
+        List<Product> products = productDao.findProductById(3L);
+        Product product;
+        product = products.get(0);
+        product.setPrice(99.9);
+        productDao.updateProduct(product);
+        
+        listProducts(productDao.findAll());
+        
     }
-    
+    private static void listProducts(List<Product> products) {
+            for(Product product: products) {
+                System.out.println(product);
+            }
+        }
 }
