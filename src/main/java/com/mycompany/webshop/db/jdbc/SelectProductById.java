@@ -30,8 +30,8 @@ public class SelectProductById extends MappingSqlQuery<Product> {
         Product product = new Product();
         product.setId(rs.getLong("id"));
         product.setModel(rs.getString("model"));
-        product.setCategoryId(rs.getLong("category_id"));
-        product.setManufacturerId(rs.getLong("manufacturer_id"));
+        product.setCategoryId(rs.getString("category_id"));
+        product.setManufacturerId(rs.getString("manufacturer_id"));
         product.setPrice(rs.getDouble("price"));
         return product;
     }

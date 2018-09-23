@@ -57,14 +57,14 @@ public class JdbcProductDaoImpl implements ProductDao{
     }
 
     @Override
-    public List<Product> findProductByCategoryId(Long categoryId) {
+    public List<Product> findProductByCategoryId(String categoryId) {
         Map<String,Object> paramMap = new HashMap<String, Object>();
         paramMap.put("category_id", categoryId);
         return selectProductByCategory.executeByNamedParam(paramMap);
     }
 
     @Override
-    public List<Product> findProductByManufacturerId(Long manufacturerId) {
+    public List<Product> findProductByManufacturerId(String manufacturerId) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("manufacturer_id", manufacturerId);
         return selectProductByManufacturer.executeByNamedParam(paramMap);

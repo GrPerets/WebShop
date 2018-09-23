@@ -20,8 +20,8 @@ public class InsertProduct extends SqlUpdate {
     public InsertProduct(DataSource dataSource) {
         super(dataSource, SQL_INSERT_PRODUCT);
         super.declareParameter(new SqlParameter("model", Types.VARCHAR));
-        super.declareParameter(new SqlParameter("category_id", Types.INTEGER));
-        super.declareParameter(new SqlParameter("manufacturer_id", Types.INTEGER));
+        super.declareParameter(new SqlParameter("category_id", Types.VARCHAR));
+        super.declareParameter(new SqlParameter("manufacturer_id", Types.VARCHAR));
         super.declareParameter(new SqlParameter("price", Types.DOUBLE));
         super.setGeneratedKeysColumnNames(new String[] {"id"});
         super.setReturnGeneratedKeys(true);

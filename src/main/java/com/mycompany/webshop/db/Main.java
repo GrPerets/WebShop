@@ -22,18 +22,19 @@ public class Main {
         ctx.load("classpath:WEB-INF/applicationContext.xml");
         ctx.refresh();
         ProductDao productDao = ctx.getBean("productDao", ProductDao.class);
-        /*
+        
         listProducts(productDao.findAll());
+        
         Product product = new Product();
-        product.setModel("dfr-23-jhg6");
-        product.setCategoryId(3l);
-        product.setManufacturerId(4l);
-        product.setPrice(20.87);
+        product.setModel("X-750F");
+        product.setCategoryId("mouse");
+        product.setManufacturerId("A4TECH");
+        product.setPrice(15.00);
         
         productDao.insertProduct(product);
-        */
         
         
+        /*
         
         listProducts(productDao.findProductById(2l));
         
@@ -47,7 +48,7 @@ public class Main {
         listProducts(productDao.findProductByManufacturerId(3l));
         
         List<Product> products = productDao.findProductById(11l);
-        Product product;
+        //Product product;
         product = products.get(0);
         product.setPrice(99.9);
         productDao.updateProduct(product);
@@ -61,10 +62,10 @@ public class Main {
         
         listProducts(productDao.findAll());
 
-        */
+        
         
         productDao.deleteProduct(6l);
-        
+        */
         listProducts(productDao.findAll());
     }
     private static void listProducts(List<Product> products) {

@@ -20,8 +20,8 @@ public class UpdateProduct extends SqlUpdate {
     public UpdateProduct(DataSource dataSource) {
         super(dataSource, SQL_UPDATE_PRODUCT);
         super.declareParameter(new SqlParameter("model", Types.VARCHAR));
-        super.declareParameter(new SqlParameter("category_id", Types.INTEGER));
-        super.declareParameter(new SqlParameter("manufacturer_id", Types.INTEGER));
+        super.declareParameter(new SqlParameter("category_id", Types.VARCHAR));
+        super.declareParameter(new SqlParameter("manufacturer_id", Types.VARCHAR));
         super.declareParameter(new SqlParameter("price", Types.DOUBLE));
         super.declareParameter(new SqlParameter("id", Types.INTEGER));
     }

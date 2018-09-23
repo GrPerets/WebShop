@@ -22,7 +22,7 @@ public class SelectProductByCategory extends MappingSqlQuery<Product> {
 
     public SelectProductByCategory(DataSource dataSource) {
         super(dataSource, SQL_FIND_BY_CATEGORY);
-        super.declareParameter(new SqlParameter("category_id", Types.INTEGER));
+        super.declareParameter(new SqlParameter("category_id", Types.VARCHAR));
     }
     
     @Override
@@ -30,8 +30,8 @@ public class SelectProductByCategory extends MappingSqlQuery<Product> {
         Product product = new Product();
         product.setId(rs.getLong("id"));
         product.setModel(rs.getString("model"));
-        product.setCategoryId(rs.getLong("category_id"));
-        product.setManufacturerId(rs.getLong("manufacturer_id"));
+        product.setCategoryId(rs.getString("category_id"));
+        product.setManufacturerId(rs.getString("manufacturer_id"));
         product.setPrice(rs.getDouble("price"));
         return product;
     }

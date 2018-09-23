@@ -14,8 +14,8 @@ import java.io.Serializable;
 public class Product implements Serializable{
     private Long id;
     private String model;
-    private Long categoryId;
-    private Long manufacturerId;
+    private String categoryId;
+    private String manufacturerId;
     private Double price;
 
     public Long getId() {
@@ -34,19 +34,19 @@ public class Product implements Serializable{
         this.model = model;
     }
 
-    public Long getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Long categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 
-    public Long getManufacturerId() {
+    public String getManufacturerId() {
         return manufacturerId;
     }
 
-    public void setManufacturerId(Long manufacturerId) {
+    public void setManufacturerId(String manufacturerId) {
         this.manufacturerId = manufacturerId;
     }
 
