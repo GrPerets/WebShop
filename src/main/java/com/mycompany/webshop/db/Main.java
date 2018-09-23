@@ -26,10 +26,10 @@ public class Main {
         listProducts(productDao.findAll());
         
         Product product = new Product();
-        product.setModel("X-750F");
-        product.setCategoryId("mouse");
-        product.setManufacturerId("A4TECH");
-        product.setPrice(15.00);
+        product.setModel("Redmi 4 Prime");
+        product.setCategoryId("smartphone");
+        product.setManufacturerId("xiaomi");
+        product.setPrice(131.00);
         
         productDao.insertProduct(product);
         
