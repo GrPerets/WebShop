@@ -41,28 +41,34 @@ public class HibernateProductDaoImpl implements HibernateProductDao{
     }
 
     @Override
+    @Transactional(readOnly=true)
     public List<Product> findProductByModel(String model) {
         return sessionFactory.getCurrentSession().getNamedQuery("Product.findProductByModel").setParameter("model", model).list();
     }
 
     @Override
+    @Transactional(readOnly=true)
     public List<Product> findProductByCategoryId(String categoryId) {
         return sessionFactory.getCurrentSession().getNamedQuery("Product.findProductByCategory").setParameter("category_id", categoryId).list();
     }
 
     @Override
+    @Transactional(readOnly=true)
     public List<Product> findProductByManufacturerId(String manufacturerId) {
         return sessionFactory.getCurrentSession().getNamedQuery("Product.findProductByManufacturer").setParameter("manufacturer_id", manufacturerId).list();
     }
     
     @Override
     public Product save(Product product) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        sessionFactory.getCurrentSession().saveOrUpdate(product);
+        LOG.info("Product saved with id: " + product.getId());
+        return product;
     }
 
     @Override
     public void delete(Product product) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        sessionFactory.getCurrentSession().delete(product);
+        LOG.info("Product deleted with id: " + product.getId());
     }
 
     public SessionFactory getSessionFactory() {

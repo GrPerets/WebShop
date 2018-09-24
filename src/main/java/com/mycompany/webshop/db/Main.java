@@ -71,6 +71,20 @@ public class Main {
         listProducts(hibernateProductDao.findProductByModel("SyncMaster p2350"));
         listProducts(hibernateProductDao.findProductByCategoryId("mouse"));
         listProducts(hibernateProductDao.findProductByManufacturerId("huawei"));
+        Product product = hibernateProductDao.findProductById(22l).get(0);
+        
+        /*
+        product.setModel("SyncMaster 965");
+        product.setCategoryId("monitor");
+        product.setManufacturerId("samsung");
+        */
+        product.setPrice(0.99);
+        
+        hibernateProductDao.save(product);
+        product = hibernateProductDao.findProductById(19l).get(0);
+        hibernateProductDao.delete(product);
+        listProducts(hibernateProductDao.findAll());
+        
     
     }
     
