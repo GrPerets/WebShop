@@ -6,7 +6,7 @@
 package com.mycompany.webshop.db.jdbc;
 
 import com.mycompany.webshop.db.Product;
-import com.mycompany.webshop.db.ProductDao;
+import com.mycompany.webshop.db.JdbcProductDao;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +24,8 @@ import org.springframework.stereotype.Repository;
  *
  * @author grperets
  */
-@Repository("productDao")
-public class JdbcProductDaoImpl implements ProductDao{
+@Repository("JdbcProductDao")
+public class JdbcProductDaoImpl implements JdbcProductDao{
     private Log LOG = LogFactory.getLog(JdbcProductDaoImpl.class);
     private DataSource dataSource;
     private SelectAllProducts selectAllProducts;
@@ -36,6 +36,7 @@ public class JdbcProductDaoImpl implements ProductDao{
     private UpdateProduct updateProduct;
     private InsertProduct insertProduct;
     private DeleteProduct deleteProduct;
+    
 
     @Override
     public List<Product> findAll() {
@@ -65,9 +66,12 @@ public class JdbcProductDaoImpl implements ProductDao{
 
     @Override
     public List<Product> findProductByManufacturerId(String manufacturerId) {
+        String sql = "select product.id, product.model, product.category_id, product.manufacterer_id, product.price, manufacturer.manufacterer from product left join manufacturer on product.manufacturer_id = manufacturer.manufacturer where product.manufacturer_id = :product.manufacturer_id";
+        
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("manufacturer_id", manufacturerId);
         return selectProductByManufacturer.executeByNamedParam(paramMap);
+        
     }
 
     @Override

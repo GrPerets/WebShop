@@ -21,9 +21,12 @@ public class Main {
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
         ctx.load("classpath:WEB-INF/applicationContext.xml");
         ctx.refresh();
-        ProductDao productDao = ctx.getBean("productDao", ProductDao.class);
         
-        listProducts(productDao.findAll());
+        //Spring+JDBC
+        /*
+        JdbcProductDao jdbcProductDao = ctx.getBean("jdbcProductDao", JdbcProductDao.class);
+        
+        listProducts(jdbcProductDao.findAll());
         
         Product product = new Product();
         product.setModel("Redmi 4 Prime");
@@ -31,43 +34,46 @@ public class Main {
         product.setManufacturerId("xiaomi");
         product.setPrice(131.00);
         
-        productDao.insertProduct(product);
+        jdbcProductDao.insertProduct(product);
         
+        listProducts(jdbcProductDao.findProductById(2l));
         
-        /*
+        listProducts(jdbcProductDao.findProductByModel("abc321"));
         
-        listProducts(productDao.findProductById(2l));
+        listProducts(jdbcProductDao.findProductByCategoryId("modem"));
         
+        listProducts(jdbcProductDao.findProductByManufacturerId("samsung"));
         
-        listProducts(productDao.findProductByModel("abc321"));
-        
-        
-        listProducts(productDao.findProductByCategoryId(1l));
-        
-        
-        listProducts(productDao.findProductByManufacturerId(3l));
-        
-        List<Product> products = productDao.findProductById(11l);
+        List<Product> products = jdbcProductDao.findProductById(11l);
         //Product product;
         product = products.get(0);
         product.setPrice(99.9);
-        productDao.updateProduct(product);
+        jdbcProductDao.updateProduct(product);
         
-        /*
         product.setModel("Deskjet 3070A");
         product.setCategory("printers");
         product.setManufacturer("HP");
         product.setPrice(130.99);
-        productDao.insertProduct(product);
+        jdbcProductDao.insertProduct(product);
         
-        listProducts(productDao.findAll());
-
+        listProducts(jdbcProductDao.findAll());
+                
+        jdbcProductDao.deleteProduct(6l);
         
-        
-        productDao.deleteProduct(6l);
+        listProducts(jdbcProductDao.findAll());
         */
-        listProducts(productDao.findAll());
+        
+        //Spring+Hibernate
+        
+        HibernateProductDao hibernateProductDao = ctx.getBean("hibernateProductDao", HibernateProductDao.class);
+        listProducts(hibernateProductDao.findAll());
+        listProducts(hibernateProductDao.findProductById(19l));
+        listProducts(hibernateProductDao.findProductByModel("SyncMaster p2350"));
+        listProducts(hibernateProductDao.findProductByCategoryId("mouse"));
+        listProducts(hibernateProductDao.findProductByManufacturerId("huawei"));
+    
     }
+    
     private static void listProducts(List<Product> products) {
             for(Product product: products) {
                 System.out.println(product);

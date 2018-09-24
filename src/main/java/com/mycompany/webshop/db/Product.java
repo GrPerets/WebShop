@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -20,6 +22,18 @@ import javax.persistence.Version;
  */
 @Entity
 @Table(name="product")
+@NamedQueries({
+    @NamedQuery(name="Product.findAll",
+        query="from Product"),
+    @NamedQuery(name="Product.findById",
+        query="from Product where id = :id"),
+    @NamedQuery(name="Product.findProductByModel",
+        query="from Product where model=:model"),
+    @NamedQuery(name="Product.findProductByCategory",
+        query="from Product where category_id=:category_id"),
+    @NamedQuery(name="Product.findProductByManufacturer",
+        query="from Product where manufacturer_id=:manufacturer_id")
+})
 public class Product implements Serializable{
     private Long id;
     private int version;

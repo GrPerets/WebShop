@@ -30,12 +30,12 @@
     
     <context:property-placeholder location="classpath:WEB-INF/jdbc.properties" />
     
-    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager"
         p:sessionFactory-ref="sessionFactory"/>
     
     <tx:annotation-driven/> 
     
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
         p:dataSource-ref="dataSource"
         p:packagesToScan="com.mycompany.webshop"
         p:hibernateProperties-ref="hibernateProperties"/>
@@ -45,7 +45,7 @@
         <prop key="hibetnate.max_fetch_depth">3</prop>
         <prop key="hibernate.jdbc.fetch_size">50</prop>
         <prop key="hibernate.jdbc.batch_size">10</prop>
-        <prop key="hibernate.show_sql">true</prop>
+        <prop key="hibernate.show_sql">false</prop>
     </util:properties>
 
     <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
