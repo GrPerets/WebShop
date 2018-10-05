@@ -24,11 +24,11 @@ import javax.persistence.Version;
 @Table(name="product")
 @NamedQueries({
     @NamedQuery(name="Product.findAll",
-        query="from Product"),
+        query="select p from Product p"),
     @NamedQuery(name="Product.findById",
-        query="from Product where id = :id"),
+        query="select p from Product p  where p.id = :id"),
     @NamedQuery(name="Product.findProductByModel",
-        query="from Product where model=:model"),
+        query="select p from Product p where p.model=:model"),
     @NamedQuery(name="Product.findProductByCategory",
         query="from Product where category_id=:category_id"),
     @NamedQuery(name="Product.findProductByManufacturer",

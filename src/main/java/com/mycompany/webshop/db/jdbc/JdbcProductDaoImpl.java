@@ -24,7 +24,7 @@ import org.springframework.stereotype.Repository;
  *
  * @author grperets
  */
-@Repository("JdbcProductDao")
+@Repository("jdbcProductDao")
 public class JdbcProductDaoImpl implements JdbcProductDao{
     private Log LOG = LogFactory.getLog(JdbcProductDaoImpl.class);
     private DataSource dataSource;

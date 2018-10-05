@@ -19,15 +19,17 @@ public class Main {
      */
     public static void main(String[] args) {
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
-        ctx.load("classpath:WEB-INF/applicationContext.xml");
+        ctx.load("classpath:WEB-INF/applicationContextJpa.xml");
         ctx.refresh();
         
+        
         //Spring+JDBC
+        //************************
         /*
         JdbcProductDao jdbcProductDao = ctx.getBean("jdbcProductDao", JdbcProductDao.class);
         
         listProducts(jdbcProductDao.findAll());
-        
+        /*
         Product product = new Product();
         product.setModel("Redmi 4 Prime");
         product.setCategoryId("smartphone");
@@ -36,7 +38,7 @@ public class Main {
         
         jdbcProductDao.insertProduct(product);
         
-        listProducts(jdbcProductDao.findProductById(2l));
+        listProducts(jdbcProductDao.findProductById(20l));
         
         listProducts(jdbcProductDao.findProductByModel("abc321"));
         
@@ -56,7 +58,7 @@ public class Main {
         product.setPrice(130.99);
         jdbcProductDao.insertProduct(product);
         
-        listProducts(jdbcProductDao.findAll());
+        listProducts(productDao.findAll());
                 
         jdbcProductDao.deleteProduct(6l);
         
@@ -64,10 +66,11 @@ public class Main {
         */
         
         //Spring+Hibernate
-        
+        //*******************************
+        /*
         HibernateProductDao hibernateProductDao = ctx.getBean("hibernateProductDao", HibernateProductDao.class);
         listProducts(hibernateProductDao.findAll());
-        listProducts(hibernateProductDao.findProductById(19l));
+        listProducts(hibernateProductDao.findProductById(21l));
         listProducts(hibernateProductDao.findProductByModel("SyncMaster p2350"));
         listProducts(hibernateProductDao.findProductByCategoryId("mouse"));
         listProducts(hibernateProductDao.findProductByManufacturerId("huawei"));
@@ -77,13 +80,22 @@ public class Main {
         product.setModel("SyncMaster 965");
         product.setCategoryId("monitor");
         product.setManufacturerId("samsung");
-        */
+        
         product.setPrice(0.99);
         
         hibernateProductDao.save(product);
         product = hibernateProductDao.findProductById(19l).get(0);
         hibernateProductDao.delete(product);
         listProducts(hibernateProductDao.findAll());
+        
+        */
+        
+        //Spring+JPA
+        //*********************
+        JpaProductDao jpaProductDao = ctx.getBean("jpaProductDao", JpaProductDao.class);
+        listProducts(jpaProductDao.findAll());
+        listProducts(jpaProductDao.findProductById(22L));
+        listProducts(jpaProductDao.findProductByManufacturerId("xiaomi"));
         
     
     }
