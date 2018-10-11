@@ -47,18 +47,6 @@ public class HibernateProductDaoImpl implements HibernateProductDao{
     }
 
     @Override
-    @Transactional(readOnly=true)
-    public List<Product> findProductByCategoryId(String categoryId) {
-        return sessionFactory.getCurrentSession().getNamedQuery("Product.findProductByCategory").setParameter("category_id", categoryId).list();
-    }
-
-    @Override
-    @Transactional(readOnly=true)
-    public List<Product> findProductByManufacturerId(String manufacturerId) {
-        return sessionFactory.getCurrentSession().getNamedQuery("Product.findProductByManufacturer").setParameter("manufacturer_id", manufacturerId).list();
-    }
-    
-    @Override
     public Product save(Product product) {
         sessionFactory.getCurrentSession().saveOrUpdate(product);
         LOG.info("Product saved with id: " + product.getId());

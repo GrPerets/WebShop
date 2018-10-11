@@ -7,10 +7,15 @@ package com.mycompany.webshop.db.jpa;
 
 import com.mycompany.webshop.db.JpaProductDao;
 import com.mycompany.webshop.db.Product;
+import com.mycompany.webshop.db.Product_;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
@@ -52,22 +57,6 @@ public class JpaProductDaoImpl implements JpaProductDao {
         return query.getResultList();
     }
 
-    @Transactional(readOnly= true)
-    @Override
-    public List<Product> findProductByCategoryId(String categoryId) {
-        TypedQuery<Product> query = entityManager.createNamedQuery("Product.findProductByCategory", Product.class);
-        query.setParameter("category_id", categoryId);
-        return query.getResultList();
-    }
-
-    @Transactional(readOnly=true)
-    @Override
-    public List<Product> findProductByManufacturerId(String manufacturerId) {
-        TypedQuery<Product> query = entityManager.createNamedQuery("Product.findProductByManufacturer", Product.class);
-        query.setParameter("manufacturer_id", manufacturerId);
-        return query.getResultList();
-    }
-    
     @Override
     public Product save(Product product) {
         if (product.getId() == null) {
@@ -87,6 +76,27 @@ public class JpaProductDaoImpl implements JpaProductDao {
         Product mergedProduct = entityManager.merge(product);
         entityManager.remove(mergedProduct);
         LOG.info("Product with id: " + product.getId() + " deleted successfully");
+    }
+
+    @Transactional (readOnly=true)
+    @Override
+    public List<Product> findByCriteriaQuery(String categoryId, String manufacturerId) {
+        LOG.info("Finding product for categoryId: " + categoryId + " and manufacturerId: " + manufacturerId);
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
+        Root<Product> productRoot = criteriaQuery.from(Product.class);
+        criteriaQuery.select(productRoot);
+        Predicate criteria = criteriaBuilder.conjunction();
+        if (categoryId != null) {
+            Predicate predicate = criteriaBuilder.equal(productRoot.get(Product_.categoryId), categoryId);
+            criteria = criteriaBuilder.and(criteria, predicate);
+        }
+        if (manufacturerId != null) {
+            Predicate predicate = criteriaBuilder.equal(productRoot.get(Product_.manufacturerId), manufacturerId);
+            criteria = criteriaBuilder.and(criteria, predicate);
+        }
+        criteriaQuery.where(criteria);
+        return entityManager.createQuery(criteriaQuery).getResultList();
     }
     
 }

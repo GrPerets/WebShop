@@ -31,8 +31,6 @@ public class JdbcProductDaoImpl implements JdbcProductDao{
     private SelectAllProducts selectAllProducts;
     private SelectProductById selectProductById;
     private SelectProductByModel selectProductByModel;
-    private SelectProductByCategory selectProductByCategory;
-    private SelectProductByManufacturer selectProductByManufacturer;
     private UpdateProduct updateProduct;
     private InsertProduct insertProduct;
     private DeleteProduct deleteProduct;
@@ -56,24 +54,7 @@ public class JdbcProductDaoImpl implements JdbcProductDao{
         paramMap.put("model", model);
         return selectProductByModel.executeByNamedParam(paramMap);
     }
-
-    @Override
-    public List<Product> findProductByCategoryId(String categoryId) {
-        Map<String,Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("category_id", categoryId);
-        return selectProductByCategory.executeByNamedParam(paramMap);
-    }
-
-    @Override
-    public List<Product> findProductByManufacturerId(String manufacturerId) {
-        String sql = "select product.id, product.model, product.category_id, product.manufacterer_id, product.price, manufacturer.manufacterer from product left join manufacturer on product.manufacturer_id = manufacturer.manufacturer where product.manufacturer_id = :product.manufacturer_id";
-        
-        Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("manufacturer_id", manufacturerId);
-        return selectProductByManufacturer.executeByNamedParam(paramMap);
-        
-    }
-
+    
     @Override
     public void insertProduct(Product product) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -117,8 +98,6 @@ public class JdbcProductDaoImpl implements JdbcProductDao{
         this.selectAllProducts = new SelectAllProducts(dataSource);
         this.selectProductById = new SelectProductById(dataSource);
         this.selectProductByModel = new SelectProductByModel(dataSource);
-        this.selectProductByCategory = new SelectProductByCategory(dataSource);
-        this.selectProductByManufacturer = new SelectProductByManufacturer(dataSource);
         this.updateProduct = new UpdateProduct(dataSource);
         this.insertProduct = new InsertProduct(dataSource);
         this.deleteProduct = new DeleteProduct(dataSource);

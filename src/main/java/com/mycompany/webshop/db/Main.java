@@ -42,10 +42,7 @@ public class Main {
         
         listProducts(jdbcProductDao.findProductByModel("abc321"));
         
-        listProducts(jdbcProductDao.findProductByCategoryId("modem"));
-        
-        listProducts(jdbcProductDao.findProductByManufacturerId("samsung"));
-        
+                
         List<Product> products = jdbcProductDao.findProductById(11l);
         //Product product;
         product = products.get(0);
@@ -72,8 +69,6 @@ public class Main {
         listProducts(hibernateProductDao.findAll());
         listProducts(hibernateProductDao.findProductById(21l));
         listProducts(hibernateProductDao.findProductByModel("SyncMaster p2350"));
-        listProducts(hibernateProductDao.findProductByCategoryId("mouse"));
-        listProducts(hibernateProductDao.findProductByManufacturerId("huawei"));
         Product product = hibernateProductDao.findProductById(22l).get(0);
         
         /*
@@ -95,7 +90,7 @@ public class Main {
         JpaProductDao jpaProductDao = ctx.getBean("jpaProductDao", JpaProductDao.class);
         listProducts(jpaProductDao.findAll());
         jpaProductDao.findProductById(22L);
-        listProducts(jpaProductDao.findProductByManufacturerId("xiaomi"));
+        
         
         Product product = new Product();
         product.setModel("x610");
@@ -113,6 +108,7 @@ public class Main {
         jpaProductDao.delete(jpaProductDao.findProductByModel("x610").get(0));
         listProducts(jpaProductDao.findAll());
         
+        listProducts(jpaProductDao.findByCriteriaQuery(null, null));
     
     }
     

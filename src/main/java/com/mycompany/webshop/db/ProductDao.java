@@ -15,6 +15,4 @@ public interface ProductDao {
     List<Product> findAll();
     Product findProductById(Long productId);
     List<Product> findProductByModel(String model);
-    List<Product> findProductByCategoryId(String categoryId);
-    List<Product> findProductByManufacturerId(String manufacturerId);    
 }

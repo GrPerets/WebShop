@@ -29,10 +29,6 @@ import javax.persistence.Version;
         query="select p from Product p  where p.id = :id"),
     @NamedQuery(name="Product.findProductByModel",
         query="select p from Product p where p.model=:model"),
-    @NamedQuery(name="Product.findProductByCategory",
-        query="from Product where category_id=:category_id"),
-    @NamedQuery(name="Product.findProductByManufacturer",
-        query="from Product where manufacturer_id=:manufacturer_id")
 })
 public class Product implements Serializable{
     private Long id;
