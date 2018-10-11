@@ -19,7 +19,7 @@ public class Main {
      */
     public static void main(String[] args) {
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
-        ctx.load("classpath:WEB-INF/applicationContextJpa.xml");
+        ctx.load("classpath:META-INF/applicationContextJpa.xml");
         ctx.refresh();
         
         
@@ -94,8 +94,24 @@ public class Main {
         //*********************
         JpaProductDao jpaProductDao = ctx.getBean("jpaProductDao", JpaProductDao.class);
         listProducts(jpaProductDao.findAll());
-        listProducts(jpaProductDao.findProductById(22L));
+        jpaProductDao.findProductById(22L);
         listProducts(jpaProductDao.findProductByManufacturerId("xiaomi"));
+        
+        Product product = new Product();
+        product.setModel("x610");
+        product.setCategoryId("smartphone");
+        product.setManufacturerId("samsung");
+        product.setPrice(19.99);
+        jpaProductDao.save(product);
+        listProducts(jpaProductDao.findAll());
+        /*
+        product = jpaProductDao.findProductById(27l);
+        product.setPrice(999.99);
+        jpaProductDao.save(product);
+        */
+        listProducts(jpaProductDao.findAll());
+        jpaProductDao.delete(jpaProductDao.findProductByModel("x610").get(0));
+        listProducts(jpaProductDao.findAll());
         
     
     }

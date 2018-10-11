@@ -38,10 +38,10 @@ public class JpaProductDaoImpl implements JpaProductDao {
 
     @Transactional(readOnly=true)
     @Override
-    public List<Product> findProductById(Long productId) {
+    public Product findProductById(Long productId) {
         TypedQuery<Product> query = entityManager.createNamedQuery("Product.findById", Product.class);
         query.setParameter("id", productId);
-        return query.getResultList();
+        return query.getSingleResult();
     }
 
     @Transactional(readOnly=true)
@@ -70,12 +70,23 @@ public class JpaProductDaoImpl implements JpaProductDao {
     
     @Override
     public Product save(Product product) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (product.getId() == null) {
+            LOG.info("Inserting new product");
+            entityManager.persist(product);
+        } else {
+            entityManager.merge(product);
+            LOG.info("Updating existing product");
+        }    
+        LOG.info("Product saved with id: " + product.getId());
+        return product;
+        
     }
 
     @Override
     public void delete(Product product) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Product mergedProduct = entityManager.merge(product);
+        entityManager.remove(mergedProduct);
+        LOG.info("Product with id: " + product.getId() + " deleted successfully");
     }
     
 }

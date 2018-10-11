@@ -36,8 +36,8 @@ public class HibernateProductDaoImpl implements HibernateProductDao{
 
     @Override
     @Transactional(readOnly=true)
-    public List<Product> findProductById(Long productId) {
-        return sessionFactory.getCurrentSession().getNamedQuery("Product.findById").setParameter("id", productId).list();
+    public Product findProductById(Long productId) {
+        return (Product) sessionFactory.getCurrentSession().getNamedQuery("Product.findById").setParameter("id", productId).uniqueResult();
     }
 
     @Override
