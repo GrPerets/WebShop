@@ -19,7 +19,7 @@ public class Main {
      */
     public static void main(String[] args) {
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
-        ctx.load("classpath:META-INF/applicationContextJpa.xml");
+        ctx.load("classpath:META-INF/applicationContextDataJpa.xml");
         ctx.refresh();
         
         
@@ -87,6 +87,7 @@ public class Main {
         
         //Spring+JPA
         //*********************
+        /*
         JpaProductDao jpaProductDao = ctx.getBean("jpaProductDao", JpaProductDao.class);
         listProducts(jpaProductDao.findAll());
         jpaProductDao.findProductById(22L);
@@ -103,12 +104,20 @@ public class Main {
         product = jpaProductDao.findProductById(27l);
         product.setPrice(999.99);
         jpaProductDao.save(product);
-        */
+        ///
         listProducts(jpaProductDao.findAll());
         jpaProductDao.delete(jpaProductDao.findProductByModel("x610").get(0));
         listProducts(jpaProductDao.findAll());
         
         listProducts(jpaProductDao.findByCriteriaQuery(null, null));
+        */
+        
+        //Spring Data JPA
+        
+        ProductService productService = ctx.getBean("jpaProductService", ProductService.class);
+        listProducts(productService.findAll());
+        listProducts(productService.findByCategoryIdAndManufacturerId("monitor","samsung"));
+        listProducts(productService.findByModel("hg530"));
     
     }
     

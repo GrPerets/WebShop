@@ -4,6 +4,7 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:util="http://www.springframework.org/schema/util"
 
@@ -11,10 +12,10 @@
           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+          http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
     
-    <context:component-scan base-package="com.mycompany.webshop.db.jpa"/>
-
+    
     <!--bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
           p:location="/WEB-INF/jdbc.properties" /-->
@@ -52,7 +53,12 @@
             </props>
         </property>
     </bean> 
+    <context:component-scan base-package="com.mycompany.webshop.db.jpa"/>
+    <!--
+    <jpa:repositories base-package="com.mycompany.webshop.db"
+        entity-manager-factory-ref="entityManagerFactory"
+        transaction-manager-ref="transactionManager" />
     
-    <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
+     ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
 
 </beans>
