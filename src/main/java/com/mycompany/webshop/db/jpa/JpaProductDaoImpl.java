@@ -7,7 +7,7 @@ package com.mycompany.webshop.db.jpa;
 
 import com.mycompany.webshop.db.JpaProductDao;
 import com.mycompany.webshop.db.Product;
-import com.mycompany.webshop.db.Product_;
+import com.mycompany.webshop.db.metamodels.Product_;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

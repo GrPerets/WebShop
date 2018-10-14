@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!-- 
+    Document   : list
+    Created on : 13 жовт. 2018, 22:28:28
+    Author     : grperets
+-->
+<div xmlns:jsp="http://java.sun.com/JSP/Page" 
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:joda="http://www.joda.org/joda/time/tags"
+     version="2.0">
+
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+    <h1>Product Listing</h1>
+    <c:if test="${not empty products}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>Category</th>
+                    <th>Manufacturer</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${products}" var="product" >
+                    <tr>
+                        <td>${product.model}</td>
+                        <td>${product.categoryId}</td>
+                        <td>${product.manufacturerId}</td>
+                        <td>${product.price}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+   </c:if>
+
+    <!-- any content can be specified here, e.g.: -->
+    
+
+</div>

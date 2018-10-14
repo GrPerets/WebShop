@@ -67,9 +67,9 @@ public class Main {
         /*
         HibernateProductDao hibernateProductDao = ctx.getBean("hibernateProductDao", HibernateProductDao.class);
         listProducts(hibernateProductDao.findAll());
-        listProducts(hibernateProductDao.findProductById(21l));
+        hibernateProductDao.findProductById(21l);
         listProducts(hibernateProductDao.findProductByModel("SyncMaster p2350"));
-        Product product = hibernateProductDao.findProductById(22l).get(0);
+        Product product = hibernateProductDao.findProductById(22l);
         
         /*
         product.setModel("SyncMaster 965");
@@ -114,7 +114,7 @@ public class Main {
         
         //Spring Data JPA
         
-        ProductService productService = ctx.getBean("jpaProductService", ProductService.class);
+        ProductService productService = ctx.getBean("productService", ProductService.class);
         listProducts(productService.findAll());
         listProducts(productService.findByCategoryIdAndManufacturerId("monitor","samsung"));
         listProducts(productService.findByModel("hg530"));

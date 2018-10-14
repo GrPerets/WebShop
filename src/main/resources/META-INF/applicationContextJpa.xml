@@ -15,22 +15,9 @@
           http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
     
+    <import resource="classpath:/META-INF/dataSourceConfig.xml" />
     
-    <!--bean id="propertyConfigurer"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-          p:location="/WEB-INF/jdbc.properties" /-->
-          
-
-    <bean id="dataSource"
-        class="org.apache.commons.dbcp2.BasicDataSource"
-        destroy-method="close"
-        p:driverClassName="${jdbc.driverClassName}"
-        p:url="${jdbc.url}"
-        p:username="${jdbc.username}"
-        p:password="${jdbc.password}" />
-    
-    <context:property-placeholder location="classpath:WEB-INF/jdbc.properties" />
-    
+        
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
@@ -53,12 +40,9 @@
             </props>
         </property>
     </bean> 
-    <context:component-scan base-package="com.mycompany.webshop.db.jpa"/>
-    <!--
-    <jpa:repositories base-package="com.mycompany.webshop.db"
-        entity-manager-factory-ref="entityManagerFactory"
-        transaction-manager-ref="transactionManager" />
     
-     ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
+    <context:component-scan base-package="com.mycompany.webshop.db.jpa"/>
+    
+    <!--ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
 
 </beans>

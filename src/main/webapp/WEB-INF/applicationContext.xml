@@ -12,5 +12,8 @@
           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    
+    <import resource="classpath:META-INF/applicationContextDataJpa.xml" />
+    <context:component-scan base-package="com.mycompany.webshop" />
 
 </beans>

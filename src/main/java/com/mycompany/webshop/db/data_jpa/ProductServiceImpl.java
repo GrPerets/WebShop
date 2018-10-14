@@ -22,19 +22,24 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author grperets
  */
-@Service("jpaProductService")
+@Service("productService")
 @Repository
 @Transactional
 public class ProductServiceImpl implements ProductService {
     
     private Log LOG = LogFactory.getLog(JpaProductDaoImpl.class);
-    @Autowired
+    
     private ProductRepository productRepository;
 
     @Transactional(readOnly=true)
     @Override
     public List<Product> findAll() {
         return Lists.newArrayList(productRepository.findAll());
+    }
+    
+    @Override
+    public Product findById(Long productId) {
+        return productRepository.findOne(productId);
     }
 
     @Transactional(readOnly=true)
@@ -48,5 +53,19 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findByCategoryIdAndManufacturerId(String categoryId, String manufacturerId) {
         return productRepository.findByCategoryIdAndManufacturerId(categoryId, manufacturerId);
     }
+
+    @Override
+    public Product save(Product product) {
+        return productRepository.save(product);
+    }
+
+    @Autowired
+    public void setProductRepository(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
     
+    
+    
+    
+        
 }

@@ -1,5 +1,6 @@
-package com.mycompany.webshop.db;
+package com.mycompany.webshop.db.metamodels;
 
+import com.mycompany.webshop.db.Product;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
