@@ -13,7 +13,9 @@
           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
     
-    <import resource="classpath:META-INF/applicationContextDataJpa.xml" />
-    <context:component-scan base-package="com.mycompany.webshop" />
+    <import resource="classpath:/META-INF/spring/dataSourceConfig.xml" />
+    
+    <context:component-scan base-package="com.mycompany.webshop.db.jdbc"/>
+    <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
 
 </beans>

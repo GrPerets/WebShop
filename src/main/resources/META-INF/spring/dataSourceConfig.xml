@@ -20,6 +20,6 @@
         p:username="${jdbc.username}"
         p:password="${jdbc.password}" />
     
-    <context:property-placeholder location="classpath:/META-INF/jdbc.properties" />
+    <context:property-placeholder location="classpath:/META-INF/spring/jdbc.properties" />
 
 </beans>

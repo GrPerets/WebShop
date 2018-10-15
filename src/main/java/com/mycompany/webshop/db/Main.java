@@ -19,7 +19,7 @@ public class Main {
      */
     public static void main(String[] args) {
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
-        ctx.load("classpath:META-INF/applicationContextDataJpa.xml");
+        ctx.load("classpath:META-INF/spring/applicationContextDataJpa.xml");
         ctx.refresh();
         
         

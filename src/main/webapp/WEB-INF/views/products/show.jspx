@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- 
+    Document   : show
+    Created on : 15 жовт. 2018, 18:03:34
+    Author     : grperets
+-->
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:joda="http://www.joda.org/joda/time/tags"
+     version="2.0">
+
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+    
+    <spring:message code="label_product_info" var="labelProductInfo" />
+    <spring:message code="label_product_model" var="labelProductModel" />
+    <spring:message code="label_product_category" var="labelProductCategory" />
+    <spring:message code="label_product_manufacturer" var="labelProductManufacturer" />
+    <spring:message code="label_product_price" var="labelProductPrice" />
+    <spring:message code="label_product_update" var="labelProductUpdate" />
+    <spring:url value="/products" var="editProductUrl" />
+    
+    <h1>${labelProductInfo}</h1>
+    <div id="productInfo">
+        <c:if test="${not empty message}">
+            <div id="message" class="${message.type}">${message.message}</div>
+        </c:if>
+            <table>
+                <tr>
+                    <td>${labelProductModel}</td>
+                    <td>${product.model}</td>
+                </tr>
+                <tr>
+                    <td>${labelProductCategory}</td>
+                    <td>${product.categoryId}</td>
+                </tr>
+                <tr>
+                    <td>${labelProductManufacturer}</td>
+                    <td>${product.manufacturerId}</td>
+                </tr>
+                <tr>
+                    <td>${labelProductPrice}</td>
+                    <td>${product.price}</td>
+                </tr>
+            </table>
+            <a href="${editProductUrl}/${product.id}?form">${labelProductUpdate}</a>
+    </div>
+</div>

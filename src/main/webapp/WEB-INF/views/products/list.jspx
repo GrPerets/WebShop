@@ -7,25 +7,35 @@
 <div xmlns:jsp="http://java.sun.com/JSP/Page" 
      xmlns:c="http://java.sun.com/jsp/jstl/core"
      xmlns:joda="http://www.joda.org/joda/time/tags"
+     xmlns:spring="http://www.springframework.org/tags"
      version="2.0">
-
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
     <jsp:output omit-xml-declaration="yes" />
-    <h1>Product Listing</h1>
+    
+    <spring:message code="label_product_list" var="labelProductList"/>
+    <spring:message code="label_product_model" var="labelProductModel"/>
+    <spring:message code="label_product_category" var="labelProductCategory"/>
+    <spring:message code="label_product_manufacturer" var="labelProductManufacturer"/>
+    <spring:message code="label_product_price" var="labelProductPrice"/>
+    <spring:url value="/products" var="showProductUrl" />
+        
+    <h1>${labelProductList}</h1>
     <c:if test="${not empty products}">
         <table>
             <thead>
                 <tr>
-                    <th>Model</th>
-                    <th>Category</th>
-                    <th>Manufacturer</th>
-                    <th>Price</th>
+                    <th>${labelProductModel}</th>
+                    <th>${labelProductCategory}</th>
+                    <th>${labelProductManufacturer}</th>
+                    <th>${labelProductPrice}</th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach items="${products}" var="product" >
                     <tr>
-                        <td>${product.model}</td>
+                        <td>
+                            <a href="${showProductUrl}/${product.id}">${product.model}</a>
+                        </td>
                         <td>${product.categoryId}</td>
                         <td>${product.manufacturerId}</td>
                         <td>${product.price}</td>

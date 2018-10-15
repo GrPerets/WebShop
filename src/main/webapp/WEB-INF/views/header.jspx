@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- 
+    Document   : header
+    Created on : 15 жовт. 2018, 13:54:51
+    Author     : grperets
+-->
+<div id="header"  xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:spring="http://www.springframework.org/tags"
+          version="2.0">
+
+    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+
+    <spring:message code="header_text" var="headerText" />
+    <div id="appname">
+        <h1>${headerText}</h1>
+    </div>
+</div>

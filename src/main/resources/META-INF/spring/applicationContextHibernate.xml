@@ -15,7 +15,7 @@
     
     
 
-    <import resource="classpath:/META-INF/dataSourceConfig.xml" />
+    <import resource="classpath:/META-INF/spring/dataSourceConfig.xml" />
         
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager"
         p:sessionFactory-ref="sessionFactory"/>
