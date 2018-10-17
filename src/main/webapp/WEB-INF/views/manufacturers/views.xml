@@ -14,5 +14,13 @@ and open the template in the editor.
     
     <definition extends="default" name="manufacturers/show">
         <put-attribute name="body" value="/WEB-INF/views/manufacturers/show.jspx" />
-    </definition>    
+    </definition>   
+    
+    <definition extends="default" name="manufacturers/update">
+        <put-attribute name="body" value="/WEB-INF/views/manufacturers/edit.jspx" />
+    </definition> 
+    
+    <definition extends="default" name="manufacturers/create">
+        <put-attribute name="body" value="/WEB-INF/views/manufacturers/edit.jspx" />
+    </definition>
 </tiles-definitions>

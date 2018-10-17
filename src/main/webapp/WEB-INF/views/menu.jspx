@@ -15,10 +15,13 @@
     <spring:message code="menu_header_text" var="menuHeaderText" />
     <spring:message code="menu_add_product" var="menuAddProduct" />
     <spring:message code="menu_add_category" var="menuAddCategory" />
+    <spring:message code="menu_add_manufacturer" var="menuAddManufacturer" />
     <spring:url value="/products?form" var="addProductUrl" />
     <spring:url value="/categories?form" var="addCategoryUrl" />
+    <spring:url value="/manufacturers?form" var="addManufacturerUrl" />
     
     <h3>${menuHeaderText}</h3>
         <a href="${addProductUrl}"><h3>${menuAddProduct}</h3></a>
         <a href="${addCategoryUrl}"><h3>${menuAddCategory}</h3></a>
+        <a href="${addManufacturerUrl}"><h3>${menuAddManufacturer}</h3></a>
 </div>
