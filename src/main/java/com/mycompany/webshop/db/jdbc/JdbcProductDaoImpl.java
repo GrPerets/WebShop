@@ -59,8 +59,8 @@ public class JdbcProductDaoImpl implements JdbcProductDao{
     public void insertProduct(Product product) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("model", product.getModel());
-        paramMap.put("category_id", product.getCategoryId());
-        paramMap.put("manufacturer_id", product.getManufacturerId());
+        paramMap.put("category", product.getCategory());
+        paramMap.put("manufacturer", product.getManufacturer());
         paramMap.put("price", product.getPrice());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         insertProduct.updateByNamedParam(paramMap, keyHolder);
@@ -72,8 +72,8 @@ public class JdbcProductDaoImpl implements JdbcProductDao{
     public void updateProduct(Product product) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("model", product.getModel());
-        paramMap.put("category_id", product.getCategoryId());
-        paramMap.put("manufacturer_id", product.getManufacturerId());
+        paramMap.put("category", product.getCategory());
+        paramMap.put("manufacturer", product.getManufacturer());
         paramMap.put("price", product.getPrice());
         paramMap.put("id", product.getId());
         updateProduct.updateByNamedParam(paramMap);

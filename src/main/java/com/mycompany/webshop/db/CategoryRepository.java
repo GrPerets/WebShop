@@ -5,14 +5,12 @@
  */
 package com.mycompany.webshop.db;
 
-import java.util.List;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  *
  * @author grperets
  */
-public interface JpaProductDao extends HibernateProductDao {
-        
-        List<Product> findByCriteriaQuery(String category, String manufacturer);
+public interface CategoryRepository extends CrudRepository <Category, String> {
     
 }

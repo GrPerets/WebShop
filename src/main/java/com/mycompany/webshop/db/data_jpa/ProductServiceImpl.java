@@ -50,19 +50,26 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional(readOnly=true)
     @Override
-    public List<Product> findByCategoryIdAndManufacturerId(String categoryId, String manufacturerId) {
-        return productRepository.findByCategoryIdAndManufacturerId(categoryId, manufacturerId);
+    public List<Product> findByCategoryAndManufacturer(String category, String manufacturer) {
+        return productRepository.findByCategoryAndManufacturer(category, manufacturer);
     }
 
     @Override
     public Product save(Product product) {
         return productRepository.save(product);
     }
+    
+    @Override
+    public void delete(Product product) {
+        productRepository.delete(product);
+    }
 
     @Autowired
     public void setProductRepository(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
+
+    
     
     
     

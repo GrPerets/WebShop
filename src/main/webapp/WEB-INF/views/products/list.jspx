@@ -36,8 +36,8 @@
                         <td>
                             <a href="${showProductUrl}/${product.id}">${product.model}</a>
                         </td>
-                        <td>${product.categoryId}</td>
-                        <td>${product.manufacturerId}</td>
+                        <td>${product.category}</td>
+                        <td>${product.manufacturer}</td>
                         <td>${product.price}</td>
                     </tr>
                 </c:forEach>

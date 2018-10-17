@@ -34,8 +34,8 @@ public class Product implements Serializable{
     private Long id;
     private int version;
     private String model;
-    private String categoryId;
-    private String manufacturerId;
+    private String category;
+    private String manufacturer;
     private Double price;
 
     @Id
@@ -68,22 +68,22 @@ public class Product implements Serializable{
         this.model = model;
     }
 
-    @Column (name = "CATEGORY_ID")
-    public String getCategoryId() {
-        return categoryId;
+    @Column (name = "CATEGORY")
+    public String getCategory() {
+        return category;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    @Column (name = "MANUFACTURER_ID")
-    public String getManufacturerId() {
-        return manufacturerId;
+    @Column (name = "MANUFACTURER")
+    public String getManufacturer() {
+        return manufacturer;
     }
 
-    public void setManufacturerId(String manufacturerId) {
-        this.manufacturerId = manufacturerId;
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
     @Column (name = "PRICE")
@@ -97,7 +97,7 @@ public class Product implements Serializable{
     
     @Override
     public String toString() {
-        return "Product - Id: "+id+", Model: "+model+", Category: "+categoryId+", Manufacturer: "+manufacturerId+", Price: "+price;
+        return "Product - Id: "+id+", Model: "+model+", Category: "+category+", Manufacturer: "+manufacturer+", Price: "+price;
     }
     
 }

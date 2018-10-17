@@ -15,6 +15,7 @@ public interface ProductService {
     List<Product> findAll();
     Product findById(Long productId);
     List<Product> findByModel(String model);
-    List<Product> findByCategoryIdAndManufacturerId (String categoryId, String manufacturerId);
+    List<Product> findByCategoryAndManufacturer (String category, String manufacturer);
     Product save (Product product);
+    void delete (Product product);
 }

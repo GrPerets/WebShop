@@ -11,8 +11,9 @@ import java.util.List;
  *
  * @author grperets
  */
-public interface JpaProductDao extends HibernateProductDao {
-        
-        List<Product> findByCriteriaQuery(String category, String manufacturer);
-    
+public interface ManufacturerService {
+    List<Manufacturer> findAll();
+    Manufacturer findById(String manufacturer); 
+    Manufacturer save (Manufacturer manufacturer);
+    void delete (Manufacturer manufacturer);    
 }

@@ -34,11 +34,11 @@
                 </tr>
                 <tr>
                     <td>${labelProductCategory}</td>
-                    <td>${product.categoryId}</td>
+                    <td>${product.category}</td>
                 </tr>
                 <tr>
                     <td>${labelProductManufacturer}</td>
-                    <td>${product.manufacturerId}</td>
+                    <td>${product.manufacturer}</td>
                 </tr>
                 <tr>
                     <td>${labelProductPrice}</td>

@@ -10,18 +10,18 @@ import javax.persistence.metamodel.StaticMetamodel;
 public abstract class Product_ {
 
 	public static volatile SingularAttribute<Product, Double> price;
-	public static volatile SingularAttribute<Product, String> manufacturerId;
+	public static volatile SingularAttribute<Product, String> manufacturer;
 	public static volatile SingularAttribute<Product, String> model;
 	public static volatile SingularAttribute<Product, Long> id;
 	public static volatile SingularAttribute<Product, Integer> version;
-	public static volatile SingularAttribute<Product, String> categoryId;
+	public static volatile SingularAttribute<Product, String> category;
 
 	public static final String PRICE = "price";
-	public static final String MANUFACTURER_ID = "manufacturerId";
+	public static final String MANUFACTURER = "manufacturer";
 	public static final String MODEL = "model";
 	public static final String ID = "id";
 	public static final String VERSION = "version";
-	public static final String CATEGORY_ID = "categoryId";
+	public static final String CATEGORY = "category";
 
 }
 

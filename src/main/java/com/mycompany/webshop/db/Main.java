@@ -73,8 +73,8 @@ public class Main {
         
         /*
         product.setModel("SyncMaster 965");
-        product.setCategoryId("monitor");
-        product.setManufacturerId("samsung");
+        product.setCategory("monitor");
+        product.setManufacturer("samsung");
         
         product.setPrice(0.99);
         
@@ -95,8 +95,8 @@ public class Main {
         
         Product product = new Product();
         product.setModel("x610");
-        product.setCategoryId("smartphone");
-        product.setManufacturerId("samsung");
+        product.setCategory("smartphone");
+        product.setManufacturer("samsung");
         product.setPrice(19.99);
         jpaProductDao.save(product);
         listProducts(jpaProductDao.findAll());
@@ -113,14 +113,46 @@ public class Main {
         */
         
         //Spring Data JPA
-        
+        /*
         ProductService productService = ctx.getBean("productService", ProductService.class);
         listProducts(productService.findAll());
-        listProducts(productService.findByCategoryIdAndManufacturerId("monitor","samsung"));
+        listProducts(productService.findByCategoryAndManufacturer("monitor","samsung"));
         listProducts(productService.findByModel("hg530"));
-    
+        */
+        /*
+        CategoryService categoryService = ctx.getBean("categoryService", CategoryService.class);
+        listcategorys(categoryService.findAll());
+        Category newCategory = new Category();
+        newCategory.setCategory("web-cam");
+        categoryService.save(newCategory);
+        listCategorys(categoryService.findAll());
+        categoryService.delete(newCategory);
+        listCategorys(categoryService.findAll());
+
+        */
+        
+        ManufacturerService manufacturerService = ctx.getBean("manufacturerService", ManufacturerService.class);
+        listManufacturers(manufacturerService.findAll());
+        Manufacturer newManufacturer = new Manufacturer();
+        newManufacturer.setManufacturer("AMD");
+        manufacturerService.save(newManufacturer);
+        listManufacturers(manufacturerService.findAll());
+        manufacturerService.delete(newManufacturer);
+        listManufacturers(manufacturerService.findAll());
+
     }
     
+    private static void listManufacturers (List<Manufacturer> manufacturers) {
+        for (Manufacturer manufacturer : manufacturers) {
+            System.out.println(manufacturer);
+        }
+    }
+    
+    private static void listCategorys(List<Category> categorys){
+        for (Category category : categorys) {
+            System.out.println(category);
+        }
+    }
     private static void listProducts(List<Product> products) {
             for(Product product: products) {
                 System.out.println(product);

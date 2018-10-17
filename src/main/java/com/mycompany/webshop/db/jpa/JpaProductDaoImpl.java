@@ -80,19 +80,19 @@ public class JpaProductDaoImpl implements JpaProductDao {
 
     @Transactional (readOnly=true)
     @Override
-    public List<Product> findByCriteriaQuery(String categoryId, String manufacturerId) {
-        LOG.info("Finding product for categoryId: " + categoryId + " and manufacturerId: " + manufacturerId);
+    public List<Product> findByCriteriaQuery(String category, String manufacturer) {
+        LOG.info("Finding product for category: " + category + " and manufacturer: " + manufacturer);
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
         Root<Product> productRoot = criteriaQuery.from(Product.class);
         criteriaQuery.select(productRoot);
         Predicate criteria = criteriaBuilder.conjunction();
-        if (categoryId != null) {
-            Predicate predicate = criteriaBuilder.equal(productRoot.get(Product_.categoryId), categoryId);
+        if (category != null) {
+            Predicate predicate = criteriaBuilder.equal(productRoot.get(Product_.category), category);
             criteria = criteriaBuilder.and(criteria, predicate);
         }
-        if (manufacturerId != null) {
-            Predicate predicate = criteriaBuilder.equal(productRoot.get(Product_.manufacturerId), manufacturerId);
+        if (manufacturer != null) {
+            Predicate predicate = criteriaBuilder.equal(productRoot.get(Product_.manufacturer), manufacturer);
             criteria = criteriaBuilder.and(criteria, predicate);
         }
         criteriaQuery.where(criteria);

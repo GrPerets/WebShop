@@ -5,12 +5,15 @@
  */
 package com.mycompany.webshop.controllers;
 
+import com.mycompany.webshop.db.CategoryService;
 import com.mycompany.webshop.db.Product;
 import com.mycompany.webshop.db.ProductService;
 import com.mycompany.webshop.service_and_special_classes.Message;
 import com.mycompany.webshop.service_and_special_classes.UrlUtil;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +38,7 @@ public class ProductController {
     private final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
     private ProductService productService;
     private MessageSource messageSource;
+    private CategoryService categoryService;
         
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model uiModel) {
@@ -68,8 +72,36 @@ public class ProductController {
     
     @RequestMapping (value = "/{id}", params = "form", method= RequestMethod.GET)
     public String updateForm(@PathVariable("id") Long productId, Model uiModel) {
+        /*
+        Map<String,Object> map = new HashMap<>();
+        map.put("categories", categoryService.findAll());
+        map.put("product", productService.findById(productId));
+        uiModel.addAllAttributes(map);
+        */
         uiModel.addAttribute("product", productService.findById(productId));
         return "products/update";
+    }
+    
+    @RequestMapping (params = "form", method = RequestMethod.POST)
+    public String create (Product product, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale) {
+        LOGGER.info("Creating product");
+        if (bindingResult.hasErrors()) {
+            uiModel.addAttribute("message", new Message ("error", messageSource.getMessage("product_save_fail", new Object[] {}, locale)));
+            uiModel.addAttribute("product", product);
+            return "products/create";
+        }
+        uiModel.asMap().clear();
+        redirectAttributes.addFlashAttribute("message", new Message ("success", messageSource.getMessage("product_save_success", new Object[]{}, locale)));
+        LOGGER.info("Product id: " + product.getId());
+        productService.save(product);
+        return "redirect:/products/" + UrlUtil.encodeUrlPathSegment(product.getId().toString(), httpServletRequest);
+    }
+    
+    @RequestMapping (params ="form", method = RequestMethod.GET)
+    public String createForm (Model uiModel) {
+        Product product = new Product();
+        uiModel.addAttribute("product", product);
+        return "products/create";
     }
 
     @Autowired
@@ -81,12 +113,12 @@ public class ProductController {
     public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
-    
-    
-    
 
+    @Autowired
+    public void setCategoryService(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
     
-    
-    
+       
     
 }

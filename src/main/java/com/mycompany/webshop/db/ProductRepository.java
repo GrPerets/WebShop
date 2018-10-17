@@ -14,5 +14,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface ProductRepository extends CrudRepository<Product, Long> {
     List<Product> findByModel(String model);
-    List<Product> findByCategoryIdAndManufacturerId (String categoryId, String manufacturerId);
+    List<Product> findByCategoryAndManufacturer (String category, String manufacturer);
 }

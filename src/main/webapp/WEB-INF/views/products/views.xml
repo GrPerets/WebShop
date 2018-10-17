@@ -20,4 +20,8 @@ and open the template in the editor.
         <put-attribute name="body" value="/WEB-INF/views/products/edit.jspx" />
     </definition>
     
+    <definition extends="default" name="products/create">
+        <put-attribute name="body" value="/WEB-INF/views/products/edit.jspx" />
+    </definition>
+    
 </tiles-definitions>
