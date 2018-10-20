@@ -30,7 +30,7 @@
                 <td>${manufacturer.manufacturer}</td>
             </tr>
         </table>
-        <a href="${editManufacturerUrl}/${manufacturer.manufacturer}?form">${labelManufacturerUpdate}</a>
+        <a href="${editManufacturerUrl}/${manufacturer.id}?form">${labelManufacturerUpdate}</a>
     </div>
     
 </jsp:root>

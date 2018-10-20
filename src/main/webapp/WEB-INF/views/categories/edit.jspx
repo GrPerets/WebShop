@@ -16,7 +16,7 @@
     <spring:message code="label_category_new" var="labelCategoryNew" />
     <spring:message code="label_category_update" var="labelCategoryUpdate" />
     <spring:message code="label_category_category" var="labelCategoryCategory" />
-    <spring:eval expression="category.category == null ? labelCategoryNew : labelCategoryUpdate" var="formTitle" />
+    <spring:eval expression="category.id == null ? labelCategoryNew : labelCategoryUpdate" var="formTitle" />
     
     <h1>${formTitle}</h1>
     
@@ -35,9 +35,13 @@
                         <form:errors path="category" cssClass="error" />
                     </div>
                     <p/>
+                <form:hidden path="version" />
                                     
                 <button type="submit">Save</button>                
                 <button type="reset">Reset</button>    
+        </form:form>
+        <form:form id="categoryDeleteForm" method="delete" >
+            <button type="submit">Delete</button>
         </form:form>
     </div>
 </div>

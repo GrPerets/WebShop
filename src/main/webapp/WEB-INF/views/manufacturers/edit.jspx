@@ -16,7 +16,7 @@
     <spring:message code="label_manufacturer_new" var="labelManufacturerNew" />
     <spring:message code="label_manufacturer_update" var="labelManufacturerUpdate" />
     <spring:message code="label_manufacturer_manufacturer" var="labelManufacturerManufacturer" />
-    <spring:eval expression="manufacturer.manufacturer == null ? labelManufacturerNew : labelManufacturerUpdate" var="formTitle" />
+    <spring:eval expression="manufacturer.id == null ? labelManufacturerNew : labelManufacturerUpdate" var="formTitle" />
     
     <h1>${formTitle}</h1>
 
@@ -33,8 +33,12 @@
                 <form:errors path="manufacturer" cssClass="error" />
             </div>
             <p/>
+            <form:hidden path="version" />
             <button type="submit">Save</button>
             <button type="reset">Reset</button>
+        </form:form>
+        <form:form id="manufacturerDeleteForm" method="delete">
+            <button type="submit">Delete</button>
         </form:form>
     </div>
 </jsp:root>

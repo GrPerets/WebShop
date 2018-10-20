@@ -30,7 +30,7 @@
                 <td>${category.category}</td>
             </tr>
         </table>
-        <a href="${editCategoryUrl}/${category.category}?form">${labelCategoryUpdate}</a>    
+        <a href="${editCategoryUrl}/${category.id}?form">${labelCategoryUpdate}</a>    
     </div>
     
 </div>

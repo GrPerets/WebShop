@@ -68,6 +68,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>redirect.jsp</welcome-file>
+        <!--<welcome-file>redirect.jsp</welcome-file>-->
+        <welcome-file>classpath:/WEB-INF/views/home/news.jspx</welcome-file>
     </welcome-file-list>
 </web-app>

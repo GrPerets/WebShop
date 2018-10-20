@@ -130,16 +130,16 @@ public class Main {
         listCategorys(categoryService.findAll());
 
         */
-        
+        /*
         ManufacturerService manufacturerService = ctx.getBean("manufacturerService", ManufacturerService.class);
         listManufacturers(manufacturerService.findAll());
         Manufacturer newManufacturer = new Manufacturer();
         newManufacturer.setManufacturer("AMD");
         manufacturerService.save(newManufacturer);
         listManufacturers(manufacturerService.findAll());
-        manufacturerService.delete(newManufacturer);
+        manufacturerService.delete("samsung");
         listManufacturers(manufacturerService.findAll());
-
+        */
     }
     
     private static void listManufacturers (List<Manufacturer> manufacturers) {

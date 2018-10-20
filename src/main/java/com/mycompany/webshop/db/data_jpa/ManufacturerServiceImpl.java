@@ -33,8 +33,8 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     }
     
     @Override
-    public Manufacturer findById(String manufacturer) {
-        return manufacturerRepository.findOne(manufacturer);
+    public Manufacturer findById(Long id) {
+        return manufacturerRepository.findOne(id);
     }
 
     @Override

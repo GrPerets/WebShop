@@ -38,8 +38,8 @@ public class ProductServiceImpl implements ProductService {
     }
     
     @Override
-    public Product findById(Long productId) {
-        return productRepository.findOne(productId);
+    public Product findById(Long id) {
+        return productRepository.findOne(id);
     }
 
     @Transactional(readOnly=true)
@@ -60,8 +60,8 @@ public class ProductServiceImpl implements ProductService {
     }
     
     @Override
-    public void delete(Product product) {
-        productRepository.delete(product);
+    public void delete(Long id) {
+        productRepository.delete(id);
     }
 
     @Autowired

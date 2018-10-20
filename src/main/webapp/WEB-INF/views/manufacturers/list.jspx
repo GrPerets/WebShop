@@ -30,7 +30,7 @@
             <tbody>
                 <c:forEach items="${manufacturers}" var="manufacturer">
                     <tr>
-                        <td><a href="${showManufacturerUrl}/${manufacturer.manufacturer}">${manufacturer.manufacturer}</a></td>
+                        <td><a href="${showManufacturerUrl}/${manufacturer.id}">${manufacturer.manufacturer}</a></td>
                     </tr>
                 </c:forEach>
             </tbody>

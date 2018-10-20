@@ -11,6 +11,6 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author grperets
  */
-public interface ManufacturerRepository extends CrudRepository <Manufacturer, String> {
+public interface ManufacturerRepository extends CrudRepository <Manufacturer, Long> {
     
 }

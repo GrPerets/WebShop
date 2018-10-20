@@ -8,8 +8,11 @@ package com.mycompany.webshop.db;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 /**
  *
@@ -18,9 +21,32 @@ import javax.persistence.Table;
 @Entity
 @Table (name = "category")
 public class Category implements Serializable {
+    private Long id;
+    private int version;
     private String category;
 
     @Id
+    @GeneratedValue (strategy = IDENTITY)
+    @Column (name = "ID")
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Version
+    @Column (name = "VERSION")
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+    
+    
     @Column (name = "CATEGORY")
     public String getCategory() {
         return category;
@@ -32,7 +58,7 @@ public class Category implements Serializable {
     
     @Override
     public String toString() {
-        return "Category :" + getCategory();
+        return "Id :" +getId() + " Category :" + getCategory();
     }
     
 }

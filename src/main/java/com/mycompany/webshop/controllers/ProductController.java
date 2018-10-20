@@ -5,15 +5,16 @@
  */
 package com.mycompany.webshop.controllers;
 
+import com.mycompany.webshop.db.Category;
 import com.mycompany.webshop.db.CategoryService;
+import com.mycompany.webshop.db.Manufacturer;
+import com.mycompany.webshop.db.ManufacturerService;
 import com.mycompany.webshop.db.Product;
 import com.mycompany.webshop.db.ProductService;
 import com.mycompany.webshop.service_and_special_classes.Message;
 import com.mycompany.webshop.service_and_special_classes.UrlUtil;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +40,7 @@ public class ProductController {
     private ProductService productService;
     private MessageSource messageSource;
     private CategoryService categoryService;
+    private ManufacturerService manufacturerService;
         
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model uiModel) {
@@ -50,8 +52,8 @@ public class ProductController {
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET )
-    public String show (@PathVariable("id") Long productId, Model uiModel) {
-        Product product = productService.findById(productId);
+    public String show (@PathVariable("id") Long id, Model uiModel) {
+        Product product = productService.findById(id);
         uiModel.addAttribute("product", product);
         return "products/show";
     }
@@ -71,14 +73,13 @@ public class ProductController {
     }
     
     @RequestMapping (value = "/{id}", params = "form", method= RequestMethod.GET)
-    public String updateForm(@PathVariable("id") Long productId, Model uiModel) {
-        /*
-        Map<String,Object> map = new HashMap<>();
-        map.put("categories", categoryService.findAll());
-        map.put("product", productService.findById(productId));
-        uiModel.addAllAttributes(map);
-        */
-        uiModel.addAttribute("product", productService.findById(productId));
+    public String updateForm(@PathVariable("id") Long id, Model uiModel) {
+        List<Category> categories = categoryService.findAll();
+        uiModel.addAttribute("categories", categories);
+        List<Manufacturer> manufacturers = manufacturerService.findAll();
+        uiModel.addAttribute("manufacturers", manufacturers);
+        Product product = productService.findById(id);
+        uiModel.addAttribute("product", product);
         return "products/update";
     }
     
@@ -99,10 +100,23 @@ public class ProductController {
     
     @RequestMapping (params ="form", method = RequestMethod.GET)
     public String createForm (Model uiModel) {
+        List<Category> categories = categoryService.findAll();
+        uiModel.addAttribute("categories", categories);
+        List<Manufacturer> manufacturers = manufacturerService.findAll();
+        uiModel.addAttribute("manufacturers", manufacturers);
         Product product = new Product();
         uiModel.addAttribute("product", product);
         return "products/create";
     }
+    
+    @RequestMapping (value ="/{id}", params = "form", method = RequestMethod.DELETE)
+    public String delete (@PathVariable("id") Long id) {
+        LOGGER.info("Deleting products");
+        productService.delete(id);
+        LOGGER.info("Delete product Id: " + id);
+        return "redirect:/products/";
+    }
+    
 
     @Autowired
     public void setProductService(ProductService productService) {
@@ -118,7 +132,10 @@ public class ProductController {
     public void setCategoryService(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
-    
-       
-    
+
+    @Autowired
+    public void setManufacturerService(ManufacturerService manufacturerService) {
+        this.manufacturerService = manufacturerService;
+    }
+        
 }

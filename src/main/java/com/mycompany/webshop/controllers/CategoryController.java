@@ -16,12 +16,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -45,14 +48,14 @@ public class CategoryController {
     }
     
     @RequestMapping (value = "/{id}", method = RequestMethod.GET)
-    public String show (@PathVariable ("id") String id, Model uiModel) {
+    public String show (@PathVariable ("id") Long id, Model uiModel) {
         Category category = categoryService.findById(id);
         uiModel.addAttribute("category", category);
         return "categories/show";
     }
     
     @RequestMapping (value = "/{id}", params = "form", method = RequestMethod.POST )
-    public String update (Category category, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletrequest, RedirectAttributes redirectAttributes, Locale locale) {
+    public String update (Category category, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale) {
         LOGGER.info("Updating category");
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("message", new Message ("error", messageSource.getMessage("category_save_fail", new Object[] {}, locale)));
@@ -62,17 +65,18 @@ public class CategoryController {
         uiModel.asMap().clear();
         redirectAttributes.addAttribute("message", new Message("success", messageSource.getMessage("category_save_success", new Object[]{}, locale)));
         categoryService.save(category);
-        return "redirect:/category"+UrlUtil.encodeUrlPathSegment(category.getCategory().toString(), httpServletrequest);
+        return "redirect:/categories"+UrlUtil.encodeUrlPathSegment(category.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping (value = "/{id}", params = "form", method = RequestMethod.GET)
-    public String updateForm (@PathVariable ("id") String id, Model uiModel) {
+    public String updateForm (@PathVariable ("id") Long id, Model uiModel) {
         Category category = categoryService.findById(id);
         uiModel.addAttribute("category", category);
         return "categories/update";
     }
     
     @RequestMapping (params = "form", method = RequestMethod.POST)
+    //@ResponseStatus(HttpStatus.CREATED)
     public String create (Category category, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale) {
         LOGGER.info("Creating category");
         if (bindingResult.hasErrors()) {
@@ -84,7 +88,7 @@ public class CategoryController {
         redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("category_save_success", new Object[]{}, locale)));
         LOGGER.info("Category name: " + category.getCategory());
         categoryService.save(category);
-        return "redirect:/categories/" + UrlUtil.encodeUrlPathSegment(category.getCategory().toString(), httpServletRequest);
+        return "redirect:/categories/" + UrlUtil.encodeUrlPathSegment(category.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping (params = "form", method = RequestMethod.GET)
@@ -92,6 +96,17 @@ public class CategoryController {
         Category category = new Category();
         uiModel.addAttribute("category", category);
         return "categories/create";
+    }
+    
+    @RequestMapping (value="/{id}", params="form", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    //@ResponseBody
+    public  String delete (@PathVariable ("id") Long id) {
+        LOGGER.info("Deleting category");
+        Category category = categoryService.findById(id);
+        categoryService.delete(category);
+        LOGGER.info("Category delete: " + category);
+        return "redirect:/categories/";        
     }
 
     @Autowired

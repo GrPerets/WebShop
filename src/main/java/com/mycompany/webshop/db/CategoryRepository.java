@@ -11,6 +11,6 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author grperets
  */
-public interface CategoryRepository extends CrudRepository <Category, String> {
+public interface CategoryRepository extends CrudRepository <Category, Long> {
     
 }

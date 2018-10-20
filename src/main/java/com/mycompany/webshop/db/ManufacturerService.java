@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface ManufacturerService {
     List<Manufacturer> findAll();
-    Manufacturer findById(String manufacturer); 
+    Manufacturer findById(Long id); 
     Manufacturer save (Manufacturer manufacturer);
     void delete (Manufacturer manufacturer);    
 }
