@@ -19,6 +19,8 @@
     <spring:message code="label_product_category" var="labelProductCategory" />
     <spring:message code="label_product_manufacturer" var="labelProductManufacturer" />
     <spring:message code="label_product_price" var="labelProductPrice" />
+    <spring:message code="label_product_description" var="labelProductDescription" />
+    <spring:message code="label_product_photo" var="labelProductPhoto" />
     
     <spring:eval expression="product.id == null ? labelProductNew:labelProductUpdate" var="formTitle" />
     
@@ -63,6 +65,14 @@
                 <form:input path="price" />
                 <div>
                     <form:errors path="price" cssClass="error" />
+                </div>
+                <p/>
+                <form:label path="description">
+                    ${labelProductDescription}
+                </form:label>
+                <form:textarea cols="60" rows="8" path="description" id="productDescription" />
+                <div>
+                    <form:errors path="description" cssClass="error" />
                 </div>
                 <p/>
                 <form:hidden path="version" />

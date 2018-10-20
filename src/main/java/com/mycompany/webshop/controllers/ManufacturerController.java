@@ -63,12 +63,13 @@ public class ManufacturerController {
         uiModel.asMap().clear();
         redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("manufacturer_save_success", new Object[]{}, locale)));
         manufacturerService.save(manufacturer);
-        return "redirect: /manufacturers/" + UrlUtil.encodeUrlPathSegment(manufacturer.getId().toString(), httpServletRequest);
+        return "redirect:/manufacturers/" + UrlUtil.encodeUrlPathSegment(manufacturer.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping (value = "/{id}", params = "form", method = RequestMethod.GET)
     public String updateForm (@PathVariable ("id") Long id, Model uiModel) {
-        uiModel.addAttribute("manufacturer", manufacturerService.findById(id));
+        Manufacturer manufacturer = manufacturerService.findById(id);
+        uiModel.addAttribute("manufacturer", manufacturer);
         return "manufacturers/update";
     }
     
@@ -95,7 +96,6 @@ public class ManufacturerController {
     }
     
     @RequestMapping (value = "/{id}", params = "form", method = RequestMethod.DELETE)
-    //@ResponseBody
     public  String delete (@PathVariable ("id") Long id) {
         LOGGER.info("Deleting manufacturer");
         Manufacturer manufacturer = manufacturerService.findById(id);

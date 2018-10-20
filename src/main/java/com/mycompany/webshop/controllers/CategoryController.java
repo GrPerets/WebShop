@@ -63,9 +63,9 @@ public class CategoryController {
             return "categories/update";
         }
         uiModel.asMap().clear();
-        redirectAttributes.addAttribute("message", new Message("success", messageSource.getMessage("category_save_success", new Object[]{}, locale)));
+        redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("category_save_success", new Object[]{}, locale)));
         categoryService.save(category);
-        return "redirect:/categories"+UrlUtil.encodeUrlPathSegment(category.getId().toString(), httpServletRequest);
+        return "redirect:/categories/"+UrlUtil.encodeUrlPathSegment(category.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping (value = "/{id}", params = "form", method = RequestMethod.GET)
@@ -99,8 +99,6 @@ public class CategoryController {
     }
     
     @RequestMapping (value="/{id}", params="form", method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    //@ResponseBody
     public  String delete (@PathVariable ("id") Long id) {
         LOGGER.info("Deleting category");
         Category category = categoryService.findById(id);

@@ -28,7 +28,7 @@
               <tbody>
                   <c:forEach items="${categories}" var="category">
                       <tr>
-                          <td><a href="${editCategoryUrl}/${category.id}?form">${category.category}</a></td>
+                          <td><a href="${editCategoryUrl}/${category.id}">${category.category}</a></td>
                       </tr>
                   </c:forEach>
               </tbody>

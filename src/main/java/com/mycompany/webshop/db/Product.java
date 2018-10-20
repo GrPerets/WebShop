@@ -6,11 +6,14 @@
 package com.mycompany.webshop.db;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -37,6 +40,8 @@ public class Product implements Serializable{
     private String category;
     private String manufacturer;
     private Double price;
+    private String description;
+    private byte[] photo;
 
     @Id
     @GeneratedValue (strategy = IDENTITY)
@@ -94,6 +99,29 @@ public class Product implements Serializable{
     public void setPrice(Double price) {
         this.price = price;
     }
+
+    @Column (name = "DESCRIPTION")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Basic (fetch = FetchType.LAZY)
+    @Lob
+    @Column (name="PHOTO")
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
+    
+    
+    
     
     @Override
     public String toString() {

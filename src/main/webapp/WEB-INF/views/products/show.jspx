@@ -19,6 +19,8 @@
     <spring:message code="label_product_category" var="labelProductCategory" />
     <spring:message code="label_product_manufacturer" var="labelProductManufacturer" />
     <spring:message code="label_product_price" var="labelProductPrice" />
+    <spring:message code="label_product_description" var="labelProductDescription" />
+    <spring:message code="label_product_photo" var="labelProductPhoto" />
     <spring:message code="label_product_update" var="labelProductUpdate" />
     <spring:url value="/products" var="editProductUrl" />
     
@@ -43,6 +45,10 @@
                 <tr>
                     <td>${labelProductPrice}</td>
                     <td>${product.price}</td>
+                </tr>
+                <tr>
+                    <td>${labelProductDescription}</td>
+                    <td>${product.description}</td>
                 </tr>
             </table>
             <a href="${editProductUrl}/${product.id}?form">${labelProductUpdate}</a>
