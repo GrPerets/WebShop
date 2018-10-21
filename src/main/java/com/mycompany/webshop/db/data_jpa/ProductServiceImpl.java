@@ -14,6 +14,8 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +39,7 @@ public class ProductServiceImpl implements ProductService {
         return Lists.newArrayList(productRepository.findAll());
     }
     
+    @Transactional (readOnly=true)
     @Override
     public Product findById(Long id) {
         return productRepository.findOne(id);
@@ -63,11 +66,19 @@ public class ProductServiceImpl implements ProductService {
     public void delete(Long id) {
         productRepository.delete(id);
     }
+    
+    @Transactional (readOnly=true)
+    @Override
+    public Page<Product> findAllByPage(Pageable pageable) {
+        return productRepository.findAll(pageable);
+    }
 
     @Autowired
     public void setProductRepository(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
+
+    
 
     
     

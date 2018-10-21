@@ -17,34 +17,58 @@
     <spring:message code="label_product_category" var="labelProductCategory"/>
     <spring:message code="label_product_manufacturer" var="labelProductManufacturer"/>
     <spring:message code="label_product_price" var="labelProductPrice"/>
-    <spring:url value="/products" var="showProductUrl" />
+    <spring:message code="label_product_date_last_modified" var="labelDateLastModified" />
+    <spring:url value="/products/" var="showProductUrl" />
+    
+    <script type="text/javascript">
+        $(function(){
+            $("#list").jqGrid({
+                url: '${showProductUrl}/listgrid',
+                datatype: 'json',
+                mtype: 'GET',
+                colNames: ['${labelProductModel}', '${labelProductCategory}', '${labelProductManufacturer}', '${labelProductPrice}', '${labelDateLastModified}'],
+                colModel: [
+                    {name: 'model', index: 'model', width: 150},
+                    {name: 'category', index: 'category', width: 100},
+                    {name: 'manufacturer', index: 'manufacturer', width: 100},
+                    {name: 'price', index: 'price', width: 100},
+                    {name: 'dateLastModified', index: 'dateLastModified', width: 100}
+                    
+                ],
+                jsonReader: {
+                    root: "productData",
+                    page: "currentPage",
+                    total: "totalPages",
+                    records: "totalRecords",
+                    repeatitems: false,
+                    id: "id"
+                },
+                pager: '#pager',
+                rowNum: 10,
+                rowList: [10, 20, 30],
+                sortname: 'model',
+                sortorder: 'asc',
+                viewrecords: true,
+                gridview: true,
+                height: 250,
+                width: 500,
+                caption: '${labelProductList}',
+                onSelectRow: function(id){
+                    document.location.href = "${showProductUrl}/" + id;
+                }
+            });
+        });
+    </script>
+    <c:if test="${not empty message}">
+        <div id="message" class="${message.type}">${message.message}</div>
+    </c:if>
         
-    <h1>${labelProductList}</h1>
-    <c:if test="${not empty products}">
-        <table>
-            <thead>
-                <tr>
-                    <th>${labelProductModel}</th>
-                    <th>${labelProductCategory}</th>
-                    <th>${labelProductManufacturer}</th>
-                    <th>${labelProductPrice}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach items="${products}" var="product" >
-                    <tr>
-                        <td>
-                            <a href="${showProductUrl}/${product.id}">${product.model}</a>
-                        </td>
-                        <td>${product.category}</td>
-                        <td>${product.manufacturer}</td>
-                        <td>${product.price}</td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-   </c:if>
-
+    <h2>${labelProductList}</h2>
+    <div>
+        <table id="list"><tr><td/></tr></table>
+    </div>
+    <div id="pager"></div>
+    
     <!-- any content can be specified here, e.g.: -->
     
 

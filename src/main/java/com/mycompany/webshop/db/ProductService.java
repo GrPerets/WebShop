@@ -6,6 +6,8 @@
 package com.mycompany.webshop.db;
 
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  *
@@ -18,4 +20,5 @@ public interface ProductService {
     List<Product> findByCategoryAndManufacturer (String category, String manufacturer);
     Product save (Product product);
     void delete (Long id);
+    Page<Product> findAllByPage(Pageable pageable);
 }

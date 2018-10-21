@@ -17,7 +17,12 @@ import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 /**
  *
@@ -42,6 +47,7 @@ public class Product implements Serializable{
     private Double price;
     private String description;
     private byte[] photo;
+    private DateTime dateLastModified;
 
     @Id
     @GeneratedValue (strategy = IDENTITY)
@@ -120,6 +126,24 @@ public class Product implements Serializable{
         this.photo = photo;
     }
     
+    @Column (name="DATE_LAST_MODIFIED")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @DateTimeFormat (iso =ISO.DATE)
+    public DateTime getDateLastModified() {
+        return dateLastModified;
+    }
+
+    public void setDateLastModified(DateTime dateLastModified) {
+        this.dateLastModified = dateLastModified;
+    }
+    
+    @Transient
+    public String getDateLastModifiedString (){
+        String dateLastModifiedString = "";
+        if (dateLastModified != null)
+            dateLastModifiedString = org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd").print(dateLastModified);
+        return dateLastModifiedString;
+    }
     
     
     
@@ -127,5 +151,7 @@ public class Product implements Serializable{
     public String toString() {
         return "Product - Id: "+id+", Model: "+model+", Category: "+category+", Manufacturer: "+manufacturer+", Price: "+price;
     }
+
+    
     
 }
