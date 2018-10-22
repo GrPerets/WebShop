@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -40,8 +41,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  *
  * @author grperets
  */
-@RequestMapping("/products")
 @Controller
+//@EnableWebMvc
+@RequestMapping("/products")
 public class ProductController {
     private final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
     private ProductService productService;
@@ -58,10 +60,14 @@ public class ProductController {
         return "products/list";
     }
     
+    
     @RequestMapping (value = "/listgrid", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public ProductGrid listGrid(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "rows", required = false) Integer rows,
-            @RequestParam(value = "sidx", required = false) String sortBy, @RequestParam(value = "sort", required = false) String order) {
+    public ProductGrid<Product> listGrid(
+            @RequestParam(value = "page", defaultValue = "1", required = false) Integer page,
+            @RequestParam(value = "rows", defaultValue = "10", required = false) Integer rows,
+            @RequestParam(value = "sidx", defaultValue = "id", required = false) String sortBy,
+            @RequestParam(value = "sord", defaultValue = "ASC", required = false) String order) {
         LOGGER.info("Licting products for grid with page: {}, rows: {}", page, rows);
         LOGGER.info("Listing products for grid with sort: {}, order: {}", sortBy, order);
         Sort sort = null;
@@ -69,11 +75,12 @@ public class ProductController {
         
         if (orderBy != null && orderBy.equals("dateLastModifiedString"))
             orderBy = "dateLastModified";
+                 
         if (orderBy != null && order != null) {
             if (order.equals("desc")) {
                 sort = new Sort (Sort.Direction.DESC, orderBy);
             } else sort = new Sort(Sort.Direction.ASC, orderBy);
-        }
+                }
         PageRequest pageRequest = null;
         if (sort != null) {
             pageRequest = new PageRequest (page - 1, rows, sort);
@@ -81,17 +88,18 @@ public class ProductController {
             pageRequest = new PageRequest (page - 1, rows);
         }
         
+        
         Page<Product> productPage = productService.findAllByPage(pageRequest);
         //JSON grid
-        ProductGrid productGrid = new ProductGrid();
+        ProductGrid<Product> productGrid = new ProductGrid<>();
         productGrid.setCurrentPage(productPage.getNumber() + 1);
         productGrid.setTotalPages(productPage.getTotalPages());
         productGrid.setTotalRecords(productPage.getTotalElements());
         productGrid.setProductData(Lists.newArrayList(productPage.iterator()));
         
-        LOGGER.info("No. of products>>>>: " + productGrid.getProductData().size());
         return productGrid;
     }
+    
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET )
     public String show (@PathVariable("id") Long id, Model uiModel) {

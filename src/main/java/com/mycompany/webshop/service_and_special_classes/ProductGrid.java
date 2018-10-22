@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author grperets
  */
-public class ProductGrid {
+public class ProductGrid<Product> {
     private int totalPages;
     private int currentPage;
     private long totalRecords;

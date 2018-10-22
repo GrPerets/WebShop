@@ -21,31 +21,34 @@
     <spring:url value="/products/" var="showProductUrl" />
     
     <script type="text/javascript">
+        //<![CDATA[
         $(function(){
             $("#list").jqGrid({
-                url: '${showProductUrl}/listgrid',
+                url: '${showProductUrl}listgrid',
                 datatype: 'json',
                 mtype: 'GET',
-                colNames: ['${labelProductModel}', '${labelProductCategory}', '${labelProductManufacturer}', '${labelProductPrice}', '${labelDateLastModified}'],
+                contentType: "application/json; charset=utf-8",
+                colNames: ['${labelProductModel}', '${labelProductCategory}', '${labelProductManufacturer}', '${labelProductPrice}'],
                 colModel: [
-                    {name: 'model', index: 'model', width: 150},
+                    {name: 'model', index: 'model', width: 100},
                     {name: 'category', index: 'category', width: 100},
                     {name: 'manufacturer', index: 'manufacturer', width: 100},
-                    {name: 'price', index: 'price', width: 100},
-                    {name: 'dateLastModified', index: 'dateLastModified', width: 100}
-                    
+                    {name: 'price', index: 'price', width: 100}
+                                                            
                 ],
                 jsonReader: {
-                    root: "productData",
+                    root:"productData",
                     page: "currentPage",
                     total: "totalPages",
                     records: "totalRecords",
                     repeatitems: false,
                     id: "id"
+                                                          
                 },
                 pager: '#pager',
                 rowNum: 10,
                 rowList: [10, 20, 30],
+                loadonce: false,
                 sortname: 'model',
                 sortorder: 'asc',
                 viewrecords: true,
@@ -58,6 +61,7 @@
                 }
             });
         });
+        //]]>
     </script>
     <c:if test="${not empty message}">
         <div id="message" class="${message.type}">${message.message}</div>
@@ -68,8 +72,4 @@
         <table id="list"><tr><td/></tr></table>
     </div>
     <div id="pager"></div>
-    
-    <!-- any content can be specified here, e.g.: -->
-    
-
 </div>

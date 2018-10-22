@@ -6,11 +6,13 @@ import com.mycompany.webshop.db.Product;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
+import org.joda.time.DateTime;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(Product.class)
 public abstract class Product_ {
 
+	public static volatile SingularAttribute<Product, DateTime> dateLastModified;
 	public static volatile SingularAttribute<Product, Double> price;
 	public static volatile SingularAttribute<Product, String> description;
 	public static volatile SingularAttribute<Product, byte[]> photo;
@@ -20,6 +22,7 @@ public abstract class Product_ {
 	public static volatile SingularAttribute<Product, Integer> version;
 	public static volatile SingularAttribute<Product, String> manufacturer;
 
+	public static final String DATE_LAST_MODIFIED = "dateLastModified";
 	public static final String PRICE = "price";
 	public static final String DESCRIPTION = "description";
 	public static final String PHOTO = "photo";

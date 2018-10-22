@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Document   : news
+    Created on : 19 жовт. 2018, 22:49:57
+    Author     : grperets
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:joda="http://www.joda.org/time/joda/tags"
+          version="2.0">
+
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+    
+    <spring:message code="label_home_new_products" var="labelHomeNewProducts" />
+    <spring:message code="label_product_model" var="labelProductModel" />
+    <spring:message code="label_product_category" var="labelProductCategory" />
+    <spring:message code="label_product_manufacturer" var="labelProductManufacturer" />
+    <spring:message code="label_product_price" var="labelProductPrice" />
+    <spring:url value="/products" var="showProductUrl" />
+    
+    <h1>${labelHomeNewProducts}</h1>
+    
+    <c:if test="${not empty products}" >
+        <table>
+            <thead>
+                <tr>
+                    <th>${labelProductModel}</th>
+                    <th>${labelProductCategory}</th>
+                    <th>${labelProductManufacturer}</th>
+                    <th>${labelProductPrice}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${products}" var="product" >
+                    <tr>
+                        <td>
+                            <a href="${showProductUrl}/${product.id}">${product.model}</a>
+                            </td>
+                        <td>${product.category}</td>
+                        <td>${product.manufacturer}</td>
+                        <td>${product.price}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </c:if>
+</jsp:root>
