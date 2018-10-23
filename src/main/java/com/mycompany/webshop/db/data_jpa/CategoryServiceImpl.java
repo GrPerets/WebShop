@@ -6,9 +6,9 @@
 package com.mycompany.webshop.db.data_jpa;
 
 import com.google.common.collect.Lists;
-import com.mycompany.webshop.db.Category;
-import com.mycompany.webshop.db.CategoryRepository;
-import com.mycompany.webshop.db.CategoryService;
+import com.mycompany.webshop.db.category.Category;
+import com.mycompany.webshop.db.category.CategoryRepository;
+import com.mycompany.webshop.db.category.CategoryService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

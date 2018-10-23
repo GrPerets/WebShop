@@ -18,13 +18,13 @@
     <spring:message code="label_product_manufacturer" var="labelProductManufacturer"/>
     <spring:message code="label_product_price" var="labelProductPrice"/>
     <spring:message code="label_product_date_last_modified" var="labelDateLastModified" />
-    <spring:url value="/products/" var="showProductUrl" />
+    <spring:url value="/products" var="showProductUrl" />
     
     <script type="text/javascript">
         //<![CDATA[
         $(function(){
             $("#list").jqGrid({
-                url: '${showProductUrl}listgrid',
+                url: '${showProductUrl}/listgrid',
                 datatype: 'json',
                 mtype: 'GET',
                 contentType: "application/json; charset=utf-8",

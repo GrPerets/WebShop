@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.webshop.db.jpa;
+package com.mycompany.webshop.db.product.jpa;
 
-import com.mycompany.webshop.db.JpaProductDao;
-import com.mycompany.webshop.db.Product;
+import com.mycompany.webshop.db.product.Product;
 import com.mycompany.webshop.db.metamodels.Product_;
 import java.util.List;
 import javax.persistence.EntityManager;

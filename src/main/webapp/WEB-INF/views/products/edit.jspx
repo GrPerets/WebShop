@@ -37,7 +37,7 @@
     
     <h1>${formTitle}</h1>
     <div id="productUpdate">
-        <form:form modelAttribute="product" id="productUpdateForm" method="post">
+        <form:form modelAttribute="product" id="productUpdateForm" method="post" enctype="multipart/form-data">
             <c:if test="${not empty message}">
                 <div id="message" class="${message.type}">${message.message}</div>
             </c:if>
@@ -86,6 +86,13 @@
                     <form:errors path="description" cssClass="error" />
                 </div>
                 <p/>
+                
+                <label for="file">
+                    ${labelProductPhoto}
+                </label>
+                <input name="file" type="file" />
+                <p/>
+                
                 <form:hidden path="version" />
                 
                 <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Save</span></button>

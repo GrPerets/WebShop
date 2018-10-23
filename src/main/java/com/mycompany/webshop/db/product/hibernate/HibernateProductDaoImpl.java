@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.webshop.db.hibernate;
+package com.mycompany.webshop.db.product.hibernate;
 
-import com.mycompany.webshop.db.HibernateProductDao;
-import com.mycompany.webshop.db.Product;
+import com.mycompany.webshop.db.product.Product;
 import java.util.List;
-import javax.annotation.Resource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;

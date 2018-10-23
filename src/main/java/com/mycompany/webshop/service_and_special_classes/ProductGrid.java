@@ -5,7 +5,7 @@
  */
 package com.mycompany.webshop.service_and_special_classes;
 
-import com.mycompany.webshop.db.Product;
+import com.mycompany.webshop.db.product.Product;
 import java.util.List;
 
 /**

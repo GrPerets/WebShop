@@ -6,9 +6,9 @@
 package com.mycompany.webshop.db.data_jpa;
 
 import com.google.common.collect.Lists;
-import com.mycompany.webshop.db.Manufacturer;
-import com.mycompany.webshop.db.ManufacturerRepository;
-import com.mycompany.webshop.db.ManufacturerService;
+import com.mycompany.webshop.db.manufacturer.Manufacturer;
+import com.mycompany.webshop.db.manufacturer.ManufacturerRepository;
+import com.mycompany.webshop.db.manufacturer.ManufacturerService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

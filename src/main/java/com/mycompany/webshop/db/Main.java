@@ -5,6 +5,9 @@
  */
 package com.mycompany.webshop.db;
 
+import com.mycompany.webshop.db.product.Product;
+import com.mycompany.webshop.db.manufacturer.Manufacturer;
+import com.mycompany.webshop.db.category.Category;
 import java.util.List;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
@@ -117,7 +120,7 @@ public class Main {
         ProductService productService = ctx.getBean("productService", ProductService.class);
         listProducts(productService.findAll());
         listProducts(productService.findByCategoryAndManufacturer("monitor","samsung"));
-        listProducts(productService.findByModel("hg530"));
+        System.out.println(productService.findByModel("hg530"));
         */
         /*
         CategoryService categoryService = ctx.getBean("categoryService", CategoryService.class);

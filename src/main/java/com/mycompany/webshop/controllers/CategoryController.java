@@ -5,8 +5,8 @@
  */
 package com.mycompany.webshop.controllers;
 
-import com.mycompany.webshop.db.Category;
-import com.mycompany.webshop.db.CategoryService;
+import com.mycompany.webshop.db.category.Category;
+import com.mycompany.webshop.db.category.CategoryService;
 import com.mycompany.webshop.service_and_special_classes.Message;
 import com.mycompany.webshop.service_and_special_classes.UrlUtil;
 import java.util.List;

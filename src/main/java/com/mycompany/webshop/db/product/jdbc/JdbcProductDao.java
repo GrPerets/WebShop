@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.webshop.db;
+package com.mycompany.webshop.db.product.jdbc;
+
+import com.mycompany.webshop.db.product.ProductDao;
+import com.mycompany.webshop.db.product.Product;
 
 /**
  *

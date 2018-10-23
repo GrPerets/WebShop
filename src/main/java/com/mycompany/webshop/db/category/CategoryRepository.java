@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.webshop.db;
+package com.mycompany.webshop.db.category;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -11,6 +11,6 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author grperets
  */
-public interface ManufacturerRepository extends CrudRepository <Manufacturer, Long> {
+public interface CategoryRepository extends CrudRepository <Category, Long> {
     
 }

@@ -6,10 +6,10 @@
 package com.mycompany.webshop.db.data_jpa;
 
 import com.google.common.collect.Lists;
-import com.mycompany.webshop.db.Product;
-import com.mycompany.webshop.db.ProductRepository;
-import com.mycompany.webshop.db.ProductService;
-import com.mycompany.webshop.db.jpa.JpaProductDaoImpl;
+import com.mycompany.webshop.db.product.Product;
+import com.mycompany.webshop.db.product.ProductRepository;
+import com.mycompany.webshop.db.product.ProductService;
+import com.mycompany.webshop.db.product.jpa.JpaProductDaoImpl;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -29,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ProductServiceImpl implements ProductService {
     
-    private Log LOG = LogFactory.getLog(JpaProductDaoImpl.class);
+    private Log LOG = LogFactory.getLog(ProductServiceImpl.class);
     
     private ProductRepository productRepository;
 
@@ -47,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional(readOnly=true)
     @Override
-    public List<Product> findByModel(String model) {
+    public Product findByModel(String model) {
         return productRepository.findByModel(model);
     }
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.webshop.db;
+package com.mycompany.webshop.db.product;
 
 import java.util.List;
 import org.springframework.data.domain.Page;
@@ -16,7 +16,7 @@ import org.springframework.data.domain.Pageable;
 public interface ProductService {
     List<Product> findAll();
     Product findById(Long id);
-    List<Product> findByModel(String model);
+    Product findByModel(String model);
     List<Product> findByCategoryAndManufacturer (String category, String manufacturer);
     Product save (Product product);
     void delete (Long id);

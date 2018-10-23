@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.webshop.db;
+package com.mycompany.webshop.db.product.jpa;
 
+import com.mycompany.webshop.db.product.hibernate.HibernateProductDao;
+import com.mycompany.webshop.db.product.Product;
 import java.util.List;
 
 /**

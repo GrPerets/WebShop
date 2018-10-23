@@ -6,15 +6,17 @@
 package com.mycompany.webshop.controllers;
 
 import com.google.common.collect.Lists;
-import com.mycompany.webshop.db.Category;
-import com.mycompany.webshop.db.CategoryService;
-import com.mycompany.webshop.db.Manufacturer;
-import com.mycompany.webshop.db.ManufacturerService;
-import com.mycompany.webshop.db.Product;
-import com.mycompany.webshop.db.ProductService;
+import com.mycompany.webshop.db.category.Category;
+import com.mycompany.webshop.db.category.CategoryService;
+import com.mycompany.webshop.db.manufacturer.Manufacturer;
+import com.mycompany.webshop.db.manufacturer.ManufacturerService;
+import com.mycompany.webshop.db.product.Product;
+import com.mycompany.webshop.db.product.ProductService;
 import com.mycompany.webshop.service_and_special_classes.Message;
 import com.mycompany.webshop.service_and_special_classes.ProductGrid;
 import com.mycompany.webshop.service_and_special_classes.UrlUtil;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +35,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import javax.servlet.http.Part;
+import org.apache.commons.io.IOUtils;
+import org.joda.time.DateTime;
 
 
 /**
@@ -42,7 +46,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author grperets
  */
 @Controller
-//@EnableWebMvc
 @RequestMapping("/products")
 public class ProductController {
     private final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
@@ -109,7 +112,10 @@ public class ProductController {
     }
     
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.POST )
-    public String update (Product product, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale) {
+    public String update (Product product, BindingResult bindingResult,
+                            Model uiModel, HttpServletRequest httpServletRequest,
+                            RedirectAttributes redirectAttributes, Locale locale,
+                            @RequestParam (value = "file", required = false) Part file) {
         LOGGER.info("Updating product");
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("message", new Message("error", messageSource.getMessage("product_save_fail", new Object[]{}, locale)));
@@ -118,6 +124,25 @@ public class ProductController {
     }
     uiModel.asMap().clear();
     redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("product_save_success", new Object[]{}, locale)));
+    LOGGER.info("Product id: " + product.getId());
+    
+    if(file != null) {
+            LOGGER.info("File name: " + file.getName());
+            LOGGER.info("File size: " + file.getSize());
+            LOGGER.info("File content type: " + file.getContentType());
+            byte[] fileContent = null;
+            try {
+                InputStream inputStream = file.getInputStream();
+                if (inputStream == null) LOGGER.info("File inputstream is null");
+                fileContent = IOUtils.toByteArray(inputStream);
+                product.setPhoto(fileContent);
+            } catch (IOException ex) {
+                LOGGER.error("Error saving uploaded file");
+            }
+            product.setPhoto(fileContent);
+            
+        }
+    product.setDateLastModified(new DateTime());
     productService.save(product);
     return "redirect:/products/" + UrlUtil.encodeUrlPathSegment(product.getId().toString(), httpServletRequest);
     }
@@ -133,8 +158,11 @@ public class ProductController {
         return "products/update";
     }
     
-    @RequestMapping (params = "form", method = RequestMethod.POST)
-    public String create (Product product, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale) {
+    @RequestMapping (params = "form",  method = RequestMethod.POST)
+    public String create (Product product, BindingResult bindingResult,
+                            Model uiModel, HttpServletRequest httpServletRequest,
+                            RedirectAttributes redirectAttributes, Locale locale,
+                            @RequestParam (value = "file", required = false) Part file) {
         LOGGER.info("Creating product");
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("message", new Message ("error", messageSource.getMessage("product_save_fail", new Object[] {}, locale)));
@@ -144,8 +172,35 @@ public class ProductController {
         uiModel.asMap().clear();
         redirectAttributes.addFlashAttribute("message", new Message ("success", messageSource.getMessage("product_save_success", new Object[]{}, locale)));
         LOGGER.info("Product id: " + product.getId());
+        
+        if(file != null) {
+            LOGGER.info("File name: " + file.getName());
+            LOGGER.info("File size: " + file.getSize());
+            LOGGER.info("File content type: " + file.getContentType());
+            byte[] fileContent = null;
+            try {
+                InputStream inputStream = file.getInputStream();
+                if (inputStream == null) LOGGER.info("File inputstream is null");
+                fileContent = IOUtils.toByteArray(inputStream);
+                product.setPhoto(fileContent);
+            } catch (IOException ex) {
+                LOGGER.error("Error saving uploaded file");
+            }
+            product.setPhoto(fileContent);
+        } 
+        product.setDateLastModified(new DateTime());
         productService.save(product);
         return "redirect:/products/" + UrlUtil.encodeUrlPathSegment(product.getId().toString(), httpServletRequest);
+    }
+    
+    @RequestMapping (value = "/photo/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public byte[] downloadPhoto (@PathVariable ("id") Long id) {
+        Product product = productService.findById(id);
+        if (product.getPhoto() != null) {
+            LOGGER.info("Downloading photo for id: {} with size: {}", product.getId(), product.getPhoto().length);
+        }
+        return product.getPhoto();
     }
     
     @RequestMapping (params ="form", method = RequestMethod.GET)

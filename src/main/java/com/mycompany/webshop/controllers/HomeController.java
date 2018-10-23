@@ -6,8 +6,8 @@
 package com.mycompany.webshop.controllers;
 
 import com.google.common.collect.Lists;
-import com.mycompany.webshop.db.Product;
-import com.mycompany.webshop.db.ProductService;
+import com.mycompany.webshop.db.product.Product;
+import com.mycompany.webshop.db.product.ProductService;
 import com.mycompany.webshop.service_and_special_classes.ProductGrid;
 import java.util.List;
 import org.slf4j.Logger;

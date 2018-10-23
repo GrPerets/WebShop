@@ -23,6 +23,8 @@
     <spring:message code="label_product_photo" var="labelProductPhoto" />
     <spring:message code="label_product_update" var="labelProductUpdate" />
     <spring:url value="/products" var="editProductUrl" />
+    <spring:url value="/products/photo" var="productPhotoUrl" />
+    
     
     <h1>${labelProductInfo}</h1>
     <div id="productInfo">
@@ -30,6 +32,10 @@
             <div id="message" class="${message.type}">${message.message}</div>
         </c:if>
             <table>
+                <tr>
+                    <td>${labelProductPhoto}</td>
+                    <td><img src="${productPhotoUrl}/${product.id}"></img></td>
+                </tr>
                 <tr>
                     <td>${labelProductModel}</td>
                     <td>${product.model}</td>

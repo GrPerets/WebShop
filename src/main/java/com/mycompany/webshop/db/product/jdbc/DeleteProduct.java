@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.webshop.db.jdbc;
+package com.mycompany.webshop.db.product.jdbc;
 
 import java.sql.Types;
 import javax.sql.DataSource;
