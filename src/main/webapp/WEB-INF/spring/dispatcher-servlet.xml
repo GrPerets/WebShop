@@ -13,7 +13,7 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd" >
 
-    <mvc:annotation-driven />
+    <mvc:annotation-driven validator="validator" />
     <mvc:resources mapping="/resources/**" location="/, classpath:/META-INF/web-resources/" />
     
     <mvc:default-servlet-handler />    
@@ -70,6 +70,10 @@
     
     <!-- Load files -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
+    
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="validationMessageSource" ref="messageSource" />
+    </bean>
 
     <context:component-scan base-package="com.mycompany.webshop" />
     

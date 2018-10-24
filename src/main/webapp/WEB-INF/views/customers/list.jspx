@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Document   : list
+    Created on : 24 жовт. 2018, 21:10:24
+    Author     : grperets
+-->
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:joda="http://www.joda.org/joda/time/tags"
+     version="2.0">
+
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+
+    <spring:message code="label_customer_list" var="labelCustomerList"/>
+    <spring:message code="label_customer_phone_number" var="labelCustomerPhoneNumber" />
+    <spring:message code="label_customer_first_name" var="labelCustomerFirstName" />
+    <spring:message code="label_customer_last_name" var="labelCustomerLastName" />
+    <spring:message code="label_customer_email" var="labelCustomerEmail" />
+    <spring:message code="label_customer_address" var="labelCustomerAddress" />
+    <spring:message code="label_Customer_birth_date" var="labelCustomerBirthDate" />
+    
+    
+
+</div>

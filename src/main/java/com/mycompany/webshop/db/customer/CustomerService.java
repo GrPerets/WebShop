@@ -14,8 +14,7 @@ import java.util.List;
 public interface CustomerService {
     List<Customer> findAll();
     Customer findById(Long id);
-    Customer findByPhone(String phone);
-    Customer findByLogin(String login);
+    Customer findByPhoneNumber(String phoneNumber);
     Customer save(Customer customer);
     void delete(Long id); 
     

@@ -12,6 +12,5 @@ import org.springframework.data.repository.CrudRepository;
  * @author grperets
  */
 public interface CustomerRepository extends CrudRepository<Customer, Long>{
-    Customer findByPhone(String phone);
-    Customer findByLogin(String login);
+    Customer findByPhoneNumber(String phoneNumber);
 }

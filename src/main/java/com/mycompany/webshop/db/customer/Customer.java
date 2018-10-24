@@ -14,7 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+import javax.validation.constraints.Size;
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -28,9 +30,8 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 public class Customer implements Serializable {
     private Long id;
     private int version;
-    private String phone;
+    private String phoneNumber;
     private String password;
-    private String login;
     private String firstName;
     private String lastName;    
     private String email;
@@ -58,15 +59,19 @@ public class Customer implements Serializable {
         this.version = version;
     }
 
-    @Column (name = "PHONE")
-    public String getPhone() {
-        return phone;
+    @NotEmpty (message = "{validation.phonenumber.NotEmpty.message}")
+    @Size (min=10, max=13, message="{validation.phonenumber.Size.message}")
+    @Column (name = "PHONE_NUMBER")
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
+    @NotEmpty (message = "{validation.password.NotEmpty.message}")
+    @Size (min=6, message = "{validation.password.Size.message}")
     @Column (name = "PASSWORD")
     public String getPassword() {
         return password;
@@ -76,15 +81,6 @@ public class Customer implements Serializable {
         this.password = password;
     }
 
-    @Column (name = "LOGIN")
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-    
     @Column (name = "FIRST_NAME")
     public String getFirstName() {
         return firstName;
@@ -103,6 +99,7 @@ public class Customer implements Serializable {
         this.lastName = lastName;
     }
 
+    @NotEmpty (message ="{validation.email.NotEmpty.message}")
     @Column (name = "EMAIL")
     public String getEmail() {
         return email;

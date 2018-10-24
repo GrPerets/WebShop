@@ -42,14 +42,8 @@ public class CustomerServiceImpl implements CustomerService {
     
     @Transactional (readOnly=true)
     @Override
-    public Customer findByPhone(String phone) {
-        return customerRepository.findByPhone(phone);
-    }
-
-    @Transactional (readOnly = true)
-    @Override
-    public Customer findByLogin(String login) {
-        return customerRepository.findByLogin(login);
+    public Customer findByPhoneNumber(String phoneNumber) {
+        return customerRepository.findByPhoneNumber(phoneNumber);
     }
 
     @Override
