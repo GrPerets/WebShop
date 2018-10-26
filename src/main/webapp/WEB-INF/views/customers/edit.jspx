@@ -9,7 +9,7 @@
      xmlns:spring="http://www.springframework.org/tags"
      xmlns:form="http://www.springframework.org/tags/form"
      version="2.0">
-
+    
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
     <jsp:output omit-xml-declaration="yes" />
     
@@ -24,6 +24,15 @@
     <spring:message code="label_customer_birth_date" var="labelCustomerBirthDate" />
     
     <spring:eval expression="customer.id == null ? labelCustomerNew : labelCustomerUpdate" var="formTitle" />
+    
+    <script type="text/javascript">
+        $(function(){
+            $('birthDate').datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeYear: true
+            });
+        });
+    </script>
     
     <h1>${formTitle}</h1>
     <div id="customerUpdate">
@@ -88,9 +97,12 @@
             </div>
             <p/>
             <form:hidden path="version" />
-            <button type="submit">Save</button>
-            <button type="reset">Reset</button>
-                
+            
+            <button type="submit" class="ui-button ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Save</span></button>
+            <button type="reset" class="ui-button ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Reset</span></button>
+        </form:form>
+        <form:form method="delete">
+            <button id="customerDeleteForm" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Delete</span></button>
         </form:form>
     </div>
 </div>

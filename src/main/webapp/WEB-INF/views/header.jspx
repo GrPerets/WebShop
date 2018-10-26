@@ -14,16 +14,16 @@
 
     <spring:message code="header_text" var="headerText" />
     <spring:message code="label_logout" var="labelLogout" />
-    <spring:message code="label_welcome" var="labelWelcom" />
-    <spring:url value="/j_spring_security_logout" var="logoutUrl" />
+    <spring:message code="label_welcome" var="labelWelcome" />
+    <spring:url value="/logout" var="logoutUrl" />
     
     <div id="appname">
         <h1>${headerText}</h1>
     </div>
     
     <div id="userinfo">
-        <sec:authorize access="isAuthenticated()">${labelWelcom}
-            <sec:authentication property="principial.username" />
+        <sec:authorize access="isAuthenticated()">${labelWelcome}
+            <sec:authentication property="principal.username" />
             <br/>
             <a href="${logoutUrl}">${labelLogout}</a>
         </sec:authorize>

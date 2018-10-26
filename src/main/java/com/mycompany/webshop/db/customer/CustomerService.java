@@ -6,6 +6,8 @@
 package com.mycompany.webshop.db.customer;
 
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  *
@@ -16,6 +18,7 @@ public interface CustomerService {
     Customer findById(Long id);
     Customer findByPhoneNumber(String phoneNumber);
     Customer save(Customer customer);
-    void delete(Long id); 
+    void delete(Long id);
+    Page<Customer> findAllByPage(Pageable pageable);
     
 }

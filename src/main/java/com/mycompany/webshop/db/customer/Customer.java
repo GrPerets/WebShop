@@ -59,8 +59,8 @@ public class Customer implements Serializable {
         this.version = version;
     }
 
-    @NotEmpty (message = "{validation.phonenumber.NotEmpty.message}")
-    @Size (min=10, max=13, message="{validation.phonenumber.Size.message}")
+    //@NotEmpty (message = "{validation.phonenumber.NotEmpty.message}")
+    //@Size (min=10, max=13, message="{validation.phonenumber.Size.message}")
     @Column (name = "PHONE_NUMBER")
     public String getPhoneNumber() {
         return phoneNumber;
@@ -70,8 +70,8 @@ public class Customer implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    @NotEmpty (message = "{validation.password.NotEmpty.message}")
-    @Size (min=6, message = "{validation.password.Size.message}")
+    //@NotEmpty (message = "{validation.password.NotEmpty.message}")
+    //@Size (min=6, message = "{validation.password.Size.message}")
     @Column (name = "PASSWORD")
     public String getPassword() {
         return password;
@@ -99,7 +99,7 @@ public class Customer implements Serializable {
         this.lastName = lastName;
     }
 
-    @NotEmpty (message ="{validation.email.NotEmpty.message}")
+    //@NotEmpty (message ="{validation.email.NotEmpty.message}")
     @Column (name = "EMAIL")
     public String getEmail() {
         return email;

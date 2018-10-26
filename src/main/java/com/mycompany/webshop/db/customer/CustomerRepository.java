@@ -5,12 +5,12 @@
  */
 package com.mycompany.webshop.db.customer;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  *
  * @author grperets
  */
-public interface CustomerRepository extends CrudRepository<Customer, Long>{
+public interface CustomerRepository extends PagingAndSortingRepository<Customer, Long>{
     Customer findByPhoneNumber(String phoneNumber);
 }

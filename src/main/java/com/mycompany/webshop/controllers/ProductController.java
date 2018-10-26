@@ -216,10 +216,10 @@ public class ProductController {
     
     @RequestMapping (value ="/{id}", params = "form", method = RequestMethod.DELETE)
     public String delete (@PathVariable("id") Long id) {
-        LOGGER.info("Deleting products");
+        LOGGER.info("Deleting product");
         productService.delete(id);
-        LOGGER.info("Delete product Id: " + id);
-        return "redirect:/products/";
+        LOGGER.info("Delete product with Id: " + id);
+        return "redirect:/products";
     }
     
 

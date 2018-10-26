@@ -9,6 +9,7 @@
       xmlns:fn="http://java.sun.com/jsp/jstl/functions"
       xmlns:tiles="http://tiles.apache.org/tags-tiles"
       xmlns:spring="http://www.springframework.org/tags"
+      xmlns:sec="http://www.springframework.org/security/tags"
       version="2.0">
     
     <jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
@@ -62,7 +63,10 @@
             <tiles:insertAttribute name="header" ignore="true" />
         </div>
         <div id="wrapper">
+            <div id="menu">
             <tiles:insertAttribute name="menu" ignore="true" />
+            <tiles:insertAttribute name="login" ignore="true" />
+            </div>
             <div id="main">
                 <tiles:insertAttribute name="body" ignore="true"/>
                 <tiles:insertAttribute name="footer" ignore="true" />

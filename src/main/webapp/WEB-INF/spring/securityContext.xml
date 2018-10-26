@@ -1,23 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:security="http://www.springframework.org/schema/security"
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           
 
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
     
-    <security:http use-expressions="true">
-        <security:intercept-url pattern="/*" access="permitAll" />
-        <security:form-login login-page="/customers" authentication-failure-url="/security/loginfail" default-target-url="/customers" />
-        <security:logout logout-success-url="/customers" />
-    </security:http>
     
-    <security:authentication-manager>
-        <security:authentication-provider>
-            <security:user-service>
-                <security:user name="user" password="user" authorities="ROLE_USER" />                
-            </security:user-service>
-        </security:authentication-provider>
-    </security:authentication-manager>
-
-</beans>
+    <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+     <!--
+    <beans:bean id="authProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <beans:property name="userDetailsService" ref="userDetailsServiceImpl" />
+        <beans:property name="passwordEncoder" ref="passwordEncoder" />
+    </beans:bean>
+        
+    -->
+    
+    <http auto-config="true" use-expressions="true">
+        <http-basic/>
+        <intercept-url pattern="/*" access="permitAll" />
+        <form-login login-processing-url="/login" 
+            login-page="/products" 
+            authentication-failure-url="/security/loginfail"
+            default-target-url="/products"
+            username-parameter="username"
+            password-parameter="password"/>
+        <logout logout-url="/logout"
+            logout-success-url="/" />
+        <csrf disabled="true"/>
+    </http>
+    
+    
+    <authentication-manager>
+        <authentication-provider user-service-ref="userService" />
+    </authentication-manager>
+    
+    <!--
+    <user-service id="userService">
+        <user name="user" password="user" authorities="ROLE_USER" />                
+    </user-service>
+    -->
+    
+           
+    <jdbc-user-service id="userService" data-source-ref="dataSource"
+         users-by-username-query="select phone_number, password, enabled from customer where phone_number=?"
+         authorities-by-username-query="select phone_number, authority from customer where phone_number=?" />
+    
+    
+</beans:beans>
