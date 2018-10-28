@@ -16,6 +16,7 @@
     <spring:message code="label_logout" var="labelLogout" />
     <spring:message code="label_welcome" var="labelWelcome" />
     <spring:url value="/logout" var="logoutUrl" />
+    <spring:url value="/basket" var="basketUrl" />
     
     <div id="appname">
         <h1>${headerText}</h1>
@@ -27,7 +28,7 @@
             <br/>
             <a href="${logoutUrl}">${labelLogout}</a>
         </sec:authorize>
-        <form action="./basket" method="get">
+        <form action="${basketUrl}" method="get">
             <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Basket</span></button>
         </form>
             

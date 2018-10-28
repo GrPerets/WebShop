@@ -4,14 +4,57 @@
     Created on : 28 жовт. 2018, 12:39:33
     Author     : grperets
 -->
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:joda="http://www.joda.org/joda/time/tags"
+     xmlns:sec="http://www.springframework.org/security/tags"
+     version="2.0">
 
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+    
+    <spring:message code="label_basket_info" var="labelBascetInfo" />
+    <spring:message code="label_basket_id" var="labelBasketId" />
+    <spring:message code="label_basket_order_date" var="labelbasketOrderDate" />
+    <spring:message code="label_basket_enabled" var="labelBasketEnabled" />
+    <spring:message code="label_product_price" var="labelProductPrice" />
+    <spring:message code="label_product_description" var="labelProductDescription" />
+    <spring:message code="label_product_photo" var="labelProductPhoto" />
+    <spring:message code="label_product_update" var="labelProductUpdate" />
+    <spring:url value="/products" var="editProductUrl" />
+    <spring:url value="/products/photo" var="productPhotoUrl" />
+    <spring:url value="/basket" var="basketUrl" />
+    
+    
+    <h1>${labelBasketInfo}</h1>
+    <div id="basketInfo">
+        <c:if test="${not empty message}">
+            <div id="message" class="${message.type}">${message.message}</div>
+        </c:if>
+        <table>
+            <tr>
+                <td>${labelBasketId}</td>
+                <td>${basket.id}</td>
+            </tr>
+            <tr>
+                <td>${labelBasketOrderDate}</td>
+                <td>${basket.orderDate}</td>
+            </tr>
+            <tr>
+                <td>${labelBasketEnabled}</td>
+                <td>${basket.enabled}</td>
+            </tr>
+            
+        </table>
+        <sec:authorize access="hasRole('ROLE_MANAGER')">    
+            <a href="${editProductUrl}/${product.id}?form">${labelProductUpdate}</a>
+        </sec:authorize>
+        <form:form  action="${basketUrl}/${product.id}?new" method = "get" >
+            <button id="productBuy" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" name="new"><span class="ui-button-text">BUY</span></button>               
+        </form:form>
+            
+    </div>
+</div>
 
-    <!-- any content can be specified here, e.g.: -->
-    <jsp:element name="text">
-        <jsp:attribute name="lang">EN</jsp:attribute>
-        <jsp:body>Show basket</jsp:body>
-    </jsp:element>
-
-</jsp:root>
