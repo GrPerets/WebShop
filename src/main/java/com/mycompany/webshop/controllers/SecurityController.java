@@ -14,6 +14,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
@@ -26,13 +27,14 @@ public class SecurityController {
     private MessageSource messageSource;
     
     
-    @RequestMapping("/login")
-    public String page(Model uiModel) {
-        uiModel.addAttribute("attribute", "value");
-        return "view.name";
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(Model uiModel, Locale locale) {
+        LOGGER.info("Login is OK");
+        uiModel.addAttribute("message", new Message ("success", messageSource.getMessage("message_login_success", new Object[]{}, locale)));
+        return "products/list";
     }
     
-    @RequestMapping ("/loginfail")
+    @RequestMapping (value = "/loginfail")
     public String loginFail (Model uiModel, Locale locale) {
         LOGGER.info("Login failed detected");
         uiModel.addAttribute("message", new Message ("error", messageSource.getMessage("message_login_fail", new Object[]{}, locale)));

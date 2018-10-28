@@ -134,7 +134,6 @@ public class Customer implements Serializable {
         String birthDateString = "";
         if (birthDate != null) 
             birthDateString = org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd").print(birthDate);
-            
         return birthDateString;
     }
     

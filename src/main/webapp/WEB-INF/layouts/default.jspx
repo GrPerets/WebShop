@@ -62,15 +62,20 @@
         <div id="headerWrapper">
             <tiles:insertAttribute name="header" ignore="true" />
         </div>
+        
         <div id="wrapper">
             <div id="menu">
             <tiles:insertAttribute name="menu" ignore="true" />
-            <tiles:insertAttribute name="login" ignore="true" />
+            <sec:authorize access="isAnonymous()">
+                <tiles:insertAttribute name="login" ignore="true" />
+            </sec:authorize>
             </div>
             <div id="main">
                 <tiles:insertAttribute name="body" ignore="true"/>
-                <tiles:insertAttribute name="footer" ignore="true" />
             </div>
         </div>
+        <div id="footer">
+                <tiles:insertAttribute name="footer" ignore="true" />
+        </div>    
     </body>
 </html>

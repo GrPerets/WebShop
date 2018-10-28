@@ -23,9 +23,13 @@
     
     <div id="userinfo">
         <sec:authorize access="isAuthenticated()">${labelWelcome}
-            <sec:authentication property="principal.username" />
+            <sec:authentication property="principal.username"/>
             <br/>
             <a href="${logoutUrl}">${labelLogout}</a>
         </sec:authorize>
+        <form action="./basket" method="get">
+            <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Basket</span></button>
+        </form>
+            
     </div>
 </div>

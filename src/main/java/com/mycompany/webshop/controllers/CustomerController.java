@@ -22,6 +22,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,6 +45,7 @@ public class CustomerController {
     private MessageSource messageSource;
     
     
+    @PreAuthorize ("hasRole('ROLE_ADMIN')")
     @RequestMapping (method = RequestMethod.GET)
     public String list (Model uiModel) {
         LOGGER.info("Listing customers");
@@ -116,7 +118,7 @@ public class CustomerController {
         return "customers/update";
     }
     
-    @RequestMapping(params = "form", method = RequestMethod.POST)
+    @RequestMapping(params = "new", method = RequestMethod.POST)
     public String create(@Valid Customer customer, BindingResult bindingResult,
                         Model uiModel, HttpServletRequest httpServletRequest,
                         RedirectAttributes redirectAttributes, Locale locale) {
@@ -133,7 +135,7 @@ public class CustomerController {
         return "redirect:/customers/" + UrlUtil.encodeUrlPathSegment(customer.getId().toString(), httpServletRequest);
     }
     
-    @RequestMapping (params = "form", method = RequestMethod.GET)
+    @RequestMapping (params = "new", method = RequestMethod.GET)
     public String createForm (Model uiModel) {
         Customer customer = new Customer();
         uiModel.addAttribute("customer", customer);

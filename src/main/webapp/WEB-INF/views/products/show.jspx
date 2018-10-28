@@ -9,6 +9,7 @@
      xmlns:spring="http://www.springframework.org/tags"
      xmlns:form="http://www.springframework.org/tags/form"
      xmlns:joda="http://www.joda.org/joda/time/tags"
+     xmlns:sec="http://www.springframework.org/security/tags"
      version="2.0">
 
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
@@ -24,6 +25,7 @@
     <spring:message code="label_product_update" var="labelProductUpdate" />
     <spring:url value="/products" var="editProductUrl" />
     <spring:url value="/products/photo" var="productPhotoUrl" />
+    <spring:url value="/basket" var="basketUrl" />
     
     
     <h1>${labelProductInfo}</h1>
@@ -31,32 +33,38 @@
         <c:if test="${not empty message}">
             <div id="message" class="${message.type}">${message.message}</div>
         </c:if>
-            <table>
-                <tr>
-                    <td>${labelProductPhoto}</td>
-                    <td><img src="${productPhotoUrl}/${product.id}"></img></td>
-                </tr>
-                <tr>
-                    <td>${labelProductModel}</td>
-                    <td>${product.model}</td>
-                </tr>
-                <tr>
-                    <td>${labelProductCategory}</td>
-                    <td>${product.category}</td>
-                </tr>
-                <tr>
-                    <td>${labelProductManufacturer}</td>
-                    <td>${product.manufacturer}</td>
-                </tr>
-                <tr>
-                    <td>${labelProductPrice}</td>
-                    <td>${product.price}</td>
-                </tr>
-                <tr>
-                    <td>${labelProductDescription}</td>
-                    <td>${product.description}</td>
-                </tr>
-            </table>
+        <table>
+            <tr>
+                <td>${labelProductPhoto}</td>
+                <td><img src="${productPhotoUrl}/${product.id}"></img></td>
+            </tr>
+            <tr>
+                <td>${labelProductModel}</td>
+                <td>${product.model}</td>
+            </tr>
+            <tr>
+                <td>${labelProductCategory}</td>
+                <td>${product.category}</td>
+            </tr>
+            <tr>
+                <td>${labelProductManufacturer}</td>
+                <td>${product.manufacturer}</td>
+            </tr>
+            <tr>
+                <td>${labelProductPrice}</td>
+                <td>${product.price}</td>
+            </tr>
+            <tr>
+                <td>${labelProductDescription}</td>
+                <td>${product.description}</td>
+            </tr>
+        </table>
+        <sec:authorize access="hasRole('ROLE_MANAGER')">    
             <a href="${editProductUrl}/${product.id}?form">${labelProductUpdate}</a>
+        </sec:authorize>
+        <form:form  action="${basketUrl}" method = "get" >
+            <button id="productBuy" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" name="new"><span class="ui-button-text">BUY</span></button>               
+        </form:form>
+            
     </div>
 </div>

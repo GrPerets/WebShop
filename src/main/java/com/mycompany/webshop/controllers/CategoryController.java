@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -68,6 +69,7 @@ public class CategoryController {
         return "redirect:/categories/"+UrlUtil.encodeUrlPathSegment(category.getId().toString(), httpServletRequest);
     }
     
+    @PreAuthorize ("hasRole('ROLE_MANAGER')")
     @RequestMapping (value = "/{id}", params = "form", method = RequestMethod.GET)
     public String updateForm (@PathVariable ("id") Long id, Model uiModel) {
         Category category = categoryService.findById(id);
@@ -75,7 +77,7 @@ public class CategoryController {
         return "categories/update";
     }
     
-    @RequestMapping (params = "form", method = RequestMethod.POST)
+    @RequestMapping (params = "new", method = RequestMethod.POST)
     //@ResponseStatus(HttpStatus.CREATED)
     public String create (Category category, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale) {
         LOGGER.info("Creating category");
@@ -91,13 +93,15 @@ public class CategoryController {
         return "redirect:/categories/" + UrlUtil.encodeUrlPathSegment(category.getId().toString(), httpServletRequest);
     }
     
-    @RequestMapping (params = "form", method = RequestMethod.GET)
+    @PreAuthorize ("hasRole('ROLE_MANAGER')")
+    @RequestMapping (params = "new", method = RequestMethod.GET)
     public String createForm (Model uiModel) {
         Category category = new Category();
         uiModel.addAttribute("category", category);
         return "categories/create";
     }
     
+    @PreAuthorize ("hasRole('ROLE_MANAGER')")
     @RequestMapping (value="/{id}", params="form", method = RequestMethod.DELETE)
     public  String delete (@PathVariable ("id") Long id) {
         LOGGER.info("Deleting category");

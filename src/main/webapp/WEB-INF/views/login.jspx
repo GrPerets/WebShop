@@ -14,25 +14,26 @@
     <jsp:output omit-xml-declaration="yes" />
     
     <spring:message code="label_login" var="labelLogin" />
+    <spring:message code="label_phone" var="labelPhone" />
+    <spring:message code="label_password" var="labelPassword" />
+    <spring:message code="label_registration" var="labelRegistration"/>
     
     
-    <spring:url value="/login" var="loginUrl" />
+    <spring:url value="/security/login" var="loginUrl" />
     
-    <sec:authorize access="hasRole('ROLE_USER')">
-        
-    </sec:authorize>
+    
     <sec:authorize access="isAnonymous()">
         <div id="login">
             <form name="loginForm" action="${loginUrl}" method="post">
                 
                 <table>
-                    <caption align="left">Login:</caption>
+                    <caption align="left">${labelLogin}:</caption>
                     <tr>
-                        <td>User Name:</td>
+                        <td>${labelPhone}:</td>
                         <td><input type="text" name="username" /></td>
                     </tr>
                     <tr>
-                        <td>Password:</td>
+                        <td>${labelPassword}:</td>
                         <td><input type="password" name="password"/></td>
                     </tr>
                     <tr>
@@ -43,7 +44,11 @@
                 </table>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             </form>
-        </div>
+            
+            <form action="customers" method="get">
+                <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" name="new"><span class="ui-button-text">${labelRegistration}</span></button>
+            </form>
+            </div>
     </sec:authorize>    
 
 </div>

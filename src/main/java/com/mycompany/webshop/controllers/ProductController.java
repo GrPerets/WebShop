@@ -39,6 +39,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
 import org.joda.time.DateTime;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 
 /**
@@ -147,6 +148,7 @@ public class ProductController {
     return "redirect:/products/" + UrlUtil.encodeUrlPathSegment(product.getId().toString(), httpServletRequest);
     }
     
+    @PreAuthorize ("hasRole('ROLE_MANAGER')")
     @RequestMapping (value = "/{id}", params = "form", method= RequestMethod.GET)
     public String updateForm(@PathVariable("id") Long id, Model uiModel) {
         List<Category> categories = categoryService.findAll();
@@ -158,7 +160,7 @@ public class ProductController {
         return "products/update";
     }
     
-    @RequestMapping (params = "form",  method = RequestMethod.POST)
+    @RequestMapping (params = "new",  method = RequestMethod.POST)
     public String create (Product product, BindingResult bindingResult,
                             Model uiModel, HttpServletRequest httpServletRequest,
                             RedirectAttributes redirectAttributes, Locale locale,
@@ -203,7 +205,8 @@ public class ProductController {
         return product.getPhoto();
     }
     
-    @RequestMapping (params ="form", method = RequestMethod.GET)
+    @PreAuthorize ("hasRole('ROLE_MANAGER')")
+    @RequestMapping (params ="new", method = RequestMethod.GET)
     public String createForm (Model uiModel) {
         List<Category> categories = categoryService.findAll();
         uiModel.addAttribute("categories", categories);
@@ -214,6 +217,7 @@ public class ProductController {
         return "products/create";
     }
     
+    @PreAuthorize ("hasRole('ROLE_MANAGER')")
     @RequestMapping (value ="/{id}", params = "form", method = RequestMethod.DELETE)
     public String delete (@PathVariable("id") Long id) {
         LOGGER.info("Deleting product");

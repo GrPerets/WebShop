@@ -69,7 +69,11 @@
         
     <h2>${labelProductList}</h2>
     <div>
-        <table id="list" ><tr><td/></tr></table>
+        <table id="list" >
+            <tr>
+                <td/>
+            </tr>
+        </table>
     </div>
     <div id="pager"></div>
 </div>

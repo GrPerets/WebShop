@@ -18,39 +18,38 @@
     <spring:message code="menu_add_product" var="menuAddProduct" />
     <spring:message code="menu_add_category" var="menuAddCategory" />
     <spring:message code="menu_add_manufacturer" var="menuAddManufacturer" />
-    <spring:message code="label_login" var="labelLogin" />
+    
     <spring:message code="menu_add_customer" var="menuAddCustomer" />
     <spring:message code="menu_all_customers" var="menuAllCustomers" />
     
     
     <spring:url value="/products" var="allProductsUrl" />
-    <spring:url value="/products?form" var="addProductUrl" />
+    <spring:url value="/products?new" var="addProductUrl" />
     
-    <spring:url value="/categories?form" var="addCategoryUrl" />
+    <spring:url value="/categories?new" var="addCategoryUrl" />
     
-    <spring:url value="/manufacturers?form" var="addManufacturerUrl" />
+    <spring:url value="/manufacturers?new" var="addManufacturerUrl" />
     
     <spring:url value="/customers" var="allCustomersUrl" />
-    <spring:url value="/customers?form" var="addCustomerUrl" />
-    
-    <spring:url value="/login" var="loginUrl" />
-    
+    <spring:url value="/customers?new" var="addCustomerUrl" />
+        
     
     <h3>${menuHeaderText}</h3>
+    
     <a href="${allProductsUrl}"><h3>${menuAllProducts}</h3></a>
-    <a href="${addProductUrl}"><h3>${menuAddProduct}</h3></a>
-    <a href="${addCategoryUrl}"><h3>${menuAddCategory}</h3></a>
-    <a href="${addManufacturerUrl}"><h3>${menuAddManufacturer}</h3></a>
     
-    <a href="${allCustomersUrl}"><h3>${menuAllCustomers}</h3></a>
-    <a href="${addCustomerUrl}"><h3>${menuAddCustomer}</h3></a>
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <a href="${allCustomersUrl}"><h3>${menuAllCustomers}</h3></a>
+        <a href="${addCustomerUrl}"><h3>${menuAddCustomer}</h3></a>
+    </sec:authorize>  
     
-    <sec:authorize access="hasRole('ROLE_USER')">
-        
+    <sec:authorize access="hasRole('ROLE_MANAGER')">
+        <a href="${addProductUrl}"><h3>${menuAddProduct}</h3></a>
+        <a href="${addCategoryUrl}"><h3>${menuAddCategory}</h3></a>
+        <a href="${addManufacturerUrl}"><h3>${menuAddManufacturer}</h3></a>
     </sec:authorize>
     
-    <sec:authorize access="isAnonymous()">
-        
-    </sec:authorize>
+    
+   
         
 </div>

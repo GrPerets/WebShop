@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -66,6 +67,7 @@ public class ManufacturerController {
         return "redirect:/manufacturers/" + UrlUtil.encodeUrlPathSegment(manufacturer.getId().toString(), httpServletRequest);
     }
     
+    @PreAuthorize ("hasRole('ROLE_MANAGER')")
     @RequestMapping (value = "/{id}", params = "form", method = RequestMethod.GET)
     public String updateForm (@PathVariable ("id") Long id, Model uiModel) {
         Manufacturer manufacturer = manufacturerService.findById(id);
@@ -73,7 +75,7 @@ public class ManufacturerController {
         return "manufacturers/update";
     }
     
-    @RequestMapping (params = "form", method = RequestMethod.POST)
+    @RequestMapping (params = "new", method = RequestMethod.POST)
     public String create (Manufacturer manufacturer, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale) {
         LOGGER.info("Creating manufacturer");
         if (bindingResult.hasErrors()) {
@@ -88,13 +90,15 @@ public class ManufacturerController {
         return "redirect:/manufacturers/" + UrlUtil.encodeUrlPathSegment(manufacturer.getId().toString(), httpServletRequest);
     }
     
-    @RequestMapping (params = "form", method = RequestMethod.GET)
+    @PreAuthorize ("hasRole('ROLE_MANAGER')")
+    @RequestMapping (params = "new", method = RequestMethod.GET)
     public String createForm (Model uiModel) {
         Manufacturer manufacturer = new Manufacturer();
         uiModel.addAttribute("manufacturer", manufacturer);
         return "manufacturers/create";
     }
     
+    @PreAuthorize ("hasRole('ROLE_MANAGER')")
     @RequestMapping (value = "/{id}", params = "form", method = RequestMethod.DELETE)
     public  String delete (@PathVariable ("id") Long id) {
         LOGGER.info("Deleting manufacturer");
