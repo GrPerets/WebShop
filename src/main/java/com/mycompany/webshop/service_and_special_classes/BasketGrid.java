@@ -7,6 +7,7 @@ package com.mycompany.webshop.service_and_special_classes;
 
 import com.mycompany.webshop.db.basket.Basket;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -16,7 +17,7 @@ public class BasketGrid<Basket> {
     private int totalPages;
     private int currentPage;
     private long totalRecords;
-    private List<Basket> basketData;
+    private Set<Basket> basketData;
 
     public int getTotalPages() {
         return totalPages;
@@ -42,11 +43,11 @@ public class BasketGrid<Basket> {
         this.totalRecords = totalRecords;
     }
 
-    public List<Basket> getBasketData() {
+    public Set<Basket> getBasketData() {
         return basketData;
     }
 
-    public void setBasketData(List<Basket> basketData) {
+    public void setBasketData(Set<Basket> basketData) {
         this.basketData = basketData;
     }
     

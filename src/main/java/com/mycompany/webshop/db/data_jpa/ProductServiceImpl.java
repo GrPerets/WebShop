@@ -6,16 +6,19 @@
 package com.mycompany.webshop.db.data_jpa;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.mycompany.webshop.db.product.Product;
 import com.mycompany.webshop.db.product.ProductRepository;
 import com.mycompany.webshop.db.product.ProductService;
 import com.mycompany.webshop.db.product.jpa.JpaProductDaoImpl;
 import java.util.List;
+import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,8 +38,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional(readOnly=true)
     @Override
-    public List<Product> findAll() {
-        return Lists.newArrayList(productRepository.findAll());
+    public Set<Product> findAll() {
+        return Sets.newHashSet(productRepository.findAll());
     }
     
     @Transactional (readOnly=true)

@@ -5,7 +5,12 @@
  */
 package com.mycompany.webshop.db.product;
 
+import com.mycompany.webshop.db.basket.Basket;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +18,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -48,10 +56,15 @@ public class Product implements Serializable{
     private String description;
     private byte[] photo;
     private DateTime dateLastModified;
+    private Set<Basket> baskets = new HashSet<Basket>();
+
+    public Product() {
+    }
+        
 
     @Id
     @GeneratedValue (strategy = IDENTITY)
-    @Column (name = "ID")
+    @Column (name = "id")
     public Long getId() {
         return id;
     }
@@ -61,7 +74,7 @@ public class Product implements Serializable{
     }
 
     @Version
-    @Column (name = "VERSION")
+    @Column (name = "version")
     public int getVersion() {
         return version;
     }
@@ -70,7 +83,7 @@ public class Product implements Serializable{
         this.version = version;
     }
     
-    @Column (name = "MODEL")
+    @Column (name = "model")
     public String getModel() {
         return model;
     }
@@ -79,7 +92,7 @@ public class Product implements Serializable{
         this.model = model;
     }
 
-    @Column (name = "CATEGORY")
+    @Column (name = "category")
     public String getCategory() {
         return category;
     }
@@ -88,7 +101,7 @@ public class Product implements Serializable{
         this.category = category;
     }
 
-    @Column (name = "MANUFACTURER")
+    @Column (name = "manufacturer")
     public String getManufacturer() {
         return manufacturer;
     }
@@ -97,7 +110,7 @@ public class Product implements Serializable{
         this.manufacturer = manufacturer;
     }
 
-    @Column (name = "PRICE")
+    @Column (name = "price")
     public Double getPrice() {
         return price;
     }
@@ -106,7 +119,7 @@ public class Product implements Serializable{
         this.price = price;
     }
 
-    @Column (name = "DESCRIPTION")
+    @Column (name = "description")
     public String getDescription() {
         return description;
     }
@@ -117,7 +130,7 @@ public class Product implements Serializable{
 
     @Basic (fetch = FetchType.LAZY)
     @Lob
-    @Column (name="PHOTO")
+    @Column (name="photo")
     public byte[] getPhoto() {
         return photo;
     }
@@ -126,7 +139,7 @@ public class Product implements Serializable{
         this.photo = photo;
     }
     
-    @Column (name="DATE_LAST_MODIFIED")
+    @Column (name="date_last_modified")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @DateTimeFormat (iso =ISO.DATE)
     public DateTime getDateLastModified() {
@@ -144,12 +157,23 @@ public class Product implements Serializable{
             dateLastModifiedString = org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd").print(dateLastModified);
         return dateLastModifiedString;
     }
-    
-    
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable (name = "basket_product_detail",
+            joinColumns = @JoinColumn (name = "product_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn (name = "basket_id", referencedColumnName = "id"))
+    public Set<Basket> getBaskets() {
+        return baskets;
+    }
+
+    public void setBaskets(Set<Basket> baskets) {
+        this.baskets = baskets;
+    }
+        
     
     @Override
     public String toString() {
-        return "Product - Id: "+id+", Model: "+model+", Category: "+category+", Manufacturer: "+manufacturer+", Price: "+price;
+        return "Product - Id: "+id+", Model: "+model+", Category: "+category+", Manufacturer: "+manufacturer+", Price: "+price+", Baskets: "+ baskets;
     }
 
     

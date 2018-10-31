@@ -6,6 +6,7 @@
 package com.mycompany.webshop.controllers;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.mycompany.webshop.db.category.Category;
 import com.mycompany.webshop.db.category.CategoryService;
 import com.mycompany.webshop.db.manufacturer.Manufacturer;
@@ -17,8 +18,10 @@ import com.mycompany.webshop.service_and_special_classes.ProductGrid;
 import com.mycompany.webshop.service_and_special_classes.UrlUtil;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +42,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
 import org.joda.time.DateTime;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 
 /**
@@ -58,7 +64,7 @@ public class ProductController {
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model uiModel) {
         LOGGER.info("Listing products");
-        List<Product> products = productService.findAll();
+        Set<Product> products = productService.findAll();
         uiModel.addAttribute("products", products);
         LOGGER.info("No. of products: " + products.size());
         return "products/list";
@@ -94,12 +100,13 @@ public class ProductController {
         
         
         Page<Product> productPage = productService.findAllByPage(pageRequest);
+        
         //JSON grid
         ProductGrid<Product> productGrid = new ProductGrid<>();
         productGrid.setCurrentPage(productPage.getNumber() + 1);
         productGrid.setTotalPages(productPage.getTotalPages());
         productGrid.setTotalRecords(productPage.getTotalElements());
-        productGrid.setProductData(Lists.newArrayList(productPage.iterator()));
+        productGrid.setProductData(Sets.newHashSet(productPage.iterator()));
         
         return productGrid;
     }
@@ -246,5 +253,6 @@ public class ProductController {
     public void setManufacturerService(ManufacturerService manufacturerService) {
         this.manufacturerService = manufacturerService;
     }
+        
         
 }

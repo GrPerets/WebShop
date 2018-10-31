@@ -5,12 +5,22 @@
  */
 package com.mycompany.webshop.db.basket;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.mycompany.webshop.db.customer.Customer;
+import com.mycompany.webshop.db.product.Product;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
@@ -27,13 +37,17 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Basket implements Serializable {
     private Long id;
     private int version;
-    private Long customerId;
+    private Customer customer;
     private DateTime orderDate;
     private boolean enabled;
+    private Set<Product> products = new HashSet<Product>();
 
+    public Basket() {
+    }
+    
     @Id
     @GeneratedValue (strategy = IDENTITY)
-    @Column (name = "ID")
+    @Column (name = "id")
     public Long getId() {
         return id;
     }
@@ -43,7 +57,7 @@ public class Basket implements Serializable {
     }
 
     @Version
-    @Column (name = "VERSION")
+    @Column (name = "version")
     public int getVersion() {
         return version;
     }
@@ -52,16 +66,18 @@ public class Basket implements Serializable {
         this.version = version;
     }
 
-    @Column (name = "CUSTOMER_ID")
-    public Long getCustomerId() {
-        return customerId;
+    @ManyToOne
+    @JoinColumn (name = "customer_id")
+    @JsonBackReference
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    @Column (name = "ORDER_DATE")
+    @Column (name = "order_date")
     @Type (type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @DateTimeFormat (iso = DateTimeFormat.ISO.DATE)
     public DateTime getOrderDate() {
@@ -72,7 +88,7 @@ public class Basket implements Serializable {
         this.orderDate = orderDate;
     }
 
-    @Column (name = "ENABLED")
+    @Column (name = "enabled")
     public boolean isEnabled() {
         return enabled;
     }
@@ -87,6 +103,25 @@ public class Basket implements Serializable {
         if (orderDate != null) 
             orderDateString = org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd").print(orderDate);
         return orderDateString;
-    }   
+    }
+    
+    @ManyToMany (fetch = FetchType.LAZY)
+    @JoinTable (name = "basket_product_detail",
+            joinColumns = @JoinColumn (name = "basket_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn (name = "product_id", referencedColumnName = "id"))
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
+    
+        
+    @Override
+    public String toString () {
+        return " Customer: "+ customer + ", Order Date: "+ orderDate + ", Products: " + products;
+    }
+    
         
 }

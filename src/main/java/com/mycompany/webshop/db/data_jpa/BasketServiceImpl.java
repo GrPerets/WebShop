@@ -6,10 +6,12 @@
 package com.mycompany.webshop.db.data_jpa;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.mycompany.webshop.db.basket.Basket;
 import com.mycompany.webshop.db.basket.BasketRepository;
 import com.mycompany.webshop.db.basket.BasketService;
 import java.util.List;
+import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +34,8 @@ public class BasketServiceImpl implements BasketService {
 
     @Transactional (readOnly = true)
     @Override
-    public List<Basket> findAll() {
-        return Lists.newArrayList(basketRepository.findAll());
+    public Set<Basket> findAll() {
+        return Sets.newHashSet(basketRepository.findAll());
     }
 
     @Transactional (readOnly = true)

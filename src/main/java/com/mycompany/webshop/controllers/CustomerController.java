@@ -6,6 +6,7 @@
 package com.mycompany.webshop.controllers;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.mycompany.webshop.db.customer.Customer;
 import com.mycompany.webshop.db.customer.CustomerService;
 import com.mycompany.webshop.service_and_special_classes.CustomerGrid;
@@ -84,7 +85,7 @@ public class CustomerController {
         customerGrid.setCurrentPage(customerPage.getNumber() + 1);
         customerGrid.setTotalPages(customerPage.getTotalPages());
         customerGrid.setTotalRecords(customerPage.getTotalElements());
-        customerGrid.setCustomerData(Lists.newArrayList(customerPage.iterator()));
+        customerGrid.setCustomerData(Sets.newHashSet(customerPage.iterator()));
         return customerGrid;
     }
     

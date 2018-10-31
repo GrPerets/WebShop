@@ -14,7 +14,7 @@
     
     <spring:message code="label_basket_list" var="labelBasketList"/>
     <spring:message code="label_basket_id" var="labelBasketId" />
-    <spring:message code="label_basket_customer_id" var="labelBasketCustomerId"/>
+    <spring:message code="label_basket_customer" var="labelBasketCustomer"/>
     <spring:message code="label_basket_product_id" var="labelBasketProductId"/>
     <spring:message code="label_basket_order_date" var="labelBasketOrderDate"/>
     <spring:message code="label_basket_enabled" var="labelBasketEnabled"/>
@@ -29,10 +29,10 @@
                 datatype: 'json',
                 mtype: 'GET',
                 contentType: "application/json; charset=utf-8",
-                colNames: ['${labelBasketCustomerId}', '${labelBasketId}', '${labelBasketOrderDate}', '${labelBasketEnabled}'],
+                colNames: ['${labelBasketId}', '${labelBasketOrderDate}', '${labelBasketEnabled}'],
                 colModel: [
-                    {name: 'customerId', index: 'custometId', width: 100},
                     {name: 'id', index: 'id', width: 100},
+                    
                     {name: 'orderDateString', index: 'orderDate', width: 100},
                     {name: 'enabled', index: 'enabled', width: 100}
                                                             
@@ -50,7 +50,7 @@
                 rowNum: 10,
                 rowList: [10, 20, 30],
                 loadonce: false,
-                sortname: 'customerId',
+                sortname: 'id',
                 sortorder: 'asc',
                 viewrecords: true,
                 gridview: true,

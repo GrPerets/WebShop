@@ -62,9 +62,13 @@
         <sec:authorize access="hasRole('ROLE_MANAGER')">    
             <a href="${editProductUrl}/${product.id}?form">${labelProductUpdate}</a>
         </sec:authorize>
-        <form:form  action="${basketUrl}/${product.id}?new" method = "get" >
-            <button id="productBuy" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" name="new"><span class="ui-button-text">BUY</span></button>               
-        </form:form>
+        <sec:authorize access="isAuthenticated()">
+            <sec:authentication property="principal.username" var="phoneNumber"/>
             
+        </sec:authorize>            
+        <form:form  action="${basketUrl}/${product.id}" name="new"  method = "post" >
+            <button id="productBuy" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" name="new" ><span class="ui-button-text">BUY</span></button>               
+        </form:form>
+         
     </div>
 </div>

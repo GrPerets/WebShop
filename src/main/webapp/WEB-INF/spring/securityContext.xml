@@ -17,22 +17,28 @@
         
     
     
-    <http auto-config="true" use-expressions="true">
+    <http  auto-config="true" use-expressions="true">
         <http-basic/>
         <intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
         <intercept-url pattern="/manager/**" access="ROLE_MANAGER"/>
         <intercept-url pattern="/**" access="permitAll" />
         
-        <form-login login-processing-url="/security/login" 
-            login-page="/products" 
-            authentication-failure-url="/security/loginfail"
-            default-target-url="/products"
+        <form-login login-processing-url="/login" 
+            login-page="/login" 
+            authentication-failure-url="/loginfail"
+            default-target-url="/"
             username-parameter="username"
             password-parameter="password"
               />
         
         <logout logout-url="/logout"
             logout-success-url="/" />
+        
+                
+        <remember-me
+		remember-me-parameter="_spring_security_remember_me" 
+		remember-me-cookie="SPRING_SECURITY_REMEMBER_ME_COOKIE"	/>
+        
         <csrf disabled="true"/>
         <http-basic />
     </http>

@@ -6,10 +6,12 @@
 package com.mycompany.webshop.controllers;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.mycompany.webshop.db.product.Product;
 import com.mycompany.webshop.db.product.ProductService;
 import com.mycompany.webshop.service_and_special_classes.ProductGrid;
 import java.util.List;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,7 @@ public class HomeController {
     @RequestMapping(method  = RequestMethod.GET)
     public String news(Model uiModel) {
         LOGGER.info("Listing products");
-        List<Product> products = productService.findAll();
+        Set<Product> products = productService.findAll();
         uiModel.addAttribute("products", products);
         LOGGER.info("No. of new products: " + products.size());
         return "home/news";
@@ -72,7 +74,7 @@ public class HomeController {
         productGrid.setCurrentPage(productPage.getNumber() + 1);
         productGrid.setTotalPages(productPage.getTotalPages());
         productGrid.setTotalRecords(productPage.getTotalElements());
-        productGrid.setProductData(Lists.newArrayList(productPage.iterator()));
+        productGrid.setProductData(Sets.newHashSet(productPage.iterator()));
         return productGrid;
     }
 

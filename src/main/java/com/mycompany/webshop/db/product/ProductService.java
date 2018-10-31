@@ -6,6 +6,7 @@
 package com.mycompany.webshop.db.product;
 
 import java.util.List;
+import java.util.Set;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,7 +15,7 @@ import org.springframework.data.domain.Pageable;
  * @author grperets
  */
 public interface ProductService {
-    List<Product> findAll();
+    Set<Product> findAll();
     Product findById(Long id);
     Product findByModel(String model);
     List<Product> findByCategoryAndManufacturer (String category, String manufacturer);

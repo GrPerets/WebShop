@@ -5,12 +5,19 @@
  */
 package com.mycompany.webshop.db.customer;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.mycompany.webshop.db.basket.Basket;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
@@ -37,10 +44,16 @@ public class Customer implements Serializable {
     private String email;
     private String address;
     private DateTime birthDate;
+    private Set<Basket> baskets = new HashSet<Basket>();
+
+    public Customer() {
+    }
+    
+    
 
     @Id
     @GeneratedValue (strategy = IDENTITY)
-    @Column (name = "ID")
+    @Column (name = "id")
     public Long getId() {
         return id;
     }
@@ -50,7 +63,7 @@ public class Customer implements Serializable {
     }
 
     @Version
-    @Column (name = "VERSION")
+    @Column (name = "version")
     public int getVersion() {
         return version;
     }
@@ -61,7 +74,7 @@ public class Customer implements Serializable {
 
     //@NotEmpty (message = "{validation.phonenumber.NotEmpty.message}")
     //@Size (min=10, max=13, message="{validation.phonenumber.Size.message}")
-    @Column (name = "PHONE_NUMBER")
+    @Column (name = "phone_number")
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -72,7 +85,7 @@ public class Customer implements Serializable {
 
     //@NotEmpty (message = "{validation.password.NotEmpty.message}")
     //@Size (min=6, message = "{validation.password.Size.message}")
-    @Column (name = "PASSWORD")
+    @Column (name = "password")
     public String getPassword() {
         return password;
     }
@@ -81,7 +94,7 @@ public class Customer implements Serializable {
         this.password = password;
     }
 
-    @Column (name = "FIRST_NAME")
+    @Column (name = "first_name")
     public String getFirstName() {
         return firstName;
     }
@@ -90,7 +103,7 @@ public class Customer implements Serializable {
         this.firstName = firstName;
     }
 
-    @Column (name = "LAST_NAME")
+    @Column (name = "last_name")
     public String getLastName() {
         return lastName;
     }
@@ -100,7 +113,7 @@ public class Customer implements Serializable {
     }
 
     //@NotEmpty (message ="{validation.email.NotEmpty.message}")
-    @Column (name = "EMAIL")
+    @Column (name = "email")
     public String getEmail() {
         return email;
     }
@@ -109,7 +122,7 @@ public class Customer implements Serializable {
         this.email = email;
     }
 
-    @Column (name = "ADDRESS")
+    @Column (name = "address")
     public String getAddress() {
         return address;
     }
@@ -118,7 +131,7 @@ public class Customer implements Serializable {
         this.address = address;
     }
 
-    @Column (name = "BIRTH_DATE")
+    @Column (name = "birth_date")
     @Type (type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @DateTimeFormat (iso = ISO.DATE)
     public DateTime getBirthDate() {
@@ -136,5 +149,26 @@ public class Customer implements Serializable {
             birthDateString = org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd").print(birthDate);
         return birthDateString;
     }
+
+    @OneToMany (mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval=true)
+    @JsonManagedReference
+    public Set<Basket> getBaskets() {
+        return baskets;
+    }
+
+    public void setBaskets(Set<Basket> baskets) {
+        this.baskets = baskets;
+    }
+    
+    public void addBasket (Basket basket) {
+        basket.setCustomer(this);
+        getBaskets().add(basket);
+    }
+    
+    public void removeBasket (Basket basket) {
+        getBaskets().remove(basket);
+    }
+    
+    
     
 }

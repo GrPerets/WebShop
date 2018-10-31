@@ -7,6 +7,7 @@ package com.mycompany.webshop.service_and_special_classes;
 
 import com.mycompany.webshop.db.customer.Customer;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -16,7 +17,7 @@ public class CustomerGrid<Customer> {
     private int totalPages;
     private int currentPage;
     private long totalRecords;
-    private List<Customer> customerData;
+    private Set<Customer> customerData;
 
     public int getTotalPages() {
         return totalPages;
@@ -42,11 +43,11 @@ public class CustomerGrid<Customer> {
         this.totalRecords = totalRecords;
     }
 
-    public List<Customer> getCustomerData() {
+    public Set<Customer> getCustomerData() {
         return customerData;
     }
 
-    public void setCustomerData(List<Customer> customerData) {
+    public void setCustomerData(Set<Customer> customerData) {
         this.customerData = customerData;
     }
     

@@ -19,9 +19,11 @@
     <spring:message code="label_registration" var="labelRegistration"/>
     
     
-    <spring:url value="/security/login" var="loginUrl" />
+    <spring:url value="/login" var="loginUrl" />
     
-    
+    <c:if test="${param.error != null}"> 
+	<p>Invalid username / password</p>
+    </c:if>
     <sec:authorize access="isAnonymous()">
         <div id="login">
             <form name="loginForm" action="${loginUrl}" method="post">
@@ -43,7 +45,16 @@
                     </tr>
                 </table>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                
+                <p><label for="remember-me">Remember Me</label></p>
+                    <input type="checkbox" id="remember-me" name="remember-me"/> 
+
+        	<div>
+                	<input name="submit" type="submit"/>
+                </div>
+                
             </form>
+                        
             
             <form action="customers" method="get">
                 <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" name="new"><span class="ui-button-text">${labelRegistration}</span></button>

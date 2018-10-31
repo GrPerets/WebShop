@@ -5,6 +5,7 @@
  */
 package com.mycompany.webshop.db.customer;
 
+import java.util.List;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
@@ -13,4 +14,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  */
 public interface CustomerRepository extends PagingAndSortingRepository<Customer, Long>{
     Customer findByPhoneNumber(String phoneNumber);
+    
 }

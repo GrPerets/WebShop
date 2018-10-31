@@ -7,6 +7,7 @@ package com.mycompany.webshop.db.basket;
 
 import com.mycompany.webshop.db.basket.Basket;
 import java.util.List;
+import java.util.Set;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,7 +16,7 @@ import org.springframework.data.domain.Pageable;
  * @author grperets
  */
 public interface BasketService {
-    List<Basket> findAll();
+    Set<Basket> findAll();
     Basket findById(Long id);
     List<Basket> findByCustomerId(Long customerId);
     Basket save (Basket basket);
