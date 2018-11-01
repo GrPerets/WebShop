@@ -6,6 +6,7 @@
 package com.mycompany.webshop.db.basket;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mycompany.webshop.db.customer.Customer;
 import com.mycompany.webshop.db.product.Product;
 import java.io.Serializable;
@@ -41,6 +42,8 @@ public class Basket implements Serializable {
     private DateTime orderDate;
     private boolean enabled;
     private Set<Product> products = new HashSet<Product>();
+    //ManyToOne(
+    //private Product product;
 
     public Basket() {
     }
@@ -104,8 +107,26 @@ public class Basket implements Serializable {
             orderDateString = org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd").print(orderDate);
         return orderDateString;
     }
+
     
-    @ManyToMany (fetch = FetchType.LAZY)
+    /*
+    @ManyToOne
+    @JoinColumn (name = "product_id")
+    @JsonBackReference
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+    */
+    
+    
+    
+    
+    @JsonIgnore
+    @ManyToMany
     @JoinTable (name = "basket_product_detail",
             joinColumns = @JoinColumn (name = "basket_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn (name = "product_id", referencedColumnName = "id"))
@@ -117,10 +138,21 @@ public class Basket implements Serializable {
         this.products = products;
     }
     
-        
+    
+    public void addProduct (Product product) {
+        getProducts().add(product);
+    }
+    
+    public void removeProduct (Product product) {
+        getProducts().remove(product);
+    }
+    
+
+
+
     @Override
     public String toString () {
-        return " Customer: "+ customer + ", Order Date: "+ orderDate + ", Products: " + products;
+        return " Customer: "+ customer + ", Order Date: "+ orderDate + ", Product: " + products;
     }
     
         

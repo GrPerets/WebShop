@@ -63,14 +63,7 @@
         });
         //]]>
     </script>
-    
-    <div>
-        <h1>
-            password
-        ${customer}
-        </h1>
-    </div>
-    
+            
     <c:if test="${not empty message}">
         <div id="message" class="${message.type}">${message.message}</div>
     </c:if>

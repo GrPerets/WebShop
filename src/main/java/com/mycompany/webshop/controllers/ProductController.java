@@ -5,7 +5,6 @@
  */
 package com.mycompany.webshop.controllers;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mycompany.webshop.db.category.Category;
 import com.mycompany.webshop.db.category.CategoryService;
@@ -18,7 +17,6 @@ import com.mycompany.webshop.service_and_special_classes.ProductGrid;
 import com.mycompany.webshop.service_and_special_classes.UrlUtil;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -42,10 +40,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
 import org.joda.time.DateTime;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 
 
 /**

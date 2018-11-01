@@ -28,6 +28,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -54,6 +55,7 @@ public class BasketController {
     private ProductService productService;
     
     
+    @PreAuthorize ("hasRole('ROLE_MANAGER')")
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model uiModel) {
         LOGGER.info("Listing basket");
@@ -113,8 +115,8 @@ public class BasketController {
         basket.setCustomer(customerService.findByPhoneNumber(getPrincipal()));
         basket.setOrderDate(new DateTime());
         basket.setEnabled(true);
-        basket.setProducts(productService.findAll());
-        
+        basket.addProduct(productService.findById(productId));
+                
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("message", new Message ("error", messageSource.getMessage("customer_save_fail", new Object[]{}, locale)));
             uiModel.addAttribute("basket", basket);
@@ -124,7 +126,8 @@ public class BasketController {
         redirectAttributes.addFlashAttribute("message", new Message ("success", messageSource.getMessage("customer_save_success", new Object[]{}, locale)));
         LOGGER.info("Basket id: " + basket.getId());
         basketService.save(basket);
-        return "redirect:/basket/" + UrlUtil.encodeUrlPathSegment(basket.getId().toString(), httpServletRequest);
+        //return "redirect:/basket/" + UrlUtil.encodeUrlPathSegment(basket.getId().toString(), httpServletRequest);
+        return "products/list";
     }
     /*
     @RequestMapping (value = "/{productId}", params = "new", method = RequestMethod.GET)

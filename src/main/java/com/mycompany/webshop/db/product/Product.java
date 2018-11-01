@@ -5,6 +5,7 @@
  */
 package com.mycompany.webshop.db.product;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mycompany.webshop.db.basket.Basket;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,6 +26,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
@@ -57,6 +60,7 @@ public class Product implements Serializable{
     private byte[] photo;
     private DateTime dateLastModified;
     private Set<Basket> baskets = new HashSet<Basket>();
+    
 
     public Product() {
     }
@@ -158,7 +162,32 @@ public class Product implements Serializable{
         return dateLastModifiedString;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    
+    /*
+    @OneToMany (mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval=true)
+    @JsonManagedReference
+    public Set<Basket> getBaskets() {
+        return baskets;
+    }
+
+    public void setBaskets(Set<Basket> baskets) {
+        this.baskets = baskets;
+    }
+
+    public void addBasket (Basket basket) {
+        basket.setProduct(this);
+        getBaskets().add(basket);
+    }
+    
+    public void removeBasket (Basket basket) {
+        getBaskets().remove(basket);
+    }
+    */
+    
+    
+    
+    
+    @ManyToMany
     @JoinTable (name = "basket_product_detail",
             joinColumns = @JoinColumn (name = "product_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn (name = "basket_id", referencedColumnName = "id"))
@@ -169,7 +198,9 @@ public class Product implements Serializable{
     public void setBaskets(Set<Basket> baskets) {
         this.baskets = baskets;
     }
-        
+    
+
+
     
     @Override
     public String toString() {

@@ -48,7 +48,7 @@
         transaction-manager-ref="transactionManager" />
     
     
-    <context:component-scan base-package="com.mycompany.webshop.db.data_jpa"/>
+    <context:component-scan base-package="com.mycompany.webshop"/>
     
     
      <!--ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->

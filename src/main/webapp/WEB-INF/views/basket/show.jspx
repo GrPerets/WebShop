@@ -47,7 +47,11 @@
                 <td>${labelBasketEnabled}</td>
                 <td>${basket.enabled}</td>
             </tr>
-            
+            <c:forEach items="${basket.products}" var="product">
+            <tr>
+                <td>${product.price}</td>
+            </tr>
+            </c:forEach>
         </table>
         <sec:authorize access="hasRole('ROLE_MANAGER')">    
             <a href="${editProductUrl}/${product.id}?form">${labelProductUpdate}</a>
