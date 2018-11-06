@@ -23,6 +23,8 @@
     <spring:message code="label_product_description" var="labelProductDescription" />
     <spring:message code="label_product_photo" var="labelProductPhoto" />
     <spring:message code="label_product_update" var="labelProductUpdate" />
+    <spring:message code="label_basket_buy" var="labelBasketBuy" />
+    
     <spring:url value="/products" var="editProductUrl" />
     <spring:url value="/products/photo" var="productPhotoUrl" />
     <spring:url value="/basket" var="basketUrl" />
@@ -65,10 +67,23 @@
         <sec:authorize access="isAuthenticated()">
             <sec:authentication property="principal.username" var="phoneNumber"/>
             
-        </sec:authorize>            
-        <form:form  action="${basketUrl}/${product.id}" name="new"  method = "post" >
-            <button id="productBuy" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" name="new" ><span class="ui-button-text">BUY</span></button>               
-        </form:form>
-         
+        </sec:authorize>    
+        
+        <c:choose>
+            <c:when test="${basketId == null}" >
+                <form:form action="${basketUrl}?productId=${product.id}"  method = "post" >
+                    <button id="productBuy" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" >
+                        <span class="ui-button-text">${labelBasketBuy}</span>
+                    </button>               
+                </form:form>
+            </c:when>
+            <c:when test="${not empty basketId}">
+                <form:form action="${basketUrl}/${basketId}?productId=${product.id}"  method = "post" >
+                    <button id="productBuy" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" >
+                        <span class="ui-button-text">${labelBasketBuy}</span>
+                    </button>               
+                </form:form>
+            </c:when>
+        </c:choose>
     </div>
 </div>

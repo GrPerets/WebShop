@@ -10,6 +10,7 @@ import com.google.common.collect.Sets;
 import com.mycompany.webshop.db.basket.Basket;
 import com.mycompany.webshop.db.basket.BasketRepository;
 import com.mycompany.webshop.db.basket.BasketService;
+import com.mycompany.webshop.db.customer.Customer;
 import java.util.List;
 import java.util.Set;
 import org.apache.commons.logging.Log;
@@ -17,6 +18,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,10 +46,11 @@ public class BasketServiceImpl implements BasketService {
         return basketRepository.findOne(id);
     }
 
+    //@Query (value = "select b from Basket b where b.customer_id = :customer_id" )
     @Transactional (readOnly = true)
     @Override
-    public List<Basket> findByCustomerId(Long customerId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Set<Basket> findByCustomer(Customer customer) {
+        return Sets.newHashSet(basketRepository.findByCustomer(customer));
     }
 
     @Override

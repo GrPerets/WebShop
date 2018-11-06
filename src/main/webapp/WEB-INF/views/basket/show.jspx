@@ -17,12 +17,15 @@
     
     <spring:message code="label_basket_info" var="labelBascetInfo" />
     <spring:message code="label_basket_id" var="labelBasketId" />
-    <spring:message code="label_basket_order_date" var="labelbasketOrderDate" />
+    <spring:message code="label_basket_order_date" var="labelBasketOrderDate" />
     <spring:message code="label_basket_enabled" var="labelBasketEnabled" />
+    <spring:message code="label_product_model" var="labelProductModel" />
+    <spring:message code="label_product_category" var="labelProductCategory" />
+    <spring:message code="label_product_manufacturer" var="labelProductManufacturer" />
     <spring:message code="label_product_price" var="labelProductPrice" />
     <spring:message code="label_product_description" var="labelProductDescription" />
     <spring:message code="label_product_photo" var="labelProductPhoto" />
-    <spring:message code="label_product_update" var="labelProductUpdate" />
+    
     <spring:url value="/products" var="editProductUrl" />
     <spring:url value="/products/photo" var="productPhotoUrl" />
     <spring:url value="/basket" var="basketUrl" />
@@ -33,26 +36,43 @@
         <c:if test="${not empty message}">
             <div id="message" class="${message.type}">${message.message}</div>
         </c:if>
-        <table>
-            <tr>
-                <td>${labelBasketId}</td>
-                <td>${basket.id}</td>
-            </tr>
+        <c:forEach items="${baskets}" var="basket" >
+            <table>
+                <tr>
+                    <td>${labelBasketId}</td>
+                    <td>${basket.id}</td>
+                </tr>
             
-            <tr>
-                <td>${labelBasketOrderDate}</td>
-                <td>${basket.orderDate}</td>
-            </tr>
-            <tr>
-                <td>${labelBasketEnabled}</td>
-                <td>${basket.enabled}</td>
-            </tr>
-            <c:forEach items="${basket.products}" var="product">
-            <tr>
-                <td>${product.price}</td>
-            </tr>
-            </c:forEach>
-        </table>
+                <tr>
+                    <td>${labelBasketOrderDate}</td>
+                    <td>${basket.orderDateString}</td>
+                </tr>
+                <tr>
+                    <td>${labelBasketEnabled}</td>
+                    <td>${basket.enabled}</td>
+                </tr>
+                
+                <c:forEach items="${basket.products}" var="product">
+                    <tr>
+                        <td>${labelProductModel}</td>
+                        <td>${product.model}</td>
+                    </tr>
+                    <tr>
+                        <td>${labelProductCategory}</td>
+                        <td>${product.category}</td>
+                    </tr>
+                    <tr>
+                        <td>${labelProductManufacturer}</td>
+                        <td>${product.manufacturer}</td>
+                    </tr>
+                    <tr>
+                        <td>${labelProductPrice}</td>
+                        <td>${product.price}</td>
+                    </tr>
+                </c:forEach>
+                   
+            </table>
+        </c:forEach>
         <sec:authorize access="hasRole('ROLE_MANAGER')">    
             <a href="${editProductUrl}/${product.id}?form">${labelProductUpdate}</a>
         </sec:authorize>

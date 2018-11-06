@@ -50,7 +50,7 @@
                 rowNum: 10,
                 rowList: [10, 20, 30],
                 loadonce: false,
-                sortname: 'id',
+                sortname: 'orderDate',
                 sortorder: 'asc',
                 viewrecords: true,
                 gridview: true,
@@ -67,7 +67,7 @@
     <c:if test="${not empty message}">
         <div id="message" class="${message.type}">${message.message}</div>
     </c:if>
-        
+                
     <h2>${labelBasketList}</h2>
     <div>
         <table id="list" >

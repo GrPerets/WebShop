@@ -9,7 +9,9 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mycompany.webshop.db.basket.Basket;
 import com.mycompany.webshop.db.basket.BasketService;
+import com.mycompany.webshop.db.customer.Customer;
 import com.mycompany.webshop.db.customer.CustomerService;
+import com.mycompany.webshop.db.product.Product;
 import com.mycompany.webshop.db.product.ProductService;
 import com.mycompany.webshop.service_and_special_classes.BasketGrid;
 import com.mycompany.webshop.service_and_special_classes.Message;
@@ -35,6 +37,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,13 +58,17 @@ public class BasketController {
     private ProductService productService;
     
     
-    @PreAuthorize ("hasRole('ROLE_MANAGER')")
-    @RequestMapping(method = RequestMethod.GET)
-    public String list(Model uiModel) {
+    //@PreAuthorize ("hasRole('ROLE_MANAGER')")
+    @RequestMapping( value = "/{phoneNumber}", method = RequestMethod.GET)
+    public String list(@PathVariable ("phoneNumber") String phoneNumber, Model uiModel) {
         LOGGER.info("Listing basket");
-        Set<Basket> baskets = basketService.findAll();
-        uiModel.addAttribute("baskets", baskets);
+        Customer customer = customerService.findByPhoneNumber(phoneNumber);
+        Set<Basket> baskets = basketService.findByCustomer(customer);
+        uiModel.addAttribute("customer", customer);
+        
         LOGGER.info("No. of baskets: " + baskets.size());
+        LOGGER.info("Phone Number: " + phoneNumber);
+        LOGGER.info("Listing basket: " + baskets.size());
         return "basket/list";
     }
     
@@ -70,9 +77,11 @@ public class BasketController {
     public BasketGrid<Basket> listGrid (@RequestParam (value = "page", required = false) Integer page,
         @RequestParam (value = "rows", required = false) Integer rows,
         @RequestParam (value = "sidx", required = false) String sortBy,
-        @RequestParam (value = "sord", required = false) String order) {
+        @RequestParam (value = "sord", required = false) String order,
+        @RequestParam (value = "phoneNumber", required = false) String phoneNumber) {
         LOGGER.info("Listing baskets for grid with page: {}, rows: {}", page, rows);
         LOGGER.info("Listing baskets for grid with sort: {}, order: {}", sortBy, order);
+        LOGGER.info("Listing Customer phoneNumber: " + phoneNumber);
         Sort sort = null;
         String orderBy = sortBy;
         if (orderBy != null && orderBy.equals("orderDateString"))
@@ -90,32 +99,39 @@ public class BasketController {
             pageRequest = new PageRequest (page - 1, rows);
         }
         Page<Basket> basketPage = basketService.findAllByPage(pageRequest);
+        
         BasketGrid<Basket> basketGrid = new BasketGrid<Basket>();
         basketGrid.setCurrentPage(basketPage.getNumber() + 1);
         basketGrid.setTotalPages(basketPage.getTotalPages());
         basketGrid.setTotalRecords(basketPage.getTotalElements());
         basketGrid.setBasketData(Sets.newHashSet(basketPage.iterator()));
+        //basketGrid.setBasketData(Sets.newHashSet(baskets.iterator()));
         return basketGrid;
     }
     
+    /*
     @RequestMapping (value = "/{id}", method = RequestMethod.GET)
-    public String show (@PathVariable ("id") Long id, Model uiModel) {
-        Basket basket = basketService.findById(id);
-        uiModel.addAttribute("basket", basket);
+    public String show (@PathVariable ("id") Long id , Model uiModel) {
+        
+        //uiModel.addAttribute("baskets", baskets);
         return "basket/show";
     }
+    */
     
-    @RequestMapping(value = "/{productId}" , params = "new",  method = RequestMethod.POST)
-    public String create(@Valid Basket basket, BindingResult bindingResult,
+    
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    public String update(Basket basket, BindingResult bindingResult,
                         Model uiModel, HttpServletRequest httpServletRequest,
                         RedirectAttributes redirectAttributes, Locale locale,
-                        @PathVariable ("productId") Long productId ) {
+                        @RequestParam (value = "productId")Long productId,
+                        @PathVariable ("id") Long id) {
         LOGGER.info("Creating basket");
-        basket = new Basket();
-        basket.setCustomer(customerService.findByPhoneNumber(getPrincipal()));
+        basket = basketService.findById(id);
+        //basket.setCustomer(customerService.findByPhoneNumber(getPrincipal()));
         basket.setOrderDate(new DateTime());
         basket.setEnabled(true);
         basket.addProduct(productService.findById(productId));
+        
                 
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("message", new Message ("error", messageSource.getMessage("customer_save_fail", new Object[]{}, locale)));
@@ -126,21 +142,51 @@ public class BasketController {
         redirectAttributes.addFlashAttribute("message", new Message ("success", messageSource.getMessage("customer_save_success", new Object[]{}, locale)));
         LOGGER.info("Basket id: " + basket.getId());
         basketService.save(basket);
-        //return "redirect:/basket/" + UrlUtil.encodeUrlPathSegment(basket.getId().toString(), httpServletRequest);
-        return "products/list";
+        return "redirect:/basket/" + UrlUtil.encodeUrlPathSegment(basket.getCustomer().getPhoneNumber().toString(), httpServletRequest);
+        
     }
-    /*
-    @RequestMapping (value = "/{productId}", params = "new", method = RequestMethod.GET)
-    public String createForm (@PathVariable ("productId") Long productId, Model uiModel) {
-        Basket basket = new Basket();
-        //basket.setCustomer(productId);
+    
+    
+    @RequestMapping(method = RequestMethod.POST)
+    
+    public String create(Basket basket, BindingResult bindingResult,
+                        Model uiModel, HttpServletRequest httpServletRequest,
+                        RedirectAttributes redirectAttributes, Locale locale,
+                        @RequestParam (value = "productId")Long productId) {
+        LOGGER.info("Creating basket");
+        basket = new Basket();
+        basket.setCustomer(customerService.findByPhoneNumber(getPrincipal()));
         basket.setOrderDate(new DateTime());
         basket.setEnabled(true);
+        basket.addProduct(productService.findById(productId));
+        
+                
+        if (bindingResult.hasErrors()) {
+            uiModel.addAttribute("message", new Message ("error", messageSource.getMessage("customer_save_fail", new Object[]{}, locale)));
+            uiModel.addAttribute("basket", basket);
+            return "basket/create";
+        }
+        uiModel.asMap().clear();
+        redirectAttributes.addFlashAttribute("message", new Message ("success", messageSource.getMessage("customer_save_success", new Object[]{}, locale)));
+        LOGGER.info("Basket id: " + basket.getId());
+        basketService.save(basket);
+        //return "redirect:/basket/" + UrlUtil.encodeUrlPathSegment(basket.getCustomer().getPhoneNumber().toString(), httpServletRequest);
+        uiModel.addAttribute("basket", basket);
+        return "products/list";
+        
+    }
+    
+    /*
+    @RequestMapping (method = RequestMethod.GET)
+    public String createBasket (@RequestParam (value = "productId") @RequestBody Long productId, Model uiModel) {
+        Basket basket = new Basket();
+        Product product = productService.findById(productId);
+        uiModel.addAttribute("product", product);
         uiModel.addAttribute("basket", basket);
         return "basket/create";
     }
-    
     */
+    
     @Autowired
     public void setBasketService(BasketService basketService) {
         this.basketService = basketService;

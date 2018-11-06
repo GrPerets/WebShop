@@ -34,28 +34,23 @@
     <spring:message code="label_product_description" var="labelProductDescription" />
     <spring:message code="label_product_photo" var="labelProductPhoto" />
     
+    <spring:url value="/basket" var="basketUrl" />
+    
     <spring:eval expression="basket.id == null ? labelBasketNew:labelBasketUpdate" var="formTitle" />
     
     <h1>${formTitle}</h1>
     <div id="basketUpdate">
-        <form:form modelAttribute="basket" id="basketUpdateForm" method="post" enctype="multipart/form-data">
+        <form:form action="${basketUrl}" id="basketUpdateForm" method="get" >
             <c:if test="${not empty message}">
                 <div id="message" class="${message.type}">${message.message}</div>
             </c:if>
                 
-            <form:hidden  path="customerId"/>
-            <form:hidden path="orderDate" />        
-            
-            <form:hidden path="enabled" />
-            <form:hidden path="version" />
-            <input type="submit"/>    
+                <a href="/products?"></a>
                 
         </form:form>
-        <form:form method="delete">
-            <button id="productDeleteForm" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Delete</span></button>
-        </form:form>
+        
                 
     </div>
-    <h1>${formTitle}</h1>
+    
 </div>
 

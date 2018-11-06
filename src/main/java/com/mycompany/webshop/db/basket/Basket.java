@@ -42,9 +42,7 @@ public class Basket implements Serializable {
     private DateTime orderDate;
     private boolean enabled;
     private Set<Product> products = new HashSet<Product>();
-    //ManyToOne(
-    //private Product product;
-
+    
     public Basket() {
     }
     
@@ -108,23 +106,7 @@ public class Basket implements Serializable {
         return orderDateString;
     }
 
-    
-    /*
-    @ManyToOne
-    @JoinColumn (name = "product_id")
-    @JsonBackReference
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-    */
-    
-    
-    
-    
+        
     @JsonIgnore
     @ManyToMany
     @JoinTable (name = "basket_product_detail",

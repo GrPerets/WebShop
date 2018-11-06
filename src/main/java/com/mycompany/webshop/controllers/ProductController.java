@@ -41,6 +41,7 @@ import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
 import org.joda.time.DateTime;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 /**
@@ -57,7 +58,7 @@ public class ProductController {
     private ManufacturerService manufacturerService;
         
     @RequestMapping(method = RequestMethod.GET)
-    public String list(Model uiModel) {
+    public String list(@RequestParam (value = "basketId", required=false) Long basketId, Model uiModel) {
         LOGGER.info("Listing products");
         Set<Product> products = productService.findAll();
         uiModel.addAttribute("products", products);
@@ -108,9 +109,10 @@ public class ProductController {
     
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET )
-    public String show (@PathVariable("id") Long id, Model uiModel) {
+    public String show (@PathVariable("id") Long id, @RequestParam (value = "basketId", required=false) Long basketId, Model uiModel) {
         Product product = productService.findById(id);
         uiModel.addAttribute("product", product);
+        uiModel.addAttribute("basketId", basketId);
         return "products/show";
     }
     

@@ -161,31 +161,6 @@ public class Product implements Serializable{
             dateLastModifiedString = org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd").print(dateLastModified);
         return dateLastModifiedString;
     }
-
-    
-    /*
-    @OneToMany (mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval=true)
-    @JsonManagedReference
-    public Set<Basket> getBaskets() {
-        return baskets;
-    }
-
-    public void setBaskets(Set<Basket> baskets) {
-        this.baskets = baskets;
-    }
-
-    public void addBasket (Basket basket) {
-        basket.setProduct(this);
-        getBaskets().add(basket);
-    }
-    
-    public void removeBasket (Basket basket) {
-        getBaskets().remove(basket);
-    }
-    */
-    
-    
-    
     
     @ManyToMany
     @JoinTable (name = "basket_product_detail",

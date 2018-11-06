@@ -57,7 +57,8 @@
                 width: 500,
                 caption: '${labelProductList}',
                 onSelectRow: function(id){
-                    document.location.href = "${showProductUrl}/" + id;
+                    var basketId = ${basket.id};
+                    document.location.href = "${showProductUrl}/" + id + "?basketId="+basketId;
                 }
             });
         });

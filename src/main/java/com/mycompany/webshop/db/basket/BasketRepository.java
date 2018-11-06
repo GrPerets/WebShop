@@ -6,7 +6,9 @@
 package com.mycompany.webshop.db.basket;
 
 import com.mycompany.webshop.db.basket.Basket;
+import com.mycompany.webshop.db.customer.Customer;
 import java.util.List;
+import java.util.Set;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
@@ -14,6 +16,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @author grperets
  */
 public interface BasketRepository extends PagingAndSortingRepository<Basket, Long> {
-    //List<Basket> findByCustomerId(Long id);
+    Set<Basket> findByCustomer(Customer customer);
     
 }
