@@ -57,7 +57,7 @@ public class BasketController {
     private CustomerService customerService;
     private ProductService productService;
     
-    
+    /*
     //@PreAuthorize ("hasRole('ROLE_MANAGER')")
     @RequestMapping( value = "/{phoneNumber}", method = RequestMethod.GET)
     public String list(@PathVariable ("phoneNumber") String phoneNumber, Model uiModel) {
@@ -109,14 +109,14 @@ public class BasketController {
         return basketGrid;
     }
     
-    /*
+    */
     @RequestMapping (value = "/{id}", method = RequestMethod.GET)
     public String show (@PathVariable ("id") Long id , Model uiModel) {
-        
-        //uiModel.addAttribute("baskets", baskets);
+        Basket basket = basketService.findById(id);
+        uiModel.addAttribute("basket", basket);
         return "basket/show";
     }
-    */
+    
     
     
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
@@ -140,15 +140,17 @@ public class BasketController {
         }
         uiModel.asMap().clear();
         redirectAttributes.addFlashAttribute("message", new Message ("success", messageSource.getMessage("customer_save_success", new Object[]{}, locale)));
-        LOGGER.info("Basket id: " + basket.getId());
+        
         basketService.save(basket);
-        return "redirect:/basket/" + UrlUtil.encodeUrlPathSegment(basket.getCustomer().getPhoneNumber().toString(), httpServletRequest);
+        LOGGER.info("Basket id: " + basket.getId());
+        //return "redirect:/basket/" + UrlUtil.encodeUrlPathSegment(basket.getCustomer().getPhoneNumber().toString(), httpServletRequest);
+        uiModel.addAttribute("basketId", basket.getId());
+        return "basket/next";
         
     }
     
     
-    @RequestMapping(method = RequestMethod.POST)
-    
+    @RequestMapping(method = RequestMethod.POST)    
     public String create(Basket basket, BindingResult bindingResult,
                         Model uiModel, HttpServletRequest httpServletRequest,
                         RedirectAttributes redirectAttributes, Locale locale,
@@ -168,11 +170,12 @@ public class BasketController {
         }
         uiModel.asMap().clear();
         redirectAttributes.addFlashAttribute("message", new Message ("success", messageSource.getMessage("customer_save_success", new Object[]{}, locale)));
-        LOGGER.info("Basket id: " + basket.getId());
+        
         basketService.save(basket);
+        LOGGER.info("Basket id: " + basket.getId());
         //return "redirect:/basket/" + UrlUtil.encodeUrlPathSegment(basket.getCustomer().getPhoneNumber().toString(), httpServletRequest);
-        uiModel.addAttribute("basket", basket);
-        return "products/list";
+        uiModel.addAttribute("basketId", basket.getId());
+        return "basket/next";
         
     }
     

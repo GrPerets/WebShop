@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Document   : next
+    Created on : 6 лист. 2018, 22:19:09
+    Author     : grperets
+-->
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
+
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+    
+    <spring:message code="label_basket_add_product" var="labelBasketAddProduct" />
+    <spring:message code="label_basket_cost" var="labelBasketCost" />
+    
+    <spring:url value="/products" var="editProductUrl" />
+    <spring:url value="/basket" var="editBasketUrl" />
+
+    
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <form:form action="${editProductUrl}"  method = "get" >
+                        <input  type="hidden" name="basketId" value="${basketId}"/>   
+                        <button id="productBuy1" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" >
+                            <span class="ui-button-text">${labelBasketAddProduct}</span>
+                        </button>               
+                    </form:form>
+                    
+                
+                </td>
+                <td>
+                    <form:form action="${editBasketUrl}/${basketId}"  method = "get" >
+                        <button id="productBuy" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" >
+                            <span class="ui-button-text">${labelBasketCost}</span>
+                        </button>               
+                    </form:form>
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    
+
+</div>

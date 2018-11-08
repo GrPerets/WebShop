@@ -28,7 +28,7 @@
     
     <spring:url value="/products" var="editProductUrl" />
     <spring:url value="/products/photo" var="productPhotoUrl" />
-    <spring:url value="/basket" var="basketUrl" />
+    <spring:url value="/basket" var="editBasketUrl" />
     
     
     <h1>${labelBasketInfo}</h1>
@@ -36,7 +36,6 @@
         <c:if test="${not empty message}">
             <div id="message" class="${message.type}">${message.message}</div>
         </c:if>
-        <c:forEach items="${baskets}" var="basket" >
             <table>
                 <tr>
                     <td>${labelBasketId}</td>
@@ -53,6 +52,9 @@
                 </tr>
                 
                 <c:forEach items="${basket.products}" var="product">
+                    <tr>
+                        <td><img src="${productPhotoUrl}/${product.id}"></img></td>
+                    </tr>
                     <tr>
                         <td>${labelProductModel}</td>
                         <td>${product.model}</td>
@@ -72,11 +74,7 @@
                 </c:forEach>
                    
             </table>
-        </c:forEach>
-        <sec:authorize access="hasRole('ROLE_MANAGER')">    
-            <a href="${editProductUrl}/${product.id}?form">${labelProductUpdate}</a>
-        </sec:authorize>
-                
+                       
             
     </div>
 </div>

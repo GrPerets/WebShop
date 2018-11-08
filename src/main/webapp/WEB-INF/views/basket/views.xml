@@ -25,4 +25,8 @@ and open the template in the editor.
         <put-attribute name="body" value="/WEB-INF/views/basket/edit.jspx" />
     </definition>
     
+    <definition extends="default" name="basket/next">
+        <put-attribute name="body" value="/WEB-INF/views/basket/next.jspx" />
+    </definition>
+    
 </tiles-definitions>

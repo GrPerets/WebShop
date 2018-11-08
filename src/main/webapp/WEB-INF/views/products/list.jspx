@@ -23,6 +23,8 @@
     <script type="text/javascript">
         //<![CDATA[
         $(function(){
+            
+            
             $("#list").jqGrid({
                 url: '${showProductUrl}/listgrid',
                 datatype: 'json',
@@ -56,9 +58,8 @@
                 height: 300,
                 width: 500,
                 caption: '${labelProductList}',
-                onSelectRow: function(id){
-                    var basketId = ${basket.id};
-                    document.location.href = "${showProductUrl}/" + id + "?basketId="+basketId;
+                onSelectRow:  function(id){
+                                document.location.href = "${showProductUrl}/" + id +"?basketId=${basketId}";
                 }
             });
         });
@@ -68,7 +69,6 @@
     <c:if test="${not empty message}">
         <div id="message" class="${message.type}">${message.message}</div>
     </c:if>
-        
     <h2>${labelProductList}</h2>
     <div>
         <table id="list" >
