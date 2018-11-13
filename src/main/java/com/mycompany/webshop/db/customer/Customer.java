@@ -37,6 +37,8 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 public class Customer implements Serializable {
     private Long id;
     private int version;
+    private boolean enabled;
+    private String authority;
     private String phoneNumber;
     private String password;
     private String firstName;
@@ -71,6 +73,25 @@ public class Customer implements Serializable {
     public void setVersion(int version) {
         this.version = version;
     }
+    
+    @Column (name = "enabled")
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+    
+    @Column (name = "authority")
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+    
 
     //@NotEmpty (message = "{validation.phonenumber.NotEmpty.message}")
     //@Size (min=10, max=13, message="{validation.phonenumber.Size.message}")
@@ -78,6 +99,8 @@ public class Customer implements Serializable {
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
+    
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;

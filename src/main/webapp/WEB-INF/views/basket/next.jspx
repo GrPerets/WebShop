@@ -13,21 +13,38 @@
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
     <jsp:output omit-xml-declaration="yes" />
     
-    <spring:message code="label_basket_add_product" var="labelBasketAddProduct" />
-    <spring:message code="label_basket_cost" var="labelBasketCost" />
+    <spring:message code="label_continue_shopping" var="labelContinueShopping" />
+    <spring:message code="label_go_to_basket" var="labelGoToBasket" />
     
     <spring:url value="/products" var="editProductUrl" />
     <spring:url value="/basket" var="editBasketUrl" />
 
+    <script type="text/javascript">
+        
+        $(function(){
+        $("#next").dialog({
+            modal : true,
+            
+            position: { 
+                my: "center",
+                at: "center",
+                of: $("body")},
+                    
+            title: 'Updating'
+            
+        });
+    });
     
-    <div>
+    </script>
+    
+    <div id="next">
         <table>
             <tr>
                 <td>
                     <form:form action="${editProductUrl}"  method = "get" >
                         <input  type="hidden" name="basketId" value="${basketId}"/>   
-                        <button id="productBuy1" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" >
-                            <span class="ui-button-text">${labelBasketAddProduct}</span>
+                        <button id="continueShopping" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" >
+                            <span class="ui-button-text">${labelContinueShopping}</span>
                         </button>               
                     </form:form>
                     
@@ -35,8 +52,8 @@
                 </td>
                 <td>
                     <form:form action="${editBasketUrl}/${basketId}"  method = "get" >
-                        <button id="productBuy" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" >
-                            <span class="ui-button-text">${labelBasketCost}</span>
+                        <button id="gotoBasket" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" >
+                            <span class="ui-button-text">${labelGoToBasket}</span>
                         </button>               
                     </form:form>
                 </td>

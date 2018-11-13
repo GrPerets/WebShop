@@ -28,6 +28,7 @@
     <spring:url value="/products" var="editProductUrl" />
     <spring:url value="/products/photo" var="productPhotoUrl" />
     <spring:url value="/basket" var="basketUrl" />
+    <spring:url value="/order" var="orderUrl" />
     
     
     <h1>${labelProductInfo}</h1>
@@ -85,5 +86,11 @@
                 </form:form>
             </c:when>
         </c:choose>
+    
+            <form:form action="${orderUrl}"  method = "get" >
+                    <button id="productBuy" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" >
+                        <span class="ui-button-text">FLOW</span>
+                    </button>               
+                </form:form>
     </div>
 </div>

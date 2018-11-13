@@ -11,14 +11,8 @@
      version="2.0">
     
     <script type="text/javascript">
-        $(function(){
-            $("#productDescription").ckeditor(
-                    {
-                        toolbar : 'Basic'
-                        uiColor : '#CCCCCC'
-                    }
-            );        
-        });        
+        CKEDITOR.replace( 'productDescription' );
+    
     </script>
 
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
@@ -32,6 +26,9 @@
     <spring:message code="label_product_price" var="labelProductPrice" />
     <spring:message code="label_product_description" var="labelProductDescription" />
     <spring:message code="label_product_photo" var="labelProductPhoto" />
+    <spring:message code="label_save" var="labelSave" />
+    <spring:message code="label_reset" var="labelReset" />
+    <spring:message code="label_delete" var="labelDelete" />
     
     <spring:eval expression="product.id == null ? labelProductNew:labelProductUpdate" var="formTitle" />
     
@@ -95,11 +92,11 @@
                 
                 <form:hidden path="version" />
                 
-                <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Save</span></button>
-                <button type="reset" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Reset</span></button>
+                <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">${labelSave}</span></button>
+                <button type="reset" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">${labelReset}</span></button>
         </form:form>
         <form:form method="delete">
-            <button id="productDeleteForm" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Delete</span></button>
+            <button id="productDeleteForm" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">${labelDelete}</span></button>
         </form:form>
                 
     </div>

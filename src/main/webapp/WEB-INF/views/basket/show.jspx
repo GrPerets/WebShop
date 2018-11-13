@@ -25,6 +25,7 @@
     <spring:message code="label_product_price" var="labelProductPrice" />
     <spring:message code="label_product_description" var="labelProductDescription" />
     <spring:message code="label_product_photo" var="labelProductPhoto" />
+    <spring:message code="label_delete" var="labelDelete" />
     
     <spring:url value="/products" var="editProductUrl" />
     <spring:url value="/products/photo" var="productPhotoUrl" />
@@ -74,6 +75,12 @@
                 </c:forEach>
                    
             </table>
+                
+                    <form:form action="${editBasketUrl}/${basket.id}" method="delete">
+                        <button id="basketDelete" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" >
+                            <span class="ui-button-text">${labelDelete}</span>
+                        </button>               
+                    </form:form>
                        
             
     </div>

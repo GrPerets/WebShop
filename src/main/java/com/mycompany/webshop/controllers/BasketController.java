@@ -36,12 +36,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -50,6 +53,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 @Controller
 @RequestMapping ("/basket")
+@SessionAttributes (types = Basket.class)
 public class BasketController {
     private final Logger LOGGER = LoggerFactory.getLogger(BasketController.class);
     private BasketService basketService;
@@ -149,8 +153,9 @@ public class BasketController {
         
     }
     
+    //@ResponseBody
+    @RequestMapping(method = RequestMethod.POST)
     
-    @RequestMapping(method = RequestMethod.POST)    
     public String create(Basket basket, BindingResult bindingResult,
                         Model uiModel, HttpServletRequest httpServletRequest,
                         RedirectAttributes redirectAttributes, Locale locale,
@@ -189,6 +194,14 @@ public class BasketController {
         return "basket/create";
     }
     */
+    
+    @RequestMapping (value = "/{id}", method = RequestMethod.DELETE)
+    public String delete (@PathVariable ("id") Long id) {
+        LOGGER.info("Deleting basket");
+        basketService.delete(id);
+        LOGGER.info("Delete basket with id: " + id);
+        return "redirect:/products";
+    } 
     
     @Autowired
     public void setBasketService(BasketService basketService) {
