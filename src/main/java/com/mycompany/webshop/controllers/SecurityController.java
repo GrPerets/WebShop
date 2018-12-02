@@ -36,14 +36,15 @@ public class SecurityController {
     private CustomerService customerService;
     
     
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(Model uiModel, Locale locale) {
         LOGGER.info("Login is OK");
         uiModel.addAttribute("message", new Message ("success", messageSource.getMessage("message_login_success", new Object[]{}, locale)));
         uiModel.addAttribute("customer", getPrincipal());
-        return "products/list";
+        return "redirect:/login";
     }
     
+
     @RequestMapping (value = "/loginfail")
     public String loginFail (Model uiModel, Locale locale) {
         LOGGER.info("Login failed detected");

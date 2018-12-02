@@ -40,6 +40,7 @@
             <list>
                 <value>/WEB-INF/layouts/layouts.xml</value>
                 <value>/WEB-INF/views/**/views.xml</value>
+                <value>/WEB-INF/flows/**/views.xml</value>
             </list>
         </property>
     </bean>

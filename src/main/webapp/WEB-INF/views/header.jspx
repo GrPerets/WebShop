@@ -17,7 +17,7 @@
     <spring:message code="label_logout" var="labelLogout" />
     <spring:message code="label_welcome" var="labelWelcome" />
     <spring:url value="/logout" var="logoutUrl" />
-    <spring:url value="/basket" var="basketUrl" />
+    <spring:url value="/baskets" var="basketUrl" />
     <spring:url value="/customers" var="customerUrl" />
     
     <div id="appname">
@@ -27,14 +27,14 @@
     <div id="userinfo">
         <sec:authorize access="isAuthenticated()">${labelWelcome}
             <sec:authentication property="principal.username" var="phoneNumber"/>
-            <a href="${customerUrl}/${customer.id}" >${phoneNumber}</a>
+            <a href="${customerUrl}/phoneNumber" >${phoneNumber}</a>
             <br/>
             <a href="${logoutUrl}">${labelLogout}</a>
         </sec:authorize>
                 
-        <form action="${basketUrl}/${basket.id}" method="get">
-            <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Basket</span></button>
+        <form action="${basketUrl}" method="get">
+            <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Basket ${basket.products.size()}</span></button>
         </form>
-            
+          
     </div>
 </div>

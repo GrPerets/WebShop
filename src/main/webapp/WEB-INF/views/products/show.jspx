@@ -23,12 +23,14 @@
     <spring:message code="label_product_description" var="labelProductDescription" />
     <spring:message code="label_product_photo" var="labelProductPhoto" />
     <spring:message code="label_product_update" var="labelProductUpdate" />
-    <spring:message code="label_basket_buy" var="labelBasketBuy" />
+    <spring:message code="label_product_buy" var="labelProductBuy" />
+    <spring:message code="label_cancel" var="labelCancel" />
     
     <spring:url value="/products" var="editProductUrl" />
     <spring:url value="/products/photo" var="productPhotoUrl" />
-    <spring:url value="/basket" var="basketUrl" />
-    <spring:url value="/order" var="orderUrl" />
+    <spring:url value="/baskets" var="basketsUrl" />
+    <spring:url value="/basket" var="basketFlowUrl" />
+    <spring:url value="/order-flow" var="orderFlowUrl" />
     
     
     <h1>${labelProductInfo}</h1>
@@ -70,27 +72,11 @@
             
         </sec:authorize>    
         
-        <c:choose>
-            <c:when test="${basketId == null}" >
-                <form:form action="${basketUrl}?productId=${product.id}"  method = "post" >
-                    <button id="productBuy" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" >
-                        <span class="ui-button-text">${labelBasketBuy}</span>
-                    </button>               
-                </form:form>
-            </c:when>
-            <c:when test="${not empty basketId}">
-                <form:form action="${basketUrl}/${basketId}?productId=${product.id}"  method = "post" >
-                    <button id="productBuy" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" >
-                        <span class="ui-button-text">${labelBasketBuy}</span>
-                    </button>               
-                </form:form>
-            </c:when>
-        </c:choose>
-    
-            <form:form action="${orderUrl}"  method = "get" >
-                    <button id="productBuy" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" >
-                        <span class="ui-button-text">FLOW</span>
-                    </button>               
-                </form:form>
+        <form:form action="${basketsUrl}?productId=${product.id}"  method = "post" >
+            <button id="productBuy" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" >
+                <span class="ui-button-text">${labelProductBuy}</span>
+            </button>               
+        </form:form>
+              
     </div>
 </div>

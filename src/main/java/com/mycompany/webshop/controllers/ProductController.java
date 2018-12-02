@@ -60,14 +60,15 @@ public class ProductController {
         
     @RequestMapping(method = RequestMethod.GET)
     //@ResponseBody
-    public String list(@RequestParam (value = "basketId", required=false) Long basketId, Model uiModel) {
+    public String list(Model uiModel) {
         LOGGER.info("Listing products");
         Set<Product> products = productService.findAll();
         uiModel.addAttribute("products", products);
         LOGGER.info("No. of products: " + products.size());
+        /*
         LOGGER.info("BasketId: " + basketId);
         uiModel.addAttribute("basketId", basketId);
-        
+        */
         return "products/list";
     }
     

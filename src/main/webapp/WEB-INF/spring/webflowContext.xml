@@ -7,11 +7,21 @@
           http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd">
     
     
+    
+    <bean id="mvcViewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+        <property name="viewResolvers" ref="tilesViewResolver"/>
+	
+    </bean>
+		
+    <flow:flow-builder-services
+		id="flowBuilderServices"
+		view-factory-creator="mvcViewFactoryCreator"/>
+    
     <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
         <property name="flowRegistry" ref="flowRegistry" />
     </bean>
         
-    <flow:flow-registry id="flowRegistry"   base-path="/WEB-INF/flows">
+    <flow:flow-registry id="flowRegistry"  flow-builder-services="flowBuilderServices" base-path="/WEB-INF/flows">
         <flow:flow-location-pattern value="/**/*-flow.xml" />
         
     </flow:flow-registry>

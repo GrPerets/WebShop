@@ -17,7 +17,7 @@
     <spring:message code="label_go_to_basket" var="labelGoToBasket" />
     
     <spring:url value="/products" var="editProductUrl" />
-    <spring:url value="/basket" var="editBasketUrl" />
+    <spring:url value="/baskets" var="editBasketUrl" />
 
     <script type="text/javascript">
         

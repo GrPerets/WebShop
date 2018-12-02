@@ -40,7 +40,7 @@
                     </tr>
                     <tr>
                         <td colspan="2" align="center">
-                            <input name="submit" type="submit" value="Login"/>
+                            <input name="_eventId_loginEntered" type="submit" value="Login" />
                         </td>
                     </tr>
                 </table>
@@ -49,10 +49,7 @@
                 <p><label for="remember-me">Remember Me</label></p>
                     <input type="checkbox" id="remember-me" name="remember-me"/> 
 
-        	<div>
-                	<input name="submit" type="submit"/>
-                </div>
-                
+        	                
             </form>
                         
             

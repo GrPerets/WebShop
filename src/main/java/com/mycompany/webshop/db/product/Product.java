@@ -7,6 +7,7 @@ package com.mycompany.webshop.db.product;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mycompany.webshop.db.basket.Basket;
+import com.mycompany.webshop.db.order.Order;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -59,12 +60,9 @@ public class Product implements Serializable{
     private String description;
     private byte[] photo;
     private DateTime dateLastModified;
-    private Set<Basket> baskets = new HashSet<Basket>();
+    private Set<Order> orders = new HashSet<Order>();
     
-
-    public Product() {
-    }
-        
+     
 
     @Id
     @GeneratedValue (strategy = IDENTITY)
@@ -162,16 +160,17 @@ public class Product implements Serializable{
         return dateLastModifiedString;
     }
     
+    
     @ManyToMany
-    @JoinTable (name = "basket_product_detail",
+    @JoinTable (name = "customer_order_product_detail",
             joinColumns = @JoinColumn (name = "product_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn (name = "basket_id", referencedColumnName = "id"))
-    public Set<Basket> getBaskets() {
-        return baskets;
+            inverseJoinColumns = @JoinColumn (name = "order_id", referencedColumnName = "id"))
+    public Set<Order> getOrders() {
+        return orders;
     }
 
-    public void setBaskets(Set<Basket> baskets) {
-        this.baskets = baskets;
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
     
 
@@ -179,7 +178,7 @@ public class Product implements Serializable{
     
     @Override
     public String toString() {
-        return "Product - Id: "+id+", Model: "+model+", Category: "+category+", Manufacturer: "+manufacturer+", Price: "+price+", Baskets: "+ baskets;
+        return "Product - Id: "+id+", Model: "+model+", Category: "+category+", Manufacturer: "+manufacturer+", Price: "+price;
     }
 
     

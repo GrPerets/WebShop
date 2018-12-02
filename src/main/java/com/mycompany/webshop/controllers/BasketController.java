@@ -5,46 +5,28 @@
  */
 package com.mycompany.webshop.controllers;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import com.mycompany.webshop.db.basket.Basket;
-import com.mycompany.webshop.db.basket.BasketService;
-import com.mycompany.webshop.db.customer.Customer;
 import com.mycompany.webshop.db.customer.CustomerService;
-import com.mycompany.webshop.db.product.Product;
 import com.mycompany.webshop.db.product.ProductService;
-import com.mycompany.webshop.service_and_special_classes.BasketGrid;
 import com.mycompany.webshop.service_and_special_classes.Message;
-import com.mycompany.webshop.service_and_special_classes.UrlUtil;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -52,11 +34,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author grperets
  */
 @Controller
-@RequestMapping ("/basket")
+@RequestMapping ("/baskets")
 @SessionAttributes (types = Basket.class)
 public class BasketController {
     private final Logger LOGGER = LoggerFactory.getLogger(BasketController.class);
-    private BasketService basketService;
     private MessageSource messageSource;
     private CustomerService customerService;
     private ProductService productService;
@@ -114,11 +95,10 @@ public class BasketController {
     }
     
     */
-    @RequestMapping (value = "/{id}", method = RequestMethod.GET)
-    public String show (@PathVariable ("id") Long id , Model uiModel) {
-        Basket basket = basketService.findById(id);
+    @RequestMapping (method = RequestMethod.GET)
+    public String show ( Basket basket , Model uiModel) {
         uiModel.addAttribute("basket", basket);
-        return "basket/show";
+        return "baskets/show";
     }
     
     
@@ -130,7 +110,7 @@ public class BasketController {
                         @RequestParam (value = "productId")Long productId,
                         @PathVariable ("id") Long id) {
         LOGGER.info("Creating basket");
-        basket = basketService.findById(id);
+        //basket = basketService.findById(id);
         //basket.setCustomer(customerService.findByPhoneNumber(getPrincipal()));
         basket.setOrderDate(new DateTime());
         basket.setEnabled(true);
@@ -140,16 +120,16 @@ public class BasketController {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("message", new Message ("error", messageSource.getMessage("customer_save_fail", new Object[]{}, locale)));
             uiModel.addAttribute("basket", basket);
-            return "basket/create";
+            return "baskets/create";
         }
         uiModel.asMap().clear();
         redirectAttributes.addFlashAttribute("message", new Message ("success", messageSource.getMessage("customer_save_success", new Object[]{}, locale)));
         
-        basketService.save(basket);
-        LOGGER.info("Basket id: " + basket.getId());
+        //basketService.save(basket);
+        LOGGER.info("Basket: " + basket.toString());
         //return "redirect:/basket/" + UrlUtil.encodeUrlPathSegment(basket.getCustomer().getPhoneNumber().toString(), httpServletRequest);
-        uiModel.addAttribute("basketId", basket.getId());
-        return "basket/next";
+        uiModel.addAttribute("basket", basket);
+        return "baskets/next";
         
     }
     
@@ -161,26 +141,26 @@ public class BasketController {
                         RedirectAttributes redirectAttributes, Locale locale,
                         @RequestParam (value = "productId")Long productId) {
         LOGGER.info("Creating basket");
-        basket = new Basket();
-        basket.setCustomer(customerService.findByPhoneNumber(getPrincipal()));
-        basket.setOrderDate(new DateTime());
-        basket.setEnabled(true);
+        if (basket == null) {
+            basket = new Basket();
+            basket.setOrderDate(new DateTime());
+            basket.setEnabled(true);
+        }
         basket.addProduct(productService.findById(productId));
         
                 
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("message", new Message ("error", messageSource.getMessage("customer_save_fail", new Object[]{}, locale)));
             uiModel.addAttribute("basket", basket);
-            return "basket/create";
+            return "baskets/create";
         }
         uiModel.asMap().clear();
         redirectAttributes.addFlashAttribute("message", new Message ("success", messageSource.getMessage("customer_save_success", new Object[]{}, locale)));
-        
-        basketService.save(basket);
-        LOGGER.info("Basket id: " + basket.getId());
+            
+        LOGGER.info("Basket : " + basket.toString());
         //return "redirect:/basket/" + UrlUtil.encodeUrlPathSegment(basket.getCustomer().getPhoneNumber().toString(), httpServletRequest);
-        uiModel.addAttribute("basketId", basket.getId());
-        return "basket/next";
+        uiModel.addAttribute("basket", basket);
+        return "baskets/show";
         
     }
     
@@ -195,19 +175,14 @@ public class BasketController {
     }
     */
     
-    @RequestMapping (value = "/{id}", method = RequestMethod.DELETE)
-    public String delete (@PathVariable ("id") Long id) {
+    @RequestMapping (method = RequestMethod.DELETE)
+    public String delete (SessionStatus status) {
         LOGGER.info("Deleting basket");
-        basketService.delete(id);
-        LOGGER.info("Delete basket with id: " + id);
-        return "redirect:/products";
+        status.setComplete();
+        
+        return "redirect:/baskets";
     } 
     
-    @Autowired
-    public void setBasketService(BasketService basketService) {
-        this.basketService = basketService;
-    }
-
     @Autowired
     public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;

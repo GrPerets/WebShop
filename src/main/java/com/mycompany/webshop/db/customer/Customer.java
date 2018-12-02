@@ -6,14 +6,13 @@
 package com.mycompany.webshop.db.customer;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.mycompany.webshop.db.basket.Basket;
+import com.mycompany.webshop.db.order.Order;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
@@ -21,9 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
-import javax.validation.constraints.Size;
 import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -46,7 +43,7 @@ public class Customer implements Serializable {
     private String email;
     private String address;
     private DateTime birthDate;
-    private Set<Basket> baskets = new HashSet<Basket>();
+    private Set<Order> orders = new HashSet<Order>();
 
     public Customer() {
     }
@@ -175,21 +172,21 @@ public class Customer implements Serializable {
 
     @OneToMany (mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval=true)
     @JsonManagedReference
-    public Set<Basket> getBaskets() {
-        return baskets;
+    public Set<Order> getOrders() {
+        return orders;
     }
 
-    public void setBaskets(Set<Basket> baskets) {
-        this.baskets = baskets;
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
     
-    public void addBasket (Basket basket) {
-        basket.setCustomer(this);
-        getBaskets().add(basket);
+    public void addOrder (Order order) {
+        order.setCustomer(this);
+        getOrders().add(order);
     }
     
-    public void removeBasket (Basket basket) {
-        getBaskets().remove(basket);
+    public void removeOrder (Order order) {
+        getOrders().remove(order);
     }
     
     

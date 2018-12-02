@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-    Document   : show
-    Created on : 24 жовт. 2018, 21:34:31
+    Document   : welcome
+    Created on : 15 лист. 2018, 19:04:31
     Author     : grperets
 -->
 <div xmlns:jsp="http://java.sun.com/JSP/Page"
@@ -14,7 +14,7 @@
 
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
     <jsp:output omit-xml-declaration="yes" />
-    
+
     <spring:message code="label_customer_info" var="labelCustomerInfo" />
     <spring:message code="label_customer_phone_number" var="labelCustomerPhoneNumber" />
     <spring:message code="label_customer_first_name" var="labelCustomerFirstName" />
@@ -25,14 +25,9 @@
     <spring:message code="label_customer_update" var="labelCustomerUpdate" />
     <spring:message code="date_format_pattern" var="dateFormatPattern" />
     
-    <spring:url value="/customers" var="editCustomerUrl" />
+    <spring:url value="/products/list" var="editCustomer" />
     
-    
-    <sec:authorize access="isAuthenticated()">
-            <sec:authentication property="principal.username" var="phoneNumber"/>
-              
-    </sec:authorize>
-    
+    <div>Hello World!</div>
     
     <h1>${labelCustomerInfo}</h1>
     
@@ -61,11 +56,11 @@
                 <td>${labelCustomerAddress}</td>
                 <td>${customer.address}</td>
             </tr>
-            <tr>
-                <td>${labelCustomerBirthDate}</td>
-                <td><joda:format value="${customer.birthDate}" patern="${dateFormatPattern}"/></td>
-            </tr>
         </table>
-        <a href="${editCustomerUrl}/${customer.id}?form">${labelCustomerUpdate}</a>
     </div>
+        
+    <![CDATA[
+        <a href="${flowExecutionUrl}&_eventId=phoneEntered">Next</a>
+        ]]>
+
 </div>

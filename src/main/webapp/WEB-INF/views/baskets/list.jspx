@@ -19,7 +19,7 @@
     <spring:message code="label_basket_order_date" var="labelBasketOrderDate"/>
     <spring:message code="label_basket_enabled" var="labelBasketEnabled"/>
     <spring:message code="label_product_date_last_modified" var="labelDateLastModified" />
-    <spring:url value="/basket" var="showBasketUrl" />
+    <spring:url value="/baskets" var="showBasketUrl" />
     
     <script type="text/javascript">
         //<![CDATA[
