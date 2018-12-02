@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Document   : show
+    Created on : 24 жовт. 2018, 21:34:31
+    Author     : grperets
+-->
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:sec="http://www.springframework.org/security/tags"
+     xmlns:joda="http:/www.joda.org/joda/time/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
+
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+    
+    <spring:message code="label_order_info" var="labelOrderInfo" />
+    <spring:message code="label_order_id" var="labelOrderId" />
+    <spring:message code="label_order_customer" var="labelOrderCustomer" />
+    <spring:message code="label_order_order_date" var="labelOrderOrderDate" />
+    <spring:message code="label_order_state" var="labelOrderState" />
+    <spring:message code="label_order_products" var="labelOrderProducts" />
+    
+    <spring:message code="label_customer_phone_number" var="labelCustomerPhoneNumber" />
+    <spring:message code="label_customer_first_name" var="labelCustomerFirstName" />
+    <spring:message code="label_customer_last_name" var="labelCustomerLastName" />
+    <spring:message code="label_customer_email" var="labelCustomerEmail" />
+    <spring:message code="label_customer_address" var="labelCustomerAddress" />
+    <spring:message code="label_customer_birth_date" var="labelCustomerBirthDate" />
+    <spring:message code="label_customer_update" var="labelCustomerUpdate" />
+    <spring:message code="date_format_pattern" var="dateFormatPattern" />
+    
+    <spring:message code="label_product_info" var="labelProductInfo" />
+    <spring:message code="label_product_model" var="labelProductModel" />
+    <spring:message code="label_product_category" var="labelProductCategory" />
+    <spring:message code="label_product_manufacturer" var="labelProductManufacturer" />
+    <spring:message code="label_product_price" var="labelProductPrice" />
+    <spring:message code="label_product_description" var="labelProductDescription" />
+    <spring:message code="label_product_photo" var="labelProductPhoto" />
+    
+    <spring:message code="label_delete" var="labelDelete" />
+    <spring:message code="label_update" var="labelUpdate" />
+    
+    <spring:url value="/orders" var="editOrderUrl" />
+    
+    
+    <sec:authorize access="isAuthenticated()">
+            <sec:authentication property="principal.username" var="phoneNumber"/>
+              
+    </sec:authorize>
+    
+    
+    
+    
+    <div id="customerInfo">
+        <c:if test="${not empty message}">
+            <div id="message" class="${message.type}">${message.message}</div>
+        </c:if>
+        <table>
+            <thead>
+                <h1>${labelOrderInfo}</h1>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>${labelOrderId}</td>
+                    <td>${order.id}</td>
+                </tr>
+                <tr>
+                    <td>${labelOrderOrderDate}</td>
+                    <td>${order.orderDate}</td>
+                </tr>
+                <tr>
+                    <td>${labelOrderEnabled}</td>
+                    <td>${order.state}</td>
+                </tr>
+            </tbody>
+        </table>
+                     
+        
+        <table>
+            <thead>
+                <h1>${labelOrderCustomer}</h1>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>${labelCustomerPhoneNumber}</td>
+                    <td>${order.customer.phoneNumber}</td>
+                </tr>
+                <tr>
+                    <td>${labelCustomerFirstName}</td>
+                    <td>${order.customer.firstName}</td>
+                </tr>
+                <tr>
+                    <td>${labelCustomerLastName}</td>
+                    <td>${order.customer.lastName}</td>
+                </tr>
+                <tr>
+                    <td>${labelCustomerEmail}</td>
+                    <td>${order.customer.email}</td>
+                </tr>
+                <tr>
+                    <td>${labelCustomerAddress}</td>
+                    <td>${order.customer.address}</td>
+                </tr>
+                
+            </tbody>
+        </table>
+                    
+        <c:forEach items="${order.products}" var="product">        
+            <table>
+                <thead>
+                    <h1>${labelProductInfo}</h1>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>${labelProductModel}</td>
+                        <td>${product.model}</td>
+                    </tr>
+                    <tr>
+                        <td>${labelProductCategory}</td>
+                        <td>${product.category}</td>
+                    </tr>
+                    <tr>
+                        <td>${labelProductManufacturer}</td>
+                        <td>${product.manufacturer}</td>
+                    </tr>
+                    <tr>
+                        <td>${labelProductPrice}</td>
+                        <td>${product.price}</td>
+                    </tr>
+                    <tr>
+                        <td>${labelProductDescription}</td>
+                        <td>${product.description}</td>
+                    </tr>
+
+                </tbody>
+            </table>        
+        </c:forEach>   
+        
+                
+        <form:form action="${editOrderUrl}/${order.id}" method="post" >
+            <button id="update" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">${labelUpdate}</span>
+            </button>               
+        </form:form>
+        
+        <form:form action="${editOrderUrl}/${order.id}" method="delete">
+            <button id="delete" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">${labelDelete}</span>
+            </button>               
+        </form:form>
+        
+    </div>
+</div>

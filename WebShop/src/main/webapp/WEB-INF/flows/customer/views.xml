@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<!DOCTYPE tiles-definitions PUBLIC '-//Apache Software Foundation//DTD Tiles Configuration 1.3//EN' 'http://tiles.apache.org/dtds/tiles-config_3_0.dtd'>
+
+<tiles-definitions>
+    
+    <definition extends="default" name="welcome">
+        <put-attribute name="body" value="/WEB-INF/flows/customer/welcome.jspx" />
+        
+    </definition>
+    
+    <definition extends="default" name="login">
+        <put-attribute name="body" value="/WEB-INF/views/login.jspx" />
+    </definition>
+    
+    <definition extends="default" name="edit">
+        <put-attribute name="body" value="/WEB-INF/views/customers/edit.jspx" />
+    </definition>
+    
+    <definition extends="default" name="basket/create">
+        <put-attribute name="body" value="/WEB-INF/views/basket/edit.jspx" />
+    </definition>
+    
+    <definition extends="default" name="basket/next">
+        <put-attribute name="body" value="/WEB-INF/views/basket/next.jspx" />
+    </definition>
+    
+</tiles-definitions>

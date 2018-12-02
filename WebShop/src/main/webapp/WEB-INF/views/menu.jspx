@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- 
+    Document   : menu
+    Created on : 15 жовт. 2018, 13:55:39
+    Author     : grperets
+-->
+<div id="menu" xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:sec="http://www.springframework.org/security/tags"
+     version="2.0">
+
+    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+    
+    <spring:message code="menu_header_text" var="menuHeaderText" />
+    <spring:message code="menu_all_orders" var="menuAllOrders" />
+    <spring:message code="menu_all_products" var="menuAllProducts" />
+    <spring:message code="menu_add_product" var="menuAddProduct" />
+    <spring:message code="menu_add_category" var="menuAddCategory" />
+    <spring:message code="menu_add_manufacturer" var="menuAddManufacturer" />
+    
+    <spring:message code="menu_add_customer" var="menuAddCustomer" />
+    <spring:message code="menu_all_customers" var="menuAllCustomers" />
+    
+    <spring:url value="/orders" var="allOrdersUrl" />
+    <spring:url value="/products" var="allProductsUrl" />
+    <spring:url value="/products?new" var="addProductUrl" />
+    
+    <spring:url value="/categories?new" var="addCategoryUrl" />
+    
+    <spring:url value="/manufacturers?new" var="addManufacturerUrl" />
+    
+    <spring:url value="/customers" var="allCustomersUrl" />
+    <spring:url value="/customers?new" var="addCustomerUrl" />
+        
+    
+    <h3>${menuHeaderText}</h3>
+    
+    <a href="${allOrdersUrl}"><h3>${menuAllOrders}</h3></a>
+    
+    <a href="${allProductsUrl}"><h3>${menuAllProducts}</h3></a>
+    
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <a href="${allCustomersUrl}"><h3>${menuAllCustomers}</h3></a>
+        <a href="${addCustomerUrl}"><h3>${menuAddCustomer}</h3></a>
+    </sec:authorize>  
+    
+    <sec:authorize access="hasRole('ROLE_MANAGER')">
+        <a href="${addProductUrl}"><h3>${menuAddProduct}</h3></a>
+        <a href="${addCategoryUrl}"><h3>${menuAddCategory}</h3></a>
+        <a href="${addManufacturerUrl}"><h3>${menuAddManufacturer}</h3></a>
+    </sec:authorize>
+    
+    
+   
+        
+</div>

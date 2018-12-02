@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Document   : show
+    Created on : 28 жовт. 2018, 12:39:33
+    Author     : grperets
+-->
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:joda="http://www.joda.org/joda/time/tags"
+     xmlns:sec="http://www.springframework.org/security/tags"
+     version="2.0">
+
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+    
+    <spring:message code="label_basket_info" var="labelBascetInfo" />
+    <spring:message code="label_basket_id" var="labelBasketId" />
+    <spring:message code="label_basket_order_date" var="labelBasketOrderDate" />
+    <spring:message code="label_basket_enabled" var="labelBasketEnabled" />
+    <spring:message code="label_product_model" var="labelProductModel" />
+    <spring:message code="label_product_category" var="labelProductCategory" />
+    <spring:message code="label_product_manufacturer" var="labelProductManufacturer" />
+    <spring:message code="label_product_price" var="labelProductPrice" />
+    <spring:message code="label_product_description" var="labelProductDescription" />
+    <spring:message code="label_product_photo" var="labelProductPhoto" />
+    <spring:message code="label_delete" var="labelDelete" />
+    <spring:message code="label_choose_product" var="labelChooseProduct" />
+    <spring:message code="label_checkout" var="labelCheckout" />
+    <spring:message code="label_clear" var="labelClear" />
+    
+    <spring:url value="/products" var="editProductUrl" />
+    <spring:url value="/products/photo" var="productPhotoUrl" />
+    <spring:url value="/baskets" var="editBasketUrl" />
+    <spring:url value="/order-flow" var="editOrderFlow" />
+    
+    
+    <h1>${labelBasketInfo}</h1>
+    <div id="basketInfo">
+        <c:if test="${not empty message}">
+            <div id="message" class="${message.type}">${message.message}</div>
+        </c:if>
+            <table>
+                <tr>
+                    <td>${labelBasketOrderDate}</td>
+                    <td>${basket.orderDateString}</td>
+                </tr>
+                <tr>
+                    <td>${labelBasketEnabled}</td>
+                    <td>${basket.enabled}</td>
+                </tr>
+                
+                <c:forEach items="${basket.products}" var="product">
+                    <tr>
+                        <td><img src="${productPhotoUrl}/${product.id}"></img></td>
+                    </tr>
+                    <tr>
+                        <td>${labelProductModel}</td>
+                        <td>${product.model}</td>
+                    </tr>
+                    <tr>
+                        <td>${labelProductCategory}</td>
+                        <td>${product.category}</td>
+                    </tr>
+                    <tr>
+                        <td>${labelProductManufacturer}</td>
+                        <td>${product.manufacturer}</td>
+                    </tr>
+                    <tr>
+                        <td>${labelProductPrice}</td>
+                        <td>${product.price}</td>
+                    </tr>
+                </c:forEach>
+                   
+            </table>
+             
+            <table>
+                <tr>
+                    <td>
+                        <form:form action="${editProductUrl}" method="get">                           
+                            <button  id="chooseProduct" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" >
+                                <span class="ui-button-text">${labelChooseProduct}</span>
+                            </button>
+                        </form:form>
+                    </td>
+                    <td>
+                        <form:form action="${editOrderFlow}">
+                            <input type="hidden" name="basket" value="${basket}" />
+                            <button id="Checkout" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                                <span class="ui-button-text">${labelCheckout}</span>
+                            </button>               
+                        </form:form>
+                    </td>
+                    <td>
+                        <form:form action="${editBasketUrl}" method="delete">
+                            <button id="clear" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                                <span class="ui-button-text">${labelClear}</span>
+                            </button>               
+                        </form:form>
+                    </td>
+                </tr>
+            </table>
+            
+    </div>
+</div>
+

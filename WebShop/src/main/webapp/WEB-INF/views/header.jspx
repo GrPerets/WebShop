@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- 
+    Document   : header
+    Created on : 15 жовт. 2018, 13:54:51
+    Author     : grperets
+-->
+<div id="header"  xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:sec="http://www.springframework.org/security/tags"
+          version="2.0">
+
+    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+
+    <spring:message code="header_text" var="headerText" />
+    <spring:message code="label_logout" var="labelLogout" />
+    <spring:message code="label_welcome" var="labelWelcome" />
+    <spring:url value="/logout" var="logoutUrl" />
+    <spring:url value="/baskets" var="basketUrl" />
+    <spring:url value="/customers" var="customerUrl" />
+    
+    <div id="appname">
+        <h1>${headerText}</h1>
+    </div>
+    
+    <div id="userinfo">
+        <sec:authorize access="isAuthenticated()">${labelWelcome}
+            <sec:authentication property="principal.username" var="phoneNumber"/>
+            <a href="${customerUrl}/phoneNumber" >${phoneNumber}</a>
+            <br/>
+            <a href="${logoutUrl}">${labelLogout}</a>
+        </sec:authorize>
+                
+        <form action="${basketUrl}" method="get">
+            <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Basket ${basket.products.size()}</span></button>
+        </form>
+          
+    </div>
+</div>
