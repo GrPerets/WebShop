@@ -40,7 +40,7 @@ public class Order implements Serializable {
     private int version;
     private Customer customer;
     private DateTime orderDate;
-    private boolean enabled;
+    private String state;
     private Set<Product> products = new HashSet<Product>();
 
     @Id
@@ -93,16 +93,17 @@ public class Order implements Serializable {
             orderDateString = org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd").print(orderDate);
         return orderDateString;
     }
+
+    @Column (name = "state")
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
     
-    @Column (name = "enabled")
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
+    
     @JsonIgnore
     @ManyToMany
     @JoinTable (name = "customer_order_product_detail",

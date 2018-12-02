@@ -19,7 +19,7 @@
     <spring:message code="label_order_id" var="labelOrderId" />
     <spring:message code="label_order_customer" var="labelOrderCustomer" />
     <spring:message code="label_order_order_date" var="labelOrderOrderDate" />
-    <spring:message code="label_order_enabled" var="labelOrderEnabled" />
+    <spring:message code="label_order_state" var="labelOrderState" />
     <spring:message code="label_order_products" var="labelOrderProducts" />
     
     <spring:message code="label_customer_phone_number" var="labelCustomerPhoneNumber" />
@@ -72,7 +72,7 @@
                 </tr>
                 <tr>
                     <td>${labelOrderEnabled}</td>
-                    <td>${order.enabled}</td>
+                    <td>${order.state}</td>
                 </tr>
             </tbody>
         </table>
@@ -138,8 +138,7 @@
             </table>        
         </c:forEach>   
         
-        <a href="${editCustomerUrl}/${customer.id}?form">${labelCustomerUpdate}</a>
-        
+                
         <form:form action="${editOrderUrl}/${order.id}" method="post" >
             <button id="update" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
                 <span class="ui-button-text">${labelUpdate}</span>

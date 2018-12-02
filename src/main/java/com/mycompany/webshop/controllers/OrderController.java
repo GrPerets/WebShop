@@ -99,10 +99,11 @@ public class OrderController {
     }
     
     @RequestMapping (value = "/{id}", method = RequestMethod.POST)
-    public String update (@Valid Order order, BindingResult bindingResult,
+    public String update (@PathVariable ("id") Long id, @Valid Order order, BindingResult bindingResult,
                         Model uiModel, HttpServletRequest httpServletRequest,
                         RedirectAttributes redirectAttributes, Locale locale) {
         LOGGER.info("Updating order");
+        order = orderService.findById(id);
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("message", new Message ("error", messageSource.getMessage("order_save_fail", new Object[]{}, locale)));
             uiModel.addAttribute("order", order);
@@ -110,17 +111,20 @@ public class OrderController {
         }
         uiModel.asMap().clear();
         redirectAttributes.addFlashAttribute("message", new Message ("success", messageSource.getMessage("order_save_success", new Object[]{}, locale)));
+        order.setState("confirmed");
         orderService.save(order);
         return "redirect:/orders/" + UrlUtil.encodeUrlPathSegment(order.getId().toString(), httpServletRequest);
     }
     
+    /*
     @RequestMapping (value = "/{id}", params="update", method = RequestMethod.GET)
     public String updateForm (@PathVariable ("id") Long id, Model uiModel) {
         Order order = orderService.findById(id);
-        order.setEnabled(true);
+        order.setState("confirmed");
         uiModel.addAttribute("order", order);
         return "orders/update";
     }
+    */
     
     @RequestMapping (value ="/{id}", method = RequestMethod.DELETE)
     public String delete (@PathVariable("id") Long id) {

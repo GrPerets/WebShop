@@ -12,10 +12,16 @@ and open the template in the editor.
 
     <var name="customer" class="com.mycompany.webshop.db.customer.Customer" />
     
+    <decision-state id="checkCustomer" >
+        
+        <if test="currentUser !=null" then="welcome" />
             
+    </decision-state>       
     <view-state id="welcome">
+        
         <on-entry>
             <evaluate expression="customerService.findByPhoneNumber(currentUser.name)" result="customer" />
+            
         </on-entry>
         <transition on="phoneEntered" to="customerReady" />
     </view-state>

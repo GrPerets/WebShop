@@ -16,7 +16,7 @@
     <spring:message code="label_order_id" var="labelOrderId"/>
     <spring:message code="label_order_customer" var="labelOrderCustomer"/>
     <spring:message code="label_order_order_date" var="labelOrderOrderDate"/>
-    <spring:message code="label_order_enabled" var="labelOrderEnabled"/>
+    <spring:message code="label_order_state" var="labelOrderState"/>
     <spring:message code="label_order_products" var="labelOrderProducts" />
     <spring:url value="/orders" var="showOrderUrl" />
     
@@ -30,11 +30,11 @@
                 datatype: 'json',
                 mtype: 'GET',
                 contentType: "application/json; charset=utf-8",
-                colNames: ['${labelOrderId}', '${labelOrderOrderDate}', '${labelOrderEnabled}'],
+                colNames: ['${labelOrderId}', '${labelOrderOrderDate}', '${labelOrderState}'],
                 colModel: [
                     {name: 'id', index: 'id', width: 100},
                     {name: 'orderDate', index: 'orderDate', width: 100},
-                    {name: 'enabled', index: 'enabled', width: 100}
+                    {name: 'state', index: 'state', width: 100}
                                                             
                 ],
                 jsonReader: {
