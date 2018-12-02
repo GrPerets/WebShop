@@ -46,9 +46,9 @@
                 <prop key="hibernate.show_sql">true</prop>
                 
                 <!--Warning!!!-->
-                
+                <!--
                 <prop key="hibernate.hbm2ddl.auto">create</prop>
-                
+                -->
                 
                 
             </props>
