@@ -29,7 +29,7 @@ public class Manufacturer implements Serializable {
     
     @Id
     @GeneratedValue (strategy = IDENTITY)
-    @Column (name = "ID")
+    @Column (name = "id")
     public Long getId() {
         return id;
     }
@@ -39,7 +39,7 @@ public class Manufacturer implements Serializable {
     }
 
     @Version
-    @Column (name = "VERSION")
+    @Column (name = "version")
     public int getVersion() {
         return version;
     }
@@ -49,7 +49,7 @@ public class Manufacturer implements Serializable {
     }
     
     
-    @Column (name = "MANUFACTURER")
+    @Column (name = "manufacturer")
     public String getManufacturer() {
         return manufacturer;
     }

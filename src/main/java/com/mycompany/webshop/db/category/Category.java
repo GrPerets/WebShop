@@ -27,7 +27,7 @@ public class Category implements Serializable {
 
     @Id
     @GeneratedValue (strategy = IDENTITY)
-    @Column (name = "ID")
+    @Column (name = "id")
     public Long getId() {
         return id;
     }
@@ -37,7 +37,7 @@ public class Category implements Serializable {
     }
 
     @Version
-    @Column (name = "VERSION")
+    @Column (name = "version")
     public int getVersion() {
         return version;
     }
@@ -47,7 +47,7 @@ public class Category implements Serializable {
     }
     
     
-    @Column (name = "CATEGORY")
+    @Column (name = "category")
     public String getCategory() {
         return category;
     }
