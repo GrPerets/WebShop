@@ -372,6 +372,9 @@
             <resource>
                 <directory>src/main/java</directory>
             </resource>
+            <resource>
+                <directory>target</directory>
+            </resource>
                     
          </resources>
         
