@@ -35,11 +35,13 @@
         <property name="jpaProperties">
             <props>
                 <!--MySQL-->
-                <!--
+                
                 <prop key="hibernateDialect">org.hibernate.dialect.MySQLDialect</prop>
-                -->
+                
                 <!--PostgreSql-->
+                <!--
                 <prop key="hibernateDialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+                -->
                 <prop key="hibernate.max_fetch_depth">3</prop>
                 <prop key="hibernate.jdbc.fetch_size">50</prop>
                 <prop key="hibernate.jdbc.batch_size">10</prop>
