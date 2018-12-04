@@ -8,6 +8,7 @@ package com.mycompany.webshop.db.product;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mycompany.webshop.db.basket.Basket;
 import com.mycompany.webshop.db.order.Order;
+import com.mycompany.webshop.db.photo.ProductPhoto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -61,6 +62,7 @@ public class Product implements Serializable{
     private byte[] photo;
     private DateTime dateLastModified;
     private Set<Order> orders = new HashSet<Order>();
+    private Set<ProductPhoto> productPhotos = new HashSet<ProductPhoto>();
     
      
 
@@ -130,6 +132,7 @@ public class Product implements Serializable{
         this.description = description;
     }
 
+    /*
     @Basic (fetch = FetchType.LAZY)
     @Lob
     @Column (name="photo")
@@ -140,6 +143,27 @@ public class Product implements Serializable{
     public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
+    */
+
+    @OneToMany (mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval=true)
+    @JsonManagedReference
+    public Set<ProductPhoto> getProductPhotos() {
+        return productPhotos;
+    }
+
+    public void setProductPhotos(Set<ProductPhoto> productPhotos) {
+        this.productPhotos = productPhotos;
+    }
+    
+    public void addProductPhoto (ProductPhoto productPhoto) {
+        productPhoto.setProduct(this);
+        getProductPhotos().add(productPhoto);
+    }
+    
+    public void removeProductPhoto (ProductPhoto productPhoto) {
+        getProductPhotos().remove(productPhoto);
+    }
+       
     
     @Column (name="date_last_modified")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")

@@ -10,6 +10,8 @@ import com.mycompany.webshop.db.category.Category;
 import com.mycompany.webshop.db.category.CategoryService;
 import com.mycompany.webshop.db.manufacturer.Manufacturer;
 import com.mycompany.webshop.db.manufacturer.ManufacturerService;
+import com.mycompany.webshop.db.photo.ProductPhoto;
+import com.mycompany.webshop.db.photo.ProductPhotoService;
 import com.mycompany.webshop.db.product.Product;
 import com.mycompany.webshop.db.product.ProductService;
 import com.mycompany.webshop.service_and_special_classes.Message;
@@ -56,6 +58,7 @@ public class ProductController {
     private MessageSource messageSource;
     private CategoryService categoryService;
     private ManufacturerService manufacturerService;
+    private ProductPhotoService productPhotoService;
     
         
     @RequestMapping(method = RequestMethod.GET)
@@ -123,7 +126,7 @@ public class ProductController {
     }
     
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.POST )
-    public String update (Product product, BindingResult bindingResult,
+    public String update (ProductPhoto productPhoto, Product product, BindingResult bindingResult,
                             Model uiModel, HttpServletRequest httpServletRequest,
                             RedirectAttributes redirectAttributes, Locale locale,
                             @RequestParam (value = "file", required = false) Part file) {
@@ -146,13 +149,17 @@ public class ProductController {
                 InputStream inputStream = file.getInputStream();
                 if (inputStream == null) LOGGER.info("File inputstream is null");
                 fileContent = IOUtils.toByteArray(inputStream);
-                product.setPhoto(fileContent);
+                //product.setPhoto(fileContent);
+                productPhoto.setPhoto(fileContent);
             } catch (IOException ex) {
                 LOGGER.error("Error saving uploaded file");
             }
-            product.setPhoto(fileContent);
-            
+            //product.setPhoto(fileContent);
+            productPhoto.setPhoto(fileContent);
         }
+    
+    productPhotoService.save(productPhoto);
+    product.addProductPhoto(productPhoto);
     product.setDateLastModified(new DateTime());
     productService.save(product);
     return "redirect:/products/" + UrlUtil.encodeUrlPathSegment(product.getId().toString(), httpServletRequest);
@@ -171,7 +178,7 @@ public class ProductController {
     }
     
     @RequestMapping (params = "new",  method = RequestMethod.POST)
-    public String create (Product product, BindingResult bindingResult,
+    public String create (ProductPhoto productPhoto, Product product, BindingResult bindingResult,
                             Model uiModel, HttpServletRequest httpServletRequest,
                             RedirectAttributes redirectAttributes, Locale locale,
                             @RequestParam (value = "file", required = false) Part file) {
@@ -194,17 +201,22 @@ public class ProductController {
                 InputStream inputStream = file.getInputStream();
                 if (inputStream == null) LOGGER.info("File inputstream is null");
                 fileContent = IOUtils.toByteArray(inputStream);
-                product.setPhoto(fileContent);
+                //product.setPhoto(fileContent);
+                productPhoto.setPhoto(fileContent);
             } catch (IOException ex) {
                 LOGGER.error("Error saving uploaded file");
             }
-            product.setPhoto(fileContent);
-        } 
+            //product.setPhoto(fileContent);
+            productPhoto.setPhoto(fileContent);
+        }
+        productPhotoService.save(productPhoto);
+        product.addProductPhoto(productPhoto);
         product.setDateLastModified(new DateTime());
         productService.save(product);
         return "redirect:/products/" + UrlUtil.encodeUrlPathSegment(product.getId().toString(), httpServletRequest);
     }
     
+    /*
     @RequestMapping (value = "/photo/{id}", method = RequestMethod.GET)
     @ResponseBody
     public byte[] downloadPhoto (@PathVariable ("id") Long id) {
@@ -214,6 +226,8 @@ public class ProductController {
         }
         return product.getPhoto();
     }
+    */
+    
     
     @PreAuthorize ("hasRole('ROLE_MANAGER')")
     @RequestMapping (params ="new", method = RequestMethod.GET)
@@ -256,6 +270,13 @@ public class ProductController {
     public void setManufacturerService(ManufacturerService manufacturerService) {
         this.manufacturerService = manufacturerService;
     }
+
+    @Autowired
+    public void setProductPhotoService(ProductPhotoService productPhotoService) {
+        this.productPhotoService = productPhotoService;
+    }
+    
+    
         
         
 }
