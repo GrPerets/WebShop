@@ -69,7 +69,7 @@ public class CategoryController {
         return "redirect:/categories/"+UrlUtil.encodeUrlPathSegment(category.getId().toString(), httpServletRequest);
     }
     
-    @PreAuthorize ("hasRole('ROLE_MANAGER')")
+    //@PreAuthorize ("hasRole('ROLE_MANAGER')")
     @RequestMapping (value = "/{id}", params = "form", method = RequestMethod.GET)
     public String updateForm (@PathVariable ("id") Long id, Model uiModel) {
         Category category = categoryService.findById(id);
@@ -93,7 +93,7 @@ public class CategoryController {
         return "redirect:/categories/" + UrlUtil.encodeUrlPathSegment(category.getId().toString(), httpServletRequest);
     }
     
-    @PreAuthorize ("hasRole('ROLE_MANAGER')")
+    //@PreAuthorize ("hasRole('ROLE_MANAGER')")
     @RequestMapping (params = "new", method = RequestMethod.GET)
     public String createForm (Model uiModel) {
         Category category = new Category();

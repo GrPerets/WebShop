@@ -67,7 +67,7 @@ public class ManufacturerController {
         return "redirect:/manufacturers/" + UrlUtil.encodeUrlPathSegment(manufacturer.getId().toString(), httpServletRequest);
     }
     
-    @PreAuthorize ("hasRole('ROLE_MANAGER')")
+    //@PreAuthorize ("hasRole('ROLE_MANAGER')")
     @RequestMapping (value = "/{id}", params = "form", method = RequestMethod.GET)
     public String updateForm (@PathVariable ("id") Long id, Model uiModel) {
         Manufacturer manufacturer = manufacturerService.findById(id);
@@ -90,7 +90,7 @@ public class ManufacturerController {
         return "redirect:/manufacturers/" + UrlUtil.encodeUrlPathSegment(manufacturer.getId().toString(), httpServletRequest);
     }
     
-    @PreAuthorize ("hasRole('ROLE_MANAGER')")
+    //@PreAuthorize ("hasRole('ROLE_MANAGER')")
     @RequestMapping (params = "new", method = RequestMethod.GET)
     public String createForm (Model uiModel) {
         Manufacturer manufacturer = new Manufacturer();
