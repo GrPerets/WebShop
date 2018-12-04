@@ -18,7 +18,7 @@ and open the template in the editor.
         <put-attribute name="body" value="/WEB-INF/views/login.jspx" />
     </definition>
     
-    <definition extends="default" name="edit">
+    <definition extends="default" name="registrationForm">
         <put-attribute name="body" value="/WEB-INF/views/customers/edit.jspx" />
     </definition>
     

@@ -27,8 +27,6 @@
     
     <spring:url value="/products/list" var="editCustomer" />
     
-    <div>Hello World!</div>
-    
     <h1>${labelCustomerInfo}</h1>
     
     <div id="customerInfo">

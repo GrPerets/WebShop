@@ -40,7 +40,7 @@ public class Order implements Serializable {
     private int version;
     private Customer customer;
     private DateTime orderDate;
-    private String state;
+    private String state = "checked";
     private Set<Product> products = new HashSet<Product>();
 
     @Id

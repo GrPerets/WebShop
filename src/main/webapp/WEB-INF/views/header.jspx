@@ -27,7 +27,7 @@
     <div id="userinfo">
         <sec:authorize access="isAuthenticated()">${labelWelcome}
             <sec:authentication property="principal.username" var="phoneNumber"/>
-            <a href="${customerUrl}/phoneNumber" >${phoneNumber}</a>
+            <a href="${customerUrl}/${customer.id}" >${phoneNumber}</a>
             <br/>
             <a href="${logoutUrl}">${labelLogout}</a>
         </sec:authorize>

@@ -47,7 +47,7 @@ public class Category implements Serializable {
     }
     
     
-    @Column (name = "category")
+    @Column (name = "category", unique = true, nullable = false)
     public String getCategory() {
         return category;
     }

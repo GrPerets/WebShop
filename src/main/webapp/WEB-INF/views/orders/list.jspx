@@ -33,7 +33,7 @@
                 colNames: ['${labelOrderId}', '${labelOrderOrderDate}', '${labelOrderState}'],
                 colModel: [
                     {name: 'id', index: 'id', width: 100},
-                    {name: 'orderDate', index: 'orderDate', width: 100},
+                    {name: 'orderDateString', index: 'orderDate', width: 100},
                     {name: 'state', index: 'state', width: 100}
                                                             
                 ],

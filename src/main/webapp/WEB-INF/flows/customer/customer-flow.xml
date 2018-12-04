@@ -11,12 +11,20 @@ and open the template in the editor.
     xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow.xsd">
 
     <var name="customer" class="com.mycompany.webshop.db.customer.Customer" />
-    
-    <decision-state id="checkCustomer" >
+    <!--
+    <decision-state id="ckeckAuth">
+        <if test="currentUser.name" then="welcome"/>
+    </decision-state>
+    -->
+    <action-state id="lookupCustomer">
+        <evaluate expression="currentUser.name" />
+        <transition to="login" on-exception="org.springframework.binding.expression.EvaluationException" />
         
-        <if test="currentUser !=null" then="welcome" />
-            
-    </decision-state>       
+        <transition to="welcome"/>
+    </action-state>
+    
+    
+    
     <view-state id="welcome">
         
         <on-entry>
@@ -26,11 +34,17 @@ and open the template in the editor.
         <transition on="phoneEntered" to="customerReady" />
     </view-state>
     
+    <view-state id="login">
+       
+    </view-state>
+    
+    <end-state id="cancel" />
+    
     <end-state id="customerReady" >
         <output name="customer" />
     </end-state>
     
     <global-transitions>
-        <transition on="cancel" to="endState" />
+        <transition on="cancel" to="cancel" />
     </global-transitions>    
 </flow>

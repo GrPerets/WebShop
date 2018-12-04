@@ -68,7 +68,7 @@
                 </tr>
                 <tr>
                     <td>${labelOrderOrderDate}</td>
-                    <td>${order.orderDate}</td>
+                    <td>${order.orderDateString}</td>
                 </tr>
                 <tr>
                     <td>${labelOrderEnabled}</td>
