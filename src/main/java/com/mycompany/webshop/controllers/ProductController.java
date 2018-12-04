@@ -165,7 +165,7 @@ public class ProductController {
     return "redirect:/products/" + UrlUtil.encodeUrlPathSegment(product.getId().toString(), httpServletRequest);
     }
     
-    @PreAuthorize ("hasRole('ROLE_MANAGER')")
+    //@PreAuthorize ("hasRole('ROLE_MANAGER')")
     @RequestMapping (value = "/{id}", params = "form", method= RequestMethod.GET)
     public String updateForm(@PathVariable("id") Long id, Model uiModel) {
         List<Category> categories = categoryService.findAll();
@@ -229,7 +229,7 @@ public class ProductController {
     */
     
     
-    @PreAuthorize ("hasRole('ROLE_MANAGER')")
+    //@PreAuthorize ("hasRole('ROLE_MANAGER')")
     @RequestMapping (params ="new", method = RequestMethod.GET)
     public String createForm (Model uiModel) {
         List<Category> categories = categoryService.findAll();
