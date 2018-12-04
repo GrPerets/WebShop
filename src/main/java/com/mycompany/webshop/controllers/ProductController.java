@@ -19,6 +19,7 @@ import com.mycompany.webshop.service_and_special_classes.ProductGrid;
 import com.mycompany.webshop.service_and_special_classes.UrlUtil;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -216,17 +217,19 @@ public class ProductController {
         return "redirect:/products/" + UrlUtil.encodeUrlPathSegment(product.getId().toString(), httpServletRequest);
     }
     
-    /*
+    
     @RequestMapping (value = "/photo/{id}", method = RequestMethod.GET)
     @ResponseBody
     public byte[] downloadPhoto (@PathVariable ("id") Long id) {
         Product product = productService.findById(id);
-        if (product.getPhoto() != null) {
-            LOGGER.info("Downloading photo for id: {} with size: {}", product.getId(), product.getPhoto().length);
+        if (!product.getProductPhotos().isEmpty()) {
+            LOGGER.info("Downloading photo for id: {} with size: {}", product.getId(), product.getProductPhotos().size());
         }
-        return product.getPhoto();
+        HashSet<ProductPhoto> photos = (HashSet)product.getProductPhotos();
+        
+        return  photos.iterator().next().getPhoto();
     }
-    */
+    
     
     
     //@PreAuthorize ("hasRole('ROLE_MANAGER')")
