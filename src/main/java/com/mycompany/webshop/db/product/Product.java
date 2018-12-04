@@ -85,7 +85,7 @@ public class Product implements Serializable{
         this.version = version;
     }
     
-    @Column (name = "model")
+    @Column (name = "model", unique = true, nullable = false)
     public String getModel() {
         return model;
     }
@@ -112,7 +112,7 @@ public class Product implements Serializable{
         this.manufacturer = manufacturer;
     }
 
-    @Column (name = "price")
+    @Column (name = "price", nullable = false)
     public Double getPrice() {
         return price;
     }

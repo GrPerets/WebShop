@@ -34,8 +34,8 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 public class Customer implements Serializable {
     private Long id;
     private int version;
-    private boolean enabled;
-    private String authority;
+    private boolean enabled = true;
+    private String authority = "ROLE_CUSTOMER";
     private String phoneNumber;
     private String password;
     private String firstName;
@@ -71,7 +71,7 @@ public class Customer implements Serializable {
         this.version = version;
     }
     
-    @Column (name = "enabled")
+    @Column (name = "enabled", nullable = false)
     public boolean isEnabled() {
         return enabled;
     }
@@ -80,7 +80,7 @@ public class Customer implements Serializable {
         this.enabled = enabled;
     }
     
-    @Column (name = "authority")
+    @Column (name = "authority", nullable = false)
     public String getAuthority() {
         return authority;
     }
@@ -92,7 +92,7 @@ public class Customer implements Serializable {
 
     //@NotEmpty (message = "{validation.phonenumber.NotEmpty.message}")
     //@Size (min=10, max=13, message="{validation.phonenumber.Size.message}")
-    @Column (name = "phone_number")
+    @Column (name = "phone_number", unique = true, nullable = false)
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -105,7 +105,7 @@ public class Customer implements Serializable {
 
     //@NotEmpty (message = "{validation.password.NotEmpty.message}")
     //@Size (min=6, message = "{validation.password.Size.message}")
-    @Column (name = "password")
+    @Column (name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
@@ -133,7 +133,7 @@ public class Customer implements Serializable {
     }
 
     //@NotEmpty (message ="{validation.email.NotEmpty.message}")
-    @Column (name = "email")
+    @Column (name = "email", unique = true, nullable = false)
     public String getEmail() {
         return email;
     }

@@ -49,7 +49,7 @@ public class Manufacturer implements Serializable {
     }
     
     
-    @Column (name = "manufacturer")
+    @Column (name = "manufacturer", unique = true, nullable = false)
     public String getManufacturer() {
         return manufacturer;
     }

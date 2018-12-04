@@ -94,7 +94,7 @@ public class Order implements Serializable {
         return orderDateString;
     }
 
-    @Column (name = "state")
+    @Column (name = "state", nullable = false)
     public String getState() {
         return state;
     }
