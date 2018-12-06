@@ -119,10 +119,9 @@ public class ProductController {
     
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET )
-    public String show (@PathVariable("id") Long id, @RequestParam (value = "basketId", required=false) Long basketId, Model uiModel) {
+    public String show (@PathVariable("id") Long id, Model uiModel) {
         Product product = productService.findById(id);
         uiModel.addAttribute("product", product);
-        uiModel.addAttribute("basketId", basketId);
         return "products/show";
     }
     
@@ -222,12 +221,12 @@ public class ProductController {
     @ResponseBody
     public byte[] downloadPhoto (@PathVariable ("id") Long id) {
         Product product = productService.findById(id);
+        HashSet<ProductPhoto> productPhotos = (HashSet)productPhotoService.findByProduct(product);
         if (!product.getProductPhotos().isEmpty()) {
             LOGGER.info("Downloading photo for id: {} with size: {}", product.getId(), product.getProductPhotos().size());
         }
-        HashSet<ProductPhoto> photos = (HashSet)product.getProductPhotos();
-        
-        return  photos.iterator().next().getPhoto();
+        //return  product.getProductPhotos().iterator().next().getPhoto();
+        return productPhotos.iterator().next().getPhoto();
     }
     
     

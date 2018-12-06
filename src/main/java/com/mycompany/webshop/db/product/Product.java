@@ -5,6 +5,7 @@
  */
 package com.mycompany.webshop.db.product;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mycompany.webshop.db.basket.Basket;
 import com.mycompany.webshop.db.order.Order;
@@ -59,7 +60,7 @@ public class Product implements Serializable{
     private String manufacturer;
     private Double price;
     private String description;
-    private byte[] photo;
+    //private byte[] photo;
     private DateTime dateLastModified;
     private Set<Order> orders = new HashSet<Order>();
     private Set<ProductPhoto> productPhotos = new HashSet<ProductPhoto>();
@@ -145,8 +146,9 @@ public class Product implements Serializable{
     }
     */
 
+    //@Basic (fetch = FetchType.LAZY)
     @OneToMany (mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval=true)
-    @JsonManagedReference
+    @JsonBackReference
     public Set<ProductPhoto> getProductPhotos() {
         return productPhotos;
     }

@@ -6,6 +6,7 @@
 package com.mycompany.webshop.db.photo;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mycompany.webshop.db.product.Product;
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -57,7 +58,7 @@ public class ProductPhoto implements Serializable {
         this.version = version;
     }
 
-    @Basic (fetch = FetchType.LAZY)
+    //@Basic (fetch = FetchType.LAZY)
     @Lob
     @Column (name="photo")
     public byte[] getPhoto() {
@@ -70,7 +71,7 @@ public class ProductPhoto implements Serializable {
     
     @ManyToOne
     @JoinColumn (name = "product_id")
-    @JsonBackReference
+    @JsonManagedReference
     public Product getProduct() {
         return product;
     }
