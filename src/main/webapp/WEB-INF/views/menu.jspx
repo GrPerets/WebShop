@@ -15,13 +15,19 @@
     
     <spring:message code="menu_header_text" var="menuHeaderText" />
     <spring:message code="menu_all_orders" var="menuAllOrders" />
+    
     <spring:message code="menu_all_products" var="menuAllProducts" />
     <spring:message code="menu_add_product" var="menuAddProduct" />
+    
     <spring:message code="menu_add_category" var="menuAddCategory" />
+    
     <spring:message code="menu_add_manufacturer" var="menuAddManufacturer" />
     
     <spring:message code="menu_add_customer" var="menuAddCustomer" />
     <spring:message code="menu_all_customers" var="menuAllCustomers" />
+    
+    <spring:message code="menu_add_manager" var="menuAddManager" />
+    <spring:message code="menu_all_managers" var="menuAllManagers" />
     
     <spring:url value="/orders" var="allOrdersUrl" />
     <spring:url value="/products" var="allProductsUrl" />
@@ -33,6 +39,9 @@
     
     <spring:url value="/customers" var="allCustomersUrl" />
     <spring:url value="/customers?new" var="addCustomerUrl" />
+    
+    <spring:url value="/managers" var="allManagersUrl" />
+    <spring:url value="/managers?new" var="addManagerUrl" />
         
     
     <h3>${menuHeaderText}</h3>
@@ -41,7 +50,9 @@
     
     <a href="${allProductsUrl}"><h3>${menuAllProducts}</h3></a>
     
+    <a href="${allManagersUrl}"><h3>${menuAllManagers}</h3></a>
    
+    <a href="${addManagerUrl}"><h3>${menuAddManager}</h3></a>
     <sec:authorize access="hasRole('ROLE_ADMIN')">
         <a href="${allCustomersUrl}"><h3>${menuAllCustomers}</h3></a>
         <a href="${addCustomerUrl}"><h3>${menuAddCustomer}</h3></a>

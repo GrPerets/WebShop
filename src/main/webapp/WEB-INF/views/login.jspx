@@ -29,7 +29,7 @@
             <form name="loginForm" action="${loginUrl}" method="post">
                 
                 <table>
-                    <caption align="left">${labelLogin}:</caption>
+                    
                     <tr>
                         <td>${labelPhone}:</td>
                         <td><input type="text" name="username" /></td>

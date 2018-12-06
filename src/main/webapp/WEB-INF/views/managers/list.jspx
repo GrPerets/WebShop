@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Document   : list
+    Created on : 24 жовт. 2018, 21:10:24
+    Author     : grperets
+-->
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:joda="http://www.joda.org/joda/time/tags"
+     version="2.0">
+
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+
+    <spring:message code="label_manager_list" var="labelManagerList"/>
+    <spring:message code="label_manager_user_name" var="labelManagerUserName" />
+    <spring:message code="label_manager_first_name" var="labelMangerFirstName" />
+    <spring:message code="label_manager_last_name" var="labelManagerLastName" />
+    <spring:message code="label_manager_email" var="labelManagerEmail" />
+    <spring:message code="label_manager_registration_date" var="labelManagerRegistrationDate" />
+    <spring:url value="/managers" var="showManagerUrl" />
+    
+    <script type="text/javascript">
+        //<![CDATA[
+        $(function(){
+            $("#list").jqGrid({
+                url: '${showManagerUrl}/listgrid',
+                datatype: 'json',
+                mtype: 'GET',
+                colName: ['labelManagerUserName', 'labelManagerFirstName',
+                    'labelManagerLastName', 'labelManagerEmail',
+                    'labelManagerRegistrationDate'
+                ],
+                colModel: [
+                    {name: 'userName', index: 'userName', width: 100},
+                    {name: 'firstName', index: 'firstName', width: 100},
+                    {name: 'lastName', index: 'lastName', width: 100},
+                    {name: 'email', index: 'email', width: 150},
+                    {name: 'registrationDateString', index: 'registrationDate', width: 100}
+                ],
+                jsonReader: {
+                    root: "managerData",
+                    page: "currentPage",
+                    total: "totalPages",
+                    records: "totalRecords",
+                    repeatitems: false,
+                    id: "id"
+                },
+                pager: '#pager',
+                rowNum: 10,
+                rowList: [10, 20, 30],
+                loadonce: false,
+                sortname: 'id',
+                sortorder: 'asc',
+                viewrecords: true,
+                gridview: true,
+                height: 300,
+                width: 500,
+                caption: '${labelManagerList}',
+                onSelectRow: function(id) {
+                    document.location.href="${showManagerUrl}/" + id;
+                }
+            });
+        });
+        //]]>
+    </script>
+    
+    <c:if test="${not empty message}">
+        <div id="message" class="${message.type}">${message.message}</div>
+    </c:if>
+    <h2>${labelManagerList}</h2>
+    <div>
+        <table id="list"><tr><td/></tr></table>
+    </div>
+    <div id="pager"></div>
+        
+</div>

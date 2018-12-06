@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Document   : show
+    Created on : 24 жовт. 2018, 21:34:31
+    Author     : grperets
+-->
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:sec="http://www.springframework.org/security/tags"
+     xmlns:joda="http:/www.joda.org/joda/time/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
+
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+    
+    <spring:message code="label_manager_info" var="labelManagerInfo" />
+    <spring:message code="label_manager_user_name" var="labelManagerUserName" />
+    <spring:message code="label_manager_first_name" var="labelManagerFirstName" />
+    <spring:message code="label_manager_last_name" var="labelManagerLastName" />
+    <spring:message code="label_manager_email" var="labelManagerEmail" />
+    <spring:message code="label_manager_registration_date" var="labelManagerRegistrationDate" />
+    <spring:message code="label_manager_update" var="labelManagerUpdate" />
+    <spring:message code="date_format_pattern" var="dateFormatPattern" />
+    
+    <spring:url value="/managers" var="editManagerUrl" />
+    
+    
+    <sec:authorize access="isAuthenticated()">
+            <sec:authentication property="principal.username" var="userName"/>
+              
+    </sec:authorize>
+    
+    
+    <h1>${labelManagerInfo}</h1>
+    
+    <div id="managerInfo">
+        <c:if test="${not empty message}">
+            <div id="message" class="${message.type}">${message.message}</div>
+        </c:if>
+        <table>
+            <tr>
+                <td>${labelManagerUserName}</td>
+                <td>${manager.userName}</td>
+            </tr>
+            <tr>
+                <td>${labelManagerFirstName}</td>
+                <td>${manager.firstName}</td>
+            </tr>
+            <tr>
+                <td>${labelManagerLastName}</td>
+                <td>${manager.lastName}</td>
+            </tr>
+            <tr>
+                <td>${labelManagerEmail}</td>
+                <td>${manager.email}</td>
+            </tr>
+            <tr>
+                <td>${labelManagerRegistrationDate}</td>
+                <td><joda:format value="${manager.registrationDate}" patern="${dateFormatPattern}"/></td>
+            </tr>
+        </table>
+        <a href="${editManagerUrl}/${manager.id}?form">${labelManagerUpdate}</a>
+    </div>
+</div>

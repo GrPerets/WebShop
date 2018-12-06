@@ -7,12 +7,15 @@ package com.mycompany.webshop.controllers;
 
 import com.google.common.collect.Sets;
 import com.mycompany.webshop.db.customer.Customer;
-import com.mycompany.webshop.db.customer.CustomerService;
+import com.mycompany.webshop.db.manager.Manager;
+import com.mycompany.webshop.db.manager.ManagerService;
 import com.mycompany.webshop.service_and_special_classes.CustomerGrid;
+import com.mycompany.webshop.service_and_special_classes.ManagerGrid;
 import com.mycompany.webshop.service_and_special_classes.Message;
 import com.mycompany.webshop.service_and_special_classes.UrlUtil;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -38,35 +41,35 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author grperets
  */
 @Controller
-@RequestMapping ("/customers")
-public class CustomerController {
-    private final Logger LOGGER = LoggerFactory.getLogger(CustomerController.class);
-    private CustomerService customerService;
+@RequestMapping ("/managers")
+public class ManagerController {
+    private final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class);
+    private ManagerService managerService;
     private MessageSource messageSource;
+
     
-    
-    @PreAuthorize ("hasRole('ROLE_MANAGER')")
+    //@PreAuthorize ("hasRole('ROLE_ADMIN')")
     @RequestMapping (method = RequestMethod.GET)
     public String list (Model uiModel) {
-        LOGGER.info("Listing customers");
-        List<Customer> customers = customerService.findAll();
-        uiModel.addAttribute("customers", customers);
-        LOGGER.info("No. of customers: " + customers.size());
-        return "customers/list";
+        LOGGER.info("Listing managers");
+        Set<Manager> managers = managerService.findAll();
+        uiModel.addAttribute("managers", managers);
+        LOGGER.info("No. of managers: " + managers.size());
+        return "managers/list";
     }
     
     @RequestMapping (value = "/listgrid", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public CustomerGrid<Customer> listGrid (@RequestParam (value = "page", required = false) Integer page,
+    public ManagerGrid<Manager> listGrid (@RequestParam (value = "page", required = false) Integer page,
         @RequestParam (value = "rows", required = false) Integer rows,
         @RequestParam (value = "sidx", required = false) String sortBy,
         @RequestParam (value = "sord", required = false) String order) {
-        LOGGER.info("Listing customers for grid with page: {}, rows: {}", page, rows);
-        LOGGER.info("Listing customers for grid with sort: {}, order: {}", sortBy, order);
+        LOGGER.info("Listing managers for grid with page: {}, rows: {}", page, rows);
+        LOGGER.info("Listing managers for grid with sort: {}, order: {}", sortBy, order);
         Sort sort = null;
         String orderBy = sortBy;
-        if (orderBy != null && orderBy.equals("birthDateString"))
-            orderBy = "birthDate";
+        if (orderBy != null && orderBy.equals("registrationDateString"))
+            orderBy = "registrationDate";
         if (orderBy != null && order != null) {
             if (order.equals("desc")) {
                 sort = new Sort(Sort.Direction.DESC, orderBy);
@@ -79,80 +82,80 @@ public class CustomerController {
         } else {
             pageRequest = new PageRequest (page - 1, rows);
         }
-        Page<Customer> customerPage = customerService.findAllByPage(pageRequest);
-        CustomerGrid<Customer> customerGrid = new CustomerGrid<>();
-        customerGrid.setCurrentPage(customerPage.getNumber() + 1);
-        customerGrid.setTotalPages(customerPage.getTotalPages());
-        customerGrid.setTotalRecords(customerPage.getTotalElements());
-        customerGrid.setCustomerData(Sets.newHashSet(customerPage.iterator()));
-        return customerGrid;
+        Page<Manager> managerPage = managerService.findAllByPage(pageRequest);
+        ManagerGrid<Manager> managerGrid = new ManagerGrid<>();
+        managerGrid.setCurrentPage(managerPage.getNumber() + 1);
+        managerGrid.setTotalPages(managerPage.getTotalPages());
+        managerGrid.setTotalRecords(managerPage.getTotalElements());
+        managerGrid.setManagerData(Sets.newHashSet(managerPage.iterator()));
+        return managerGrid;
     }
     
     @RequestMapping (value = "/{id}", method = RequestMethod.GET)
     public String show (@PathVariable ("id") Long id, Model uiModel) {
-        Customer customer = customerService.findById(id);
-        uiModel.addAttribute("customer", customer);
-        return "customers/show";
+        Manager manager = managerService.findById(id);
+        uiModel.addAttribute("manager", manager);
+        return "managers/show";
     }
     
     @RequestMapping (value = "/{id}", params = "form", method = RequestMethod.POST)
-    public String update (@Valid Customer customer, BindingResult bindingResult,
+    public String update (@Valid Manager manager, BindingResult bindingResult,
                         Model uiModel, HttpServletRequest httpServletRequest,
                         RedirectAttributes redirectAttributes, Locale locale) {
-        LOGGER.info("Updating customer");
+        LOGGER.info("Updating manager");
         if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("message", new Message ("error", messageSource.getMessage("customer_save_fail", new Object[]{}, locale)));
-            uiModel.addAttribute("customer", customer);
-            return "customers/update";
+            uiModel.addAttribute("message", new Message ("error", messageSource.getMessage("manager_save_fail", new Object[]{}, locale)));
+            uiModel.addAttribute("manager", manager);
+            return "managers/update";
         }
         uiModel.asMap().clear();
-        redirectAttributes.addFlashAttribute("message", new Message ("success", messageSource.getMessage("customer_save_success", new Object[]{}, locale)));
-        customerService.save(customer);
-        return "redirect:/customers/" + UrlUtil.encodeUrlPathSegment(customer.getId().toString(), httpServletRequest);
+        redirectAttributes.addFlashAttribute("message", new Message ("success", messageSource.getMessage("manager_save_success", new Object[]{}, locale)));
+        managerService.save(manager);
+        return "redirect:/managers/" + UrlUtil.encodeUrlPathSegment(manager.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping (value = "/{id}", params ="form", method = RequestMethod.GET)
     public String updateForm (@PathVariable ("id") Long id, Model uiModel) {
-        Customer customer = customerService.findById(id);
-        uiModel.addAttribute("customer", customer);
-        return "customers/update";
+        Manager manager = managerService.findById(id);
+        uiModel.addAttribute("manager", manager);
+        return "managers/update";
     }
     
     @RequestMapping(params = "new", method = RequestMethod.POST)
-    public String create(@Valid Customer customer, BindingResult bindingResult,
+    public String create(@Valid Manager manager, BindingResult bindingResult,
                         Model uiModel, HttpServletRequest httpServletRequest,
                         RedirectAttributes redirectAttributes, Locale locale) {
-        LOGGER.info("Creating customer");
+        LOGGER.info("Creating manager");
         if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("message", new Message ("error", messageSource.getMessage("customer_save_fail", new Object[]{}, locale)));
-            uiModel.addAttribute("customer", customer);
-            return "customers/create";
+            uiModel.addAttribute("message", new Message ("error", messageSource.getMessage("manager_save_fail", new Object[]{}, locale)));
+            uiModel.addAttribute("manager", manager);
+            return "managers/create";
         }
         uiModel.asMap().clear();
-        redirectAttributes.addFlashAttribute("message", new Message ("success", messageSource.getMessage("customer_save_success", new Object[]{}, locale)));
-        LOGGER.info("Customer id: " + customer.getId());
-        customerService.save(customer);
-        return "redirect:/customers/" + UrlUtil.encodeUrlPathSegment(customer.getId().toString(), httpServletRequest);
+        redirectAttributes.addFlashAttribute("message", new Message ("success", messageSource.getMessage("manager_save_success", new Object[]{}, locale)));
+        LOGGER.info("Manager id: " + manager.getId());
+        managerService.save(manager);
+        return "redirect:/managers/" + UrlUtil.encodeUrlPathSegment(manager.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping (params = "new", method = RequestMethod.GET)
     public String createForm (Model uiModel) {
-        Customer customer = new Customer();
-        uiModel.addAttribute("customer", customer);
-        return "customers/create";
+        Manager manager = new Manager();
+        uiModel.addAttribute("manager", manager);
+        return "managers/create";
     }
     
     @RequestMapping (value ="/{id}", params = "form", method = RequestMethod.DELETE)
     public String delete (@PathVariable("id") Long id) {
-        LOGGER.info("Deleting cuctomer");
-        customerService.delete(id);
-        LOGGER.info("Delete customer with Id: " + id);
-        return "redirect:/customers";
+        LOGGER.info("Deleting manager");
+        managerService.delete(id);
+        LOGGER.info("Delete manager with Id: " + id);
+        return "redirect:/managers";
     }
-
+    
     @Autowired
-    public void setCustomerService(CustomerService customerService) {
-        this.customerService = customerService;
+    public void setManagerService(ManagerService managerService) {
+        this.managerService = managerService;
     }
 
     @Autowired
@@ -160,5 +163,5 @@ public class CustomerController {
         this.messageSource = messageSource;
     }
     
-        
+    
 }

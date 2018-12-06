@@ -41,14 +41,7 @@
         <table>
             <tr>
                 <td>${labelProductPhoto}</td>
-                
-                <td>
-                    ${product.id}
-                </td>
-                    <td><img src="${productPhotoUrl}/${product.id}"></img></td>
-                    
-                 
-                
+                <td><img src="${productPhotoUrl}/${product.id}"></img></td>
             </tr>
             <tr>
                 <td>${labelProductModel}</td>

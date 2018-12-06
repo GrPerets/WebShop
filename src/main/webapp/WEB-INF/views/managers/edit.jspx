@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Document   : edit
+    Created on : 24 жовт. 2018, 22:22:26
+    Author     : grperets
+-->
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
+    
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+    
+    <spring:message code="label_manager_new" var="labelManagerNew" />
+    <spring:message code="label_manager_update" var="labelManagerUpdate" />
+    <spring:message code="label_manager_user_name" var="labelManagerUserName" />
+    <spring:message code="label_manager_password" var="labelManagerPassword" />
+    <spring:message code="label_manager_first_name" var="labelManagerFirstName" />
+    <spring:message code="label_manager_last_name" var="labelManagerLastName" />
+    <spring:message code="label_manager_email" var="labelManagerEmail" />
+    <spring:message code="label_customer_birth_date" var="labelCustomerBirthDate" />
+    
+    <spring:eval expression="manager.id == null ? labelManagerNew : labelManagerUpdate" var="formTitle" />
+            
+    <h1>${formTitle}</h1>
+    <div id="managerUpdate">
+        <form:form modelAttribute="manager" id="managerUpdateForm" method="post">
+            <c:if test="${not empty message}">
+                <div id="message" class="${message.type}">${message.message}</div>
+            </c:if>
+            <form:label path="userName">
+                ${labelManagerUserName}*
+            </form:label>
+            <form:input path="userName" />
+            <div>
+                <form:errors path="userName" cssClass="error" />
+            </div>
+            <p/>
+            <form:label path="password">
+                ${labelManagerPassword}*
+            </form:label>
+            <form:password path="password" />
+            <div>
+                <form:errors path="password" cssClass="error" />
+            </div>
+            <p/>
+            <form:label path="firstName">
+                ${labelManagerFirstName}
+            </form:label>
+            <form:input path="firstName" />
+            <div>
+                <form:errors path="firstName" cssClass="error" />
+            </div>
+            <p/>
+            <form:label path="lastName">
+                ${labelManagerLastName}
+            </form:label>
+            <form:input path="lastName" />
+            <div>
+                <form:errors path="lastName" cssClass="error" />
+            </div>
+            <p/>
+            <form:label path="email">
+                ${labelManagerEmail}*
+            </form:label>
+            <form:input path="email" />
+            <div>
+                <form:errors path="email" cssClass="error" />
+            </div>
+            <p/>
+            
+            <form:hidden path="version" />
+            
+            <button type="submit" class="ui-button ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Save</span></button>
+            <button type="reset" class="ui-button ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Reset</span></button>
+        </form:form>
+        <form:form method="delete">
+            <button id="managerDeleteForm" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Delete</span></button>
+        </form:form>
+    </div>
+</div>

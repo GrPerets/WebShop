@@ -10,13 +10,13 @@ import java.util.Set;
 /**
  *
  * @author grperets
- * @param <Customer>
+ * @param <Manager>
  */
-public class CustomerGrid<Customer> {
+public class ManagerGrid<Manager> {
     private int totalPages;
     private int currentPage;
     private long totalRecords;
-    private Set<Customer> customerData;
+    private Set<Manager> managerData;
 
     public int getTotalPages() {
         return totalPages;
@@ -42,13 +42,14 @@ public class CustomerGrid<Customer> {
         this.totalRecords = totalRecords;
     }
 
-    public Set<Customer> getCustomerData() {
-        return customerData;
+    public Set<Manager> getManagerData() {
+        return managerData;
     }
 
-    public void setCustomerData(Set<Customer> customerData) {
-        this.customerData = customerData;
+    public void setManagerData(Set<Manager> managerData) {
+        this.managerData = managerData;
     }
+    
     
     
 }
