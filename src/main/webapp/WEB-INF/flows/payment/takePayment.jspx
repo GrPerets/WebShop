@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Document   : takePayment
+    Created on : 11 груд. 2018, 21:22:02
+    Author     : grperets
+-->
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:joda="http://www.joda.org/joda/time/tags"
+     xmlns:sec="http://www.springframework.org/security/tags"
+     version="2.0">
+
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+    
+    <h2>Choose Payment Type</h2>
+    
+    <form:form>
+        <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}" />
+        <c:forEach items="${paymentTypes}" var="paymentType">
+            <input type="radio" name="paymentType" value="${paymentType.paymentType}" />${paymentType.paymentType} <br/>
+        </c:forEach>
+        
+        <input type="submit" name="_eventId_paymentSubmitted" value="Contine" />
+        
+    </form:form>
+</div>

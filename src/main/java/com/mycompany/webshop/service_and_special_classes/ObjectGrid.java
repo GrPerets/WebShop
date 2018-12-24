@@ -11,11 +11,11 @@ import java.util.Set;
  *
  * @author grperets
  */
-public class BasketGrid<Basket> {
+public class ObjectGrid {
     private int totalPages;
     private int currentPage;
     private long totalRecords;
-    private Set<Basket> basketData;
+    private Set objectData;
 
     public int getTotalPages() {
         return totalPages;
@@ -41,12 +41,12 @@ public class BasketGrid<Basket> {
         this.totalRecords = totalRecords;
     }
 
-    public Set<Basket> getBasketData() {
-        return basketData;
+    public Set getObjectData() {
+        return objectData;
     }
 
-    public void setBasketData(Set<Basket> basketData) {
-        this.basketData = basketData;
+    public void setObjectData(Set objectData) {
+        this.objectData = objectData;
     }
     
     

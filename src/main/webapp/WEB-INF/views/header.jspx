@@ -23,7 +23,7 @@
     <div id="appname">
         <h1>${headerText}</h1>
     </div>
-    
+        
     <div id="userinfo">
         <sec:authorize access="isAuthenticated()">${labelWelcome}
             <sec:authentication property="principal.username" var="phoneNumber"/>
@@ -33,8 +33,38 @@
         </sec:authorize>
                 
         <form action="${basketUrl}" method="get">
-            <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Basket ${basket.products.size()}</span></button>
+            <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Basket ${basket.products.size()}-${basket.total}</span></button>
         </form>
           
     </div>
+        
+    <div id="information" >
+        <table>
+            <thead>
+                <tr>
+                    <th>Login</th>
+                    <th>Password</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>admin</td>
+                    <td>admin</td>
+                    <td>ADMIN</td>
+                </tr>
+                <tr>
+                    <td>manager</td>
+                    <td>manager</td>
+                    <td>MANAGER</td>
+                </tr>
+                <tr>
+                    <td>+380686011854</td>
+                    <td>123456</td>
+                    <td>CUSTOMER</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>    
+        
 </div>

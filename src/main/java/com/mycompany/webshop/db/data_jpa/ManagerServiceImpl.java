@@ -46,8 +46,8 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Transactional (readOnly = true)
     @Override
-    public Manager findByUserName(String userName) {
-        return managerRepository.findByUserName(userName);
+    public Manager findByUsername(String username) {
+        return managerRepository.findByUsername(username);
     }
 
     @Override

@@ -30,7 +30,7 @@
                 mtype: 'GET',
                 colNames: ['${labelProductModel}', '${labelProductCategory}', '${labelProductManufacturer}', '${labelProductPrice}'],
                 colModel: [
-                    {name: 'model', index: 'model', width: 100},
+                    {name: 'model', index: 'model', width: 500},
                     {name: 'category', index: 'category', width: 100},
                     {name: 'manufacturer', index: 'manufacturer', width: 100},
                     {name: 'price', index: 'price', width: 100}
@@ -52,8 +52,8 @@
                 sortorder: 'asc',
                 viewrecords: true,
                 gridview: true,
-                height: 250,
-                width: 500,
+                autoheight: true,
+                autowidth: true,
                 caption: '${labelHomeNewProducts}',
                 
                 onSelectRow: function(id){

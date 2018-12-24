@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-    Document   : show
-    Created on : 28 жовт. 2018, 12:39:33
+    Document   : next
+    Created on : 6 лист. 2018, 22:19:09
     Author     : grperets
 -->
 <div xmlns:jsp="http://java.sun.com/JSP/Page"
@@ -15,9 +15,11 @@
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
     <jsp:output omit-xml-declaration="yes" />
     
-    <spring:message code="label_basket_info" var="labelBascetInfo" />
+    
+    <spring:message code="label_basket_info" var="labelBasketInfo" />
     <spring:message code="label_basket_id" var="labelBasketId" />
-    <spring:message code="label_basket_total" var="labelBasketTotal" />
+    <spring:message code="label_basket_goto" var="labelBasketGoto"/>
+    <spring:message code="label_basket_product_added" var="labelBasketProductAdded" />
     
     <spring:message code="label_product_model" var="labelProductModel" />
     <spring:message code="label_product_category" var="labelProductCategory" />
@@ -35,59 +37,53 @@
     <spring:url value="/baskets" var="editBasketUrl" />
     <spring:url value="/order-flow" var="editOrderFlow" />
     
+    <script type="text/javascript">
+        
+        $(function(){
+        $("#next").dialog({
+            modal : true,
+            
+            position: { 
+                my: "center",
+                at: "center",
+                of: $("body")},
+                    
+            title: 'Updating'
+            
+        });
+    });
     
-    <h1>${labelBasketInfo}</h1>
+    </script>
+    
+    <h1>${labelBasketProductAdded}</h1>
     <div id="basketInfo">
         <c:if test="${not empty message}">
             <div id="message" class="${message.type}">${message.message}</div>
         </c:if>
-            <table id="product">
-                
-                <c:forEach items="${basket.products}" var="product">
-                    <tr>
-                        <td>
-                            <tr>
-                                <td colspan="2"><img src="${productPhotoUrl}/${product.id}"></img></td>
-                            </tr>
-                            <tr>
-                                <td>${labelProductModel}</td>
-                                <td>${product.model}</td>
-                            </tr>
-                            <tr>
-                                <td>${labelProductCategory}</td>
-                                <td>${product.category}</td>
-                            </tr>
-                            <tr>
-                                <td>${labelProductManufacturer}</td>
-                                <td>${product.manufacturer}</td>
-                            </tr>
-                            <tr>
-                                <td>${labelProductPrice}</td>
-                                <td>${product.price}</td>
-                            </tr>
-                        </td>   
-                        <td colspan="2">
-                           
-                                
-                                    <form:form action="${editBasketUrl}/${product.id}" method="delete">
-                                                <button id="clear" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
-                                                    <span class="ui-button-text">${labelDelete}</span>
-                                                </button>               
-                                    </form:form>
-                                
-                            
-                        </td>
-                    </tr>
-                </c:forEach>
-            </table>
-            <table id="total">
-                <tr>
-                    <td><h3>${labelBasketTotal}</h3></td>
-                    <td><h3>${basket.total}</h3></td>
-                </tr>
-            </table>
-                         
             <table>
+                    <tr>
+                        <td><img src="${productPhotoUrl}/${product.id}"></img></td>
+                    </tr>
+                    <tr>
+                        <td>${labelProductModel}</td>
+                        <td>${product.model}</td>
+                    </tr>
+                    <tr>
+                        <td>${labelProductCategory}</td>
+                        <td>${product.category}</td>
+                    </tr>
+                    <tr>
+                        <td>${labelProductManufacturer}</td>
+                        <td>${product.manufacturer}</td>
+                    </tr>
+                    <tr>
+                        <td>${labelProductPrice}</td>
+                        <td>${product.price}</td>
+                    </tr>
+            </table>
+    
+    <div >
+        <table>
                 <tr>
                     <td>
                         <form:form action="${editProductUrl}" method="get">                           
@@ -97,10 +93,9 @@
                         </form:form>
                     </td>
                     <td>
-                        <form:form action="${editOrderFlow}">
-                            <input type="hidden" name="basket" value="${basket}" />
-                            <button id="Checkout" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
-                                <span class="ui-button-text">${labelCheckout}</span>
+                        <form:form action="${editBasketUrl}" method = "get">
+                            <button id="gotoBasket" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                                <span class="ui-button-text">${labelBasketGoto}</span>
                             </button>               
                         </form:form>
                     </td>
@@ -113,7 +108,6 @@
                     </td>
                 </tr>
             </table>
-            
     </div>
 </div>
-
+</div>        

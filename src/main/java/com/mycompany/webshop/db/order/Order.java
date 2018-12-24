@@ -7,7 +7,9 @@ package com.mycompany.webshop.db.order;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mycompany.webshop.db.customer.Customer;
+import com.mycompany.webshop.db.payment.PaymentType;
 import com.mycompany.webshop.db.product.Product;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -42,6 +44,10 @@ public class Order implements Serializable {
     private DateTime orderDate;
     private String state = "checked";
     private Set<Product> products = new HashSet<Product>();
+    
+    private String deliveryAddress;
+    private PaymentType paymentType;
+    private Double total;
 
     @Id
     @GeneratedValue (strategy = IDENTITY)
@@ -67,6 +73,7 @@ public class Order implements Serializable {
     @ManyToOne
     @JoinColumn (name = "customer_id")
     @JsonBackReference
+    //@JsonManagedReference
     public Customer getCustomer() {
         return customer;
     }
@@ -103,8 +110,9 @@ public class Order implements Serializable {
         this.state = state;
     }
     
-    
+    //@JsonBackReference
     @JsonIgnore
+    //@JsonManagedReference
     @ManyToMany
     @JoinTable (name = "customer_order_product_detail",
             joinColumns = @JoinColumn (name = "order_id", referencedColumnName = "id"),
@@ -123,6 +131,40 @@ public class Order implements Serializable {
     
     public void removeProduct (Product product) {
         getProducts().remove(product);
+    }
+    
+    
+    @Column (name = "delivery_address")
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    
+    @ManyToOne
+    @JoinColumn (name = "payment_type_id")
+    //@JsonBackReference
+    //@JsonManagedReference
+    @JsonIgnore
+    //@Column (name = "payment_type_id")
+    public PaymentType getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(PaymentType paymentType) {
+        this.paymentType = paymentType;
+    }
+
+    @Column (name = "total")
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
     
     /*

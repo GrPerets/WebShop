@@ -6,6 +6,7 @@
 package com.mycompany.webshop.db.product;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mycompany.webshop.db.basket.Basket;
 import com.mycompany.webshop.db.order.Order;
@@ -186,7 +187,9 @@ public class Product implements Serializable{
         return dateLastModifiedString;
     }
     
-    
+    //@JsonBackReference
+    //@JsonManagedReference
+    @JsonIgnore
     @ManyToMany
     @JoinTable (name = "customer_order_product_detail",
             joinColumns = @JoinColumn (name = "product_id", referencedColumnName = "id"),

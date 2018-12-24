@@ -15,7 +15,7 @@
     
     <spring:message code="label_manager_new" var="labelManagerNew" />
     <spring:message code="label_manager_update" var="labelManagerUpdate" />
-    <spring:message code="label_manager_user_name" var="labelManagerUserName" />
+    <spring:message code="label_manager_username" var="labelManagerUsername" />
     <spring:message code="label_manager_password" var="labelManagerPassword" />
     <spring:message code="label_manager_first_name" var="labelManagerFirstName" />
     <spring:message code="label_manager_last_name" var="labelManagerLastName" />
@@ -30,12 +30,12 @@
             <c:if test="${not empty message}">
                 <div id="message" class="${message.type}">${message.message}</div>
             </c:if>
-            <form:label path="userName">
-                ${labelManagerUserName}*
+            <form:label path="username">
+                ${labelManagerUsername}*
             </form:label>
-            <form:input path="userName" />
+            <form:input path="username" />
             <div>
-                <form:errors path="userName" cssClass="error" />
+                <form:errors path="username" cssClass="error" />
             </div>
             <p/>
             <form:label path="password">

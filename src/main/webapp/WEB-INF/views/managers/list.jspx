@@ -14,7 +14,7 @@
     <jsp:output omit-xml-declaration="yes" />
 
     <spring:message code="label_manager_list" var="labelManagerList"/>
-    <spring:message code="label_manager_user_name" var="labelManagerUserName" />
+    <spring:message code="label_manager_username" var="labelManagerUsername" />
     <spring:message code="label_manager_first_name" var="labelMangerFirstName" />
     <spring:message code="label_manager_last_name" var="labelManagerLastName" />
     <spring:message code="label_manager_email" var="labelManagerEmail" />
@@ -33,7 +33,7 @@
                     'labelManagerRegistrationDate'
                 ],
                 colModel: [
-                    {name: 'userName', index: 'userName', width: 100},
+                    {name: 'username', index: 'username', width: 100},
                     {name: 'firstName', index: 'firstName', width: 100},
                     {name: 'lastName', index: 'lastName', width: 100},
                     {name: 'email', index: 'email', width: 150},
@@ -55,8 +55,8 @@
                 sortorder: 'asc',
                 viewrecords: true,
                 gridview: true,
-                height: 300,
-                width: 500,
+                autoheight: true,
+                autowidth: true,
                 caption: '${labelManagerList}',
                 onSelectRow: function(id) {
                     document.location.href="${showManagerUrl}/" + id;

@@ -30,7 +30,7 @@ public class Manager implements Serializable {
     private int version;
     private boolean enabled = true;
     private String authority = "ROLE_MANAGER";
-    private String userName;
+    private String username;
     private String password;
     private String firstName;
     private String lastName;    
@@ -76,13 +76,13 @@ public class Manager implements Serializable {
         this.authority = authority;
     }
 
-    @Column (name = "user_name", unique = true, nullable = false)
-    public String getUserName() {
-        return userName;
+    @Column (name = "username", unique = true, nullable = false)
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Column (name = "password", nullable = false)

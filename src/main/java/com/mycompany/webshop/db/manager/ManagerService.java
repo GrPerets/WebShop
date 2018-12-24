@@ -16,7 +16,7 @@ import org.springframework.data.domain.Pageable;
 public interface ManagerService {
     Set<Manager> findAll();
     Manager findById(Long id);
-    Manager findByUserName(String userName);
+    Manager findByUsername(String username);
     Manager save(Manager manager);
     void delete(Long id);
     Page<Manager> findAllByPage(Pageable pageable);

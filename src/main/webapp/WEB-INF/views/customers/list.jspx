@@ -34,12 +34,12 @@
                     'labelCustomerAddress', 'labelCustomerBirthDate'
                 ],
                 colModel: [
-                    {name: 'phoneNumber', index: 'phoneNumber', width: 100},
-                    {name: 'firstName', index: 'firstName', width: 100},
-                    {name: 'lastName', index: 'lastName', width: 100},
-                    {name: 'email', index: 'email', width: 150},
-                    {name: 'address', index: 'address', width: 100},
-                    {name: 'birthDateString', index: 'birthDate', width: 100}
+                    {name: 'phoneNumber', index: 'phoneNumber', autowidth: true},
+                    {name: 'firstName', index: 'firstName', autowidth: true},
+                    {name: 'lastName', index: 'lastName', autowidth: true},
+                    {name: 'email', index: 'email', autowidth: true},
+                    {name: 'address', index: 'address', autowidth: true},
+                    {name: 'birthDateString', index: 'birthDateString', autowidth: true}
                 ],
                 jsonReader: {
                     root: "customerData",
@@ -57,8 +57,8 @@
                 sortorder: 'asc',
                 viewrecords: true,
                 gridview: true,
-                height: 300,
-                width: 500,
+                autoheight: true,
+                autowidth: true,
                 caption: '${labelCustomerList}',
                 onSelectRow: function(id) {
                     document.location.href="${showCustomerUrl}/" + id;

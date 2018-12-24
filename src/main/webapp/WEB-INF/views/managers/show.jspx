@@ -16,7 +16,7 @@
     <jsp:output omit-xml-declaration="yes" />
     
     <spring:message code="label_manager_info" var="labelManagerInfo" />
-    <spring:message code="label_manager_user_name" var="labelManagerUserName" />
+    <spring:message code="label_manager_username" var="labelManagerUsername" />
     <spring:message code="label_manager_first_name" var="labelManagerFirstName" />
     <spring:message code="label_manager_last_name" var="labelManagerLastName" />
     <spring:message code="label_manager_email" var="labelManagerEmail" />
@@ -41,8 +41,8 @@
         </c:if>
         <table>
             <tr>
-                <td>${labelManagerUserName}</td>
-                <td>${manager.userName}</td>
+                <td>${labelManagerUsername}</td>
+                <td>${manager.username}</td>
             </tr>
             <tr>
                 <td>${labelManagerFirstName}</td>

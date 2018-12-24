@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Document   : takeAddress
+    Created on : 23 груд. 2018, 19:36:58
+    Author     : grperets
+-->
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:joda="http://www.joda.org/joda/time/tags"
+     xmlns:sec="http://www.springframework.org/security/tags"
+     version="2.0">
+
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+    
+    <h2>Choose Delivery Address</h2>
+    
+    <form:form modelAttribute="order">
+        <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}" />
+        <form:textarea path="deliveryAddress" />
+        
+        <input type="submit" name="_eventId_addressSubmitted" value="Contine" />
+        
+    </form:form>
+</div>

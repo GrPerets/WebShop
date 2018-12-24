@@ -21,6 +21,9 @@
     <spring:message code="label_order_order_date" var="labelOrderOrderDate" />
     <spring:message code="label_order_state" var="labelOrderState" />
     <spring:message code="label_order_products" var="labelOrderProducts" />
+    <spring:message code="label_order_total" var="labelOrderTotal" />
+    <spring:message code="label_order_payment_type" var="labelOrderPaymentType" />
+    <spring:message code="label_order_delivery_address" var="labelOrderDeliveryAddress" />
     
     <spring:message code="label_customer_phone_number" var="labelCustomerPhoneNumber" />
     <spring:message code="label_customer_first_name" var="labelCustomerFirstName" />
@@ -71,7 +74,19 @@
                     <td>${order.orderDateString}</td>
                 </tr>
                 <tr>
-                    <td>${labelOrderEnabled}</td>
+                    <td>${labelOrderDeliveryAddress}</td>
+                    <td>${order.deliveryAddress}</td>
+                </tr>
+                <tr>
+                    <td>${labelOrderPaymentType}</td>
+                    <td>${order.paymentType.paymentType}</td>
+                </tr>
+                <tr>
+                    <td>${labelOrderTotal}</td>
+                    <td>${order.total}</td>
+                </tr>
+                <tr>
+                    <td>${labelOrderState}</td>
                     <td>${order.state}</td>
                 </tr>
             </tbody>

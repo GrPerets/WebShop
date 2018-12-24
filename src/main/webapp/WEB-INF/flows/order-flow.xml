@@ -14,20 +14,30 @@ and open the template in the editor.
     
     
     <action-state id="addProduct">
-                   
         <evaluate expression="order.setProducts(externalContext.sessionMap.basket.products)" />
-               
+        
+        
+        <transition to="addTotal" />
+    </action-state>
+    
+    <action-state id="addTotal">
+        <evaluate expression="order.setTotal(externalContext.sessionMap.basket.total)" />
         <transition to="identifyCustomer" />
     </action-state>
     
     <subflow-state id="identifyCustomer" subflow="customer">
         <output name="customer" value="order.customer" />
-        <transition on="customerReady" to="saveOrder" />
+        <transition on="customerReady" to="takeAddress" />
+    </subflow-state>
+    
+    <subflow-state id="takeAddress" subflow="address">
+        <input name="order" value="order" />
+        <transition on="addressTaken" to="takePayment" />
     </subflow-state>
     
     <subflow-state id="takePayment" subflow="payment">
         <input name="order" value="order" />
-        <transition on="paymentTake" to="saveOrder" />
+        <transition on="paymentTaken" to="saveOrder" />
     </subflow-state>
     
     <action-state id="saveOrder">

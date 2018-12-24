@@ -54,8 +54,8 @@
                 sortorder: 'asc',
                 viewrecords: true,
                 gridview: true,
-                height: 300,
-                width: 500,
+                autoheight: true,
+                autowidth: true,
                 caption: '${labelOrderList}',
                 onSelectRow:  function(id){
                                 document.location.href = "${showOrderUrl}/" + id;

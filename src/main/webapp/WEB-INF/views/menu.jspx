@@ -19,9 +19,14 @@
     <spring:message code="menu_all_products" var="menuAllProducts" />
     <spring:message code="menu_add_product" var="menuAddProduct" />
     
+    <spring:message code="menu_all_categories" var="menuAllCategories" />
     <spring:message code="menu_add_category" var="menuAddCategory" />
     
+    <spring:message code="menu_all_manufacturers" var="menuAllManufacturers" />
     <spring:message code="menu_add_manufacturer" var="menuAddManufacturer" />
+    
+    <spring:message code="menu_all_payments_types" var="menuAllPaymentsTypes" />
+    <spring:message code="menu_add_payment_type" var="menuAddPaymentType" />
     
     <spring:message code="menu_add_customer" var="menuAddCustomer" />
     <spring:message code="menu_all_customers" var="menuAllCustomers" />
@@ -30,12 +35,18 @@
     <spring:message code="menu_all_managers" var="menuAllManagers" />
     
     <spring:url value="/orders" var="allOrdersUrl" />
+    
     <spring:url value="/products" var="allProductsUrl" />
     <spring:url value="/products?new" var="addProductUrl" />
     
+    <spring:url value="/categories" var="allCategoriesUrl" />
     <spring:url value="/categories?new" var="addCategoryUrl" />
     
+    <spring:url value="/manufacturers" var="allManufacturersUrl" />
     <spring:url value="/manufacturers?new" var="addManufacturerUrl" />
+    
+    <spring:url value="/payments" var="allPaymentsTypesUrl" />
+    <spring:url value="/payments?new" var="addPaymentTypeUrl" />
     
     <spring:url value="/customers" var="allCustomersUrl" />
     <spring:url value="/customers?new" var="addCustomerUrl" />
@@ -46,29 +57,29 @@
     
     <h3>${menuHeaderText}</h3>
     
-    <a href="${allOrdersUrl}"><h3>${menuAllOrders}</h3></a>
     
-    <a href="${allProductsUrl}"><h3>${menuAllProducts}</h3></a>
-    
-    <a href="${allManagersUrl}"><h3>${menuAllManagers}</h3></a>
-   
-    <a href="${addManagerUrl}"><h3>${menuAddManager}</h3></a>
+    <sec:authorize access="isAnonymous() or hasRole('ROLE_CUSTOMER')">    
+        <a href="${allProductsUrl}"><h3>${menuAllProducts}</h3></a>
+    </sec:authorize>
+        
     <sec:authorize access="hasRole('ROLE_ADMIN')">
-        <a href="${allCustomersUrl}"><h3>${menuAllCustomers}</h3></a>
-        <a href="${addCustomerUrl}"><h3>${menuAddCustomer}</h3></a>
-    </sec:authorize>  
-    
-    <sec:authorize access="hasRole('ROLE_MANAGER')">
-        <a href="${addProductUrl}"><h3>${menuAddProduct}</h3></a>
-        <a href="${addCategoryUrl}"><h3>${menuAddCategory}</h3></a>
-        <a href="${addManufacturerUrl}"><h3>${menuAddManufacturer}</h3></a>
+        <a href="${allManagersUrl}"><h3>${menuAllManagers}</h3></a>
+        <a href="${addManagerUrl}"><h3>${menuAddManager}</h3></a>
     </sec:authorize>
     
-    
+    <sec:authorize access="hasRole('ROLE_MANAGER')">
+        <a href="${allOrdersUrl}"><h3>${menuAllOrders}</h3></a>
+        <a href="${allPaymentsTypesUrl}"><h3>${menuAllPaymentsTypes}</h3></a>
+        <a href="${allCustomersUrl}"><h3>${menuAllCustomers}</h3></a>
+        <a href="${allProductsUrl}"><h3>${menuAllProducts}</h3></a>
+        <a href="${allCategoriesUrl}"><h3>${menuAllCategories}</h3></a>
+        <a href="${allManufacturersUrl}"><h3>${menuAllManufacturers}</h3></a>
         
+        <a href="${addCustomerUrl}"><h3>${menuAddCustomer}</h3></a>
         <a href="${addProductUrl}"><h3>${menuAddProduct}</h3></a>
         <a href="${addCategoryUrl}"><h3>${menuAddCategory}</h3></a>
         <a href="${addManufacturerUrl}"><h3>${menuAddManufacturer}</h3></a>
-   
-        
+        <a href="${addPaymentTypeUrl}"><h3>${menuAddPaymentType}</h3></a>
+    </sec:authorize>
+           
 </div>

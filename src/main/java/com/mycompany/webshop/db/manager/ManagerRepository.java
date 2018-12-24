@@ -13,6 +13,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @author grperets
  */
 public interface ManagerRepository extends PagingAndSortingRepository<Manager, Long> {
-    Manager findByUserName(String userName);
+    Manager findByUsername(String username);
     
 }

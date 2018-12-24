@@ -5,74 +5,21 @@
  */
 package com.mycompany.webshop.db.basket;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mycompany.webshop.db.customer.Customer;
 import com.mycompany.webshop.db.product.Product;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.persistence.Version;
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
  * @author grperets
  */
-/*
-@Entity
-@Table (name = "basket")
-*/
+
 public class Basket implements Serializable {
-    private DateTime orderDate;
-    private boolean enabled;
     private Set<Product> products = new HashSet<Product>();
-         
-    
-    
-    @Type (type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    @DateTimeFormat (iso = DateTimeFormat.ISO.DATE)
-    public DateTime getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(DateTime orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-    
-    @Transient
-    public String getOrderDateString() {
-        String orderDateString = "";
-        if (orderDate != null) 
-            orderDateString = org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd").print(orderDate);
-        return orderDateString;
-    }
-
-        
-    
+    private Double total = 0.00;     
+            
     public Set<Product> getProducts() {
         return products;
     }
@@ -86,16 +33,30 @@ public class Basket implements Serializable {
         getProducts().add(product);
     }
     
-    public void removeProduct (Product product) {
-        getProducts().remove(product);
+    public void removeProduct (Product deleteProduct) {
+        Iterator<Product> iterator = products.iterator();
+        while (iterator.hasNext()) {
+            Product basketProduct = iterator.next();
+            if (basketProduct.getId()== deleteProduct.getId()) {
+                iterator.remove();
+            }
+        }
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
     
-
-
-
-    @Override
-    public String toString () {
-        return "Order Date: "+ orderDate + ", Product: " + products;
+    public void addPrice (Double price) {
+        this.setTotal(this.total + price);
+    }
+    
+    public void removePrice (Double price) {
+        setTotal(this.total - price);
     }
     
         

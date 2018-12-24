@@ -5,6 +5,7 @@
  */
 package com.mycompany.webshop.db.customer;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mycompany.webshop.db.order.Order;
 import java.io.Serializable;
@@ -172,6 +173,7 @@ public class Customer implements Serializable {
 
     @OneToMany (mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval=true)
     @JsonManagedReference
+    //@JsonBackReference
     public Set<Order> getOrders() {
         return orders;
     }
