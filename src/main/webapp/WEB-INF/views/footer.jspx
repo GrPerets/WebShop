@@ -17,9 +17,9 @@
     <spring:message code="label_uk_UA" var="labelUkUa" />
     <spring:url value="/" var="homeUrl" />
     
-    <a href="${homeUrl}">${homeText}</a>
-    <a href="${homeUrl}?lang=en_US">${labelEnUs}</a>
-    <a href="${homeUrl}?lang=ru_RU">${labelRuRu}</a>
-    <a href="${homeUrl}?lang=uk_UA">${labelUkUa}</a>
+    <a href="${homeUrl}"><span style='padding-left:10px;'>${homeText}</span></a>
+    <a href="${homeUrl}?lang=en_US"><span style='padding-left:10px;'>${labelEnUs}</span></a>
+    <a href="${homeUrl}?lang=ru_RU"><span style='padding-left:10px;'>${labelRuRu}</span></a>
+    <a href="${homeUrl}?lang=uk_UA"><span style='padding-left:10px;'>${labelUkUa}</span></a>
 
 </div>

@@ -44,7 +44,7 @@
                 <tr>
                     <th>Login</th>
                     <th>Password</th>
-                    <th>Role</th>
+                    <th>Rules</th>
                 </tr>
             </thead>
             <tbody>

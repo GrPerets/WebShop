@@ -21,6 +21,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import org.hibernate.annotations.Type;
 
 /**
  *
@@ -59,7 +60,10 @@ public class ProductPhoto implements Serializable {
     }
 
     //@Basic (fetch = FetchType.LAZY)
-    @Lob
+    
+    //For MySql enabled Lob&Type 
+    //@Lob
+    //@Type(type="org.hibernate.type.BinaryType")
     @Column (name="photo")
     public byte[] getPhoto() {
         return photo;
