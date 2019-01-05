@@ -27,7 +27,7 @@
     
     <script type="text/javascript">
         $(function(){
-            $('birthDate').datepicker({
+            $('#birthDate').datepicker({
                 dateFormat: 'yy-mm-dd',
                 changeYear: true
             });

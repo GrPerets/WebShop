@@ -22,6 +22,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -91,8 +94,9 @@ public class Customer implements Serializable {
     }
     
 
-    //@NotEmpty (message = "{validation.phonenumber.NotEmpty.message}")
-    //@Size (min=10, max=13, message="{validation.phonenumber.Size.message}")
+    
+    @NotEmpty (message = "{validation.phonenumber.NotEmpty.message}")
+    @Range (min=10, max=13, message="{validation.phonenumber.Size.message}")
     @Column (name = "phone_number", unique = true, nullable = false)
     public String getPhoneNumber() {
         return phoneNumber;
@@ -104,7 +108,8 @@ public class Customer implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    //@NotEmpty (message = "{validation.password.NotEmpty.message}")
+    
+    @NotEmpty (message = "{validation.password.NotEmpty.message}")
     //@Size (min=6, message = "{validation.password.Size.message}")
     @Column (name = "password", nullable = false)
     public String getPassword() {
@@ -133,7 +138,8 @@ public class Customer implements Serializable {
         this.lastName = lastName;
     }
 
-    //@NotEmpty (message ="{validation.email.NotEmpty.message}")
+    @Email
+    @NotEmpty (message ="{validation.email.NotEmpty.message}")
     @Column (name = "email", unique = true, nullable = false)
     public String getEmail() {
         return email;

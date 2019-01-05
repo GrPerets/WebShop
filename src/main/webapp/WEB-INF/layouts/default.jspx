@@ -25,9 +25,9 @@
         <link rel="stylesheet" type="text/css" media="screen" href="${app_css_url}" />
         
         <!-- jQuery & jQueryUI -->
-        <spring:url value="/resources/scripts/jquery-3.3.1.min.js" var="jquery_url" />
-        <spring:url value="/resources/scripts/jquery-ui-1.11.4.custom.js" var="jquery_ui_url" />
-        <spring:url value="/resources/styles/custom-theme/jquery-ui-1.11.4.custom.css" var="jquery_ui_theme_css" />
+        <spring:url value="/resources/scripts/jquery-1.10.2.js" var="jquery_url" />
+        <spring:url value="/resources/scripts/jquery-ui-1.10.4.custom.js" var="jquery_ui_url" />
+        <spring:url value="/resources/styles/custom-theme/start/jquery-ui-1.10.4.custom.css" var="jquery_ui_theme_css" />
         
         <link rel="stylesheet" type="text/css" media="screen" href="${jquery_ui_theme_css}" />
         <script src="${jquery_url}" type="text/javascript"><jsp:text/></script>
@@ -36,8 +36,9 @@
         <!-- CKEditor -->
         
         <spring:url value="/resources/ckeditor/ckeditor.js" var="ckeditor_url"/>
-                
+        <spring:url value="/resources/ckeditor/adapters/jquery.js" var="ckeditor_jquery_url" />
         <script type="text/javascript" src="${ckeditor_url}"><jsp:text/></script>
+        <script type="text/javascript" src="${ckeditor_jquery_url}"><jsp:text/></script>
                 
         
         <!-- jqGrid -->

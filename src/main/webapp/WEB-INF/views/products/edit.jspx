@@ -11,8 +11,14 @@
      version="2.0">
     
     <script type="text/javascript">
-        CKEDITOR.replace( 'productDescription' );
-    
+        $(function(){
+           $("#description").ckeditor(
+                   {
+                       toolbar: 'Basic',
+                       uiColor: '#CCCCCC'
+                   }
+            ); 
+        });
     </script>
 
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
@@ -78,7 +84,7 @@
                 <form:label path="description">
                     ${labelProductDescription}
                 </form:label>
-                <form:textarea cols="60" rows="8" path="description" id="productDescription" />
+                <form:textarea cols="60" rows="8" path="description" id="description" />
                 <div>
                     <form:errors path="description" cssClass="error" />
                 </div>
