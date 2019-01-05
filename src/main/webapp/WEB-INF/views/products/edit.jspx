@@ -48,9 +48,9 @@
                 <form:label path="model">
                     ${labelProductModel}
                 </form:label>
-                <form:input path="model" />
+                <form:input path="model"/>
                 <div>
-                    <form:errors path="model" cssClass="error" />
+                    <form:errors path="model" cssClass="errors" />
                 </div>
                 <p/>
                 <form:label path="category">
@@ -60,7 +60,7 @@
                     <form:options itemValue="category" itemLabel="category" items="${categories}" />
                 </form:select>
                 <div>
-                    <form:errors path="category" cssClass="error" />
+                    <form:errors path="category" cssClass="errors" />
                 </div>
                 <p/>
                 <form:label path="manufacturer">
@@ -70,7 +70,7 @@
                     <form:options itemValue="manufacturer" itemLabel="manufacturer" items="${manufacturers}" />
                 </form:select>
                 <div>
-                    <form:errors path="manufacturer" cssClass="error" />
+                    <form:errors path="manufacturer" cssClass="errors" />
                 </div>
                 <p/>
                 <form:label path="price">
@@ -78,15 +78,15 @@
                 </form:label>
                 <form:input path="price" />
                 <div>
-                    <form:errors path="price" cssClass="error" />
+                    <form:errors path="price" cssClass="errors" />
                 </div>
                 <p/>
                 <form:label path="description">
                     ${labelProductDescription}
                 </form:label>
-                <form:textarea cols="60" rows="8" path="description" id="description" />
+                <form:textarea cols="60" rows="8" path="description" id="description"/>
                 <div>
-                    <form:errors path="description" cssClass="error" />
+                    <form:errors path="description" cssClass="errors" />
                 </div>
                 <p/>
                 

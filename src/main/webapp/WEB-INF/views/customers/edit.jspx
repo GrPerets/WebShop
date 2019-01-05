@@ -45,7 +45,7 @@
             </form:label>
             <form:input path="phoneNumber" />
             <div>
-                <form:errors path="phoneNumber" cssClass="error" />
+                <form:errors path="phoneNumber" cssClass="errors" />
             </div>
             <p/>
             <form:label path="password">
@@ -53,7 +53,7 @@
             </form:label>
             <form:password path="password" />
             <div>
-                <form:errors path="password" cssClass="error" />
+                <form:errors path="password" cssClass="errors" />
             </div>
             <p/>
             <form:label path="firstName">
@@ -61,7 +61,7 @@
             </form:label>
             <form:input path="firstName" />
             <div>
-                <form:errors path="firstName" cssClass="error" />
+                <form:errors path="firstName" cssClass="errors" />
             </div>
             <p/>
             <form:label path="lastName">
@@ -69,7 +69,7 @@
             </form:label>
             <form:input path="lastName" />
             <div>
-                <form:errors path="lastName" cssClass="error" />
+                <form:errors path="lastName" cssClass="errors" />
             </div>
             <p/>
             <form:label path="email">
@@ -77,7 +77,7 @@
             </form:label>
             <form:input path="email" />
             <div>
-                <form:errors path="email" cssClass="error" />
+                <form:errors path="email" cssClass="errors" />
             </div>
             <p/>
             <form:label path="address">
@@ -85,7 +85,7 @@
             </form:label>
             <form:input path="address" />
             <div>
-                <form:errors path="address" cssClass="error" />
+                <form:errors path="address" cssClass="errors" />
             </div>
             <p/>
             <form:label path="birthDate">
@@ -93,7 +93,7 @@
             </form:label>
             <form:input path="birthDate" />
             <div>
-                <form:errors path="birthDate" cssClass="error" />
+                <form:errors path="birthDate" cssClass="errors" />
             </div>
             <p/>
             <form:hidden path="version" />

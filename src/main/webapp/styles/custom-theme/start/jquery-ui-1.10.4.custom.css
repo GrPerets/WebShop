@@ -526,7 +526,7 @@ button.ui-button::-moz-focus-inner {
 	list-style: none;
 	padding: 2px;
 	margin: 0;
-	display: block;
+	display: inline;
 	outline: none;
 }
 .ui-menu .ui-menu {

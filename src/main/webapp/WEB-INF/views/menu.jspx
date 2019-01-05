@@ -4,7 +4,7 @@
     Created on : 15 жовт. 2018, 13:55:39
     Author     : grperets
 -->
-<div id="menu" xmlns:jsp="http://java.sun.com/JSP/Page"
+<div id="menu" class="ui-menu" xmlns:jsp="http://java.sun.com/JSP/Page"
      xmlns:c="http://java.sun.com/jsp/jstl/core"
      xmlns:spring="http://www.springframework.org/tags"
      xmlns:sec="http://www.springframework.org/security/tags"
