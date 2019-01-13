@@ -16,6 +16,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 import org.springframework.context.MessageSource;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,6 +39,7 @@ public class OrderControllerTest {
     public void tearDown() {
     }
 
+    @Ignore
     @Test
     public void testList() {
         System.out.println("list");
@@ -49,7 +51,8 @@ public class OrderControllerTest {
         fail("The test case is a prototype.");
     }
 
-    @org.junit.Test
+    @Ignore
+    @Test
     public void testListGrid() {
         System.out.println("listGrid");
         Integer page = null;
@@ -75,7 +78,8 @@ public class OrderControllerTest {
         //fail("The test case is a prototype.");
     }
 
-    @org.junit.Test
+    @Ignore
+    @Test
     public void testUpdate() {
         System.out.println("update");
         Long id = null;
@@ -92,7 +96,8 @@ public class OrderControllerTest {
         fail("The test case is a prototype.");
     }
 
-    @org.junit.Test
+    @Ignore
+    @Test
     public void testDelete() {
         System.out.println("delete");
         Long id = null;
@@ -103,7 +108,7 @@ public class OrderControllerTest {
         fail("The test case is a prototype.");
     }
 
-    @org.junit.Test
+    @Test
     public void testSetMessageSource() {
         System.out.println("setMessageSource");
         MessageSource messageSource = null;
@@ -112,7 +117,7 @@ public class OrderControllerTest {
         //fail("The test case is a prototype.");
     }
 
-    @org.junit.Test
+    @Test
     public void testSetOrderService() {
         System.out.println("setOrderService");
         OrderService orderService = null;
@@ -121,7 +126,7 @@ public class OrderControllerTest {
         //fail("The test case is a prototype.");
     }
 
-    @org.junit.Test
+    @Test
     public void testSetCustomerService() {
         System.out.println("setCustomerService");
         CustomerService customerService = null;
@@ -130,7 +135,7 @@ public class OrderControllerTest {
         //fail("The test case is a prototype.");
     }
 
-    @org.junit.Test
+    @Test
     public void testSetProductService() {
         System.out.println("setProductService");
         ProductService productService = null;
